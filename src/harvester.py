@@ -84,6 +84,16 @@ def _extract_body(html, soup):
     return "\n".join(p.get_text(" ", strip=True) for p in soup.find_all("p"))
 
 
+def get_meta_description(soup):
+    """Page meta description: <meta name='description'> or, as a fallback, og:description.
+    A light metadata signal (1-2 sentences) useful for theme detection without full text."""
+    for attrs in ({"name": "description"}, {"property": "og:description"}):
+        tag = soup.find("meta", attrs=attrs)
+        if tag and tag.get("content"):
+            return tag.get("content").strip()
+    return None
+
+
 def parse(html, meta):
     """Extract the fields from a page. Returns a dict (it becomes a JSONL line)."""
     soup = BeautifulSoup(html, "html.parser")   # 'soup' = navigable tree of the HTML
@@ -100,6 +110,7 @@ def parse(html, meta):
         # If there is a <title> use it, otherwise fall back to the metadata title.
         "title": (soup.title.string or "").strip() if soup.title
                  else meta.get("title", ""),
+        "meta_description": get_meta_description(soup),   # light metadata signal (see theme detection)
         "text": text,
         "chars": len(text),             # len() = length (here number of characters)
     }
