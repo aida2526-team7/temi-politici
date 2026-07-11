@@ -28,6 +28,7 @@ import os
 import re
 import json
 from harvester import scrape_metas   # reuse the full-text engine (download + language)
+from drive_mirror import mirror_file
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(os.path.dirname(HERE), "data")   # repo/data (this script lives in repo/src)
@@ -112,6 +113,7 @@ def main():
 
     print(f"\nAnti-sport pass ('lega' branch only): dropped {dropped} articles.")
     print(f"Final full text: {len(kept)} articles -> {FULLTEXT_OUT}")
+    mirror_file(FULLTEXT_OUT, "raw")
 
     # 5) PER-PARTY COVERAGE on the CLEAN corpus (authoritative source, not the API's
     #    story_count). One article can count for several parties.
@@ -127,6 +129,7 @@ def main():
             print(f"  {c:5}  {100*c/n:5.1f}%  {label}")
             f.write(f"{label},{c},{round(100*c/n, 2)}\n")
     print(f"-> {COVERAGE_OUT}")
+    mirror_file(COVERAGE_OUT, "processed")
 
 
 if __name__ == "__main__":

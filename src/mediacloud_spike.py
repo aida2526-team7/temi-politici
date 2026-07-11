@@ -37,6 +37,7 @@ import os
 import json
 from datetime import date, timedelta
 from collections import Counter
+from drive_mirror import mirror_file
 
 try:
     import mediacloud.api
@@ -195,6 +196,7 @@ def main():
                 break
 
     print(f"\nSample: {kept} URLs -> {URLS_OUT}")
+    mirror_file(URLS_OUT, "raw")
     print(f"Languages in the sample: {dict(langs)}")
     print("\nTop 20 SOURCES of the sample (to see the aggregator mix):")
     for dom, n in sources.most_common(20):

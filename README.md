@@ -26,6 +26,25 @@ Realizzare una pipeline dati che consenta di:
 
 Il progetto potrà utilizzare Python, pandas, database SQL o NoSQL, KNIME, strumenti cloud e software di data visualization.
 
+## Deposito automatico su Google Drive
+
+Con Google Drive Desktop installato, impostare il percorso locale della cartella
+di progetto prima di avviare la pipeline:
+
+```bash
+export GOOGLE_DRIVE_EXPORT_DIR="/percorso/reale/Politica Felice"
+```
+
+In alternativa, per conservarlo solo sul proprio computer, creare nel root del
+repository il file `.drive-export-dir` contenente il percorso. Il file e' ignorato
+da Git e prevale solo quando la variabile d'ambiente non e' presente.
+
+`src/mediacloud_spike.py` copierà `mediacloud_urls.jsonl` in `raw/`;
+`src/mediacloud_fulltext.py` copierà il full-text in `raw/` e la copertura per
+partito in `processed/`. Le copie sono prima scritte in un file temporaneo, per
+evitare che Drive sincronizzi output parziali. Senza la variabile, la pipeline
+continua a scrivere solo nel repository locale.
+
 ## Stato
 
 Progetto in fase iniziale di definizione.

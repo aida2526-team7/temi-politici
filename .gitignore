@@ -34,3 +34,4 @@ service_account*.json
 # I .gitkeep e i CSV di risultato (es. mediacloud_coverage.csv) restano tracciati.
 data/raw/*.jsonl
 data/processed/*.jsonl
+.drive-export-dir
