@@ -1,0 +1,31 @@
+# Ambiente Python locale
+.venv/
+venv/
+env/
+
+# Cache e file compilati Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Variabili d'ambiente e credenziali
+.env
+.env.*
+!.env.example
+credentials.json
+service_account*.json
+*.pem
+*.key
+
+# Configurazioni locali VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# File temporanei
+*.tmp
+*.log
