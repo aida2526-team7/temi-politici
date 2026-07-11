@@ -29,3 +29,8 @@ service_account*.json
 # File temporanei
 *.tmp
 *.log
+
+# Dati generati dalla pipeline (jsonl grezzi/full-text): rigenerabili, non versionati.
+# I .gitkeep e i CSV di risultato (es. mediacloud_coverage.csv) restano tracciati.
+data/raw/*.jsonl
+data/processed/*.jsonl

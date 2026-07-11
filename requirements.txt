@@ -1,0 +1,8 @@
+# Discovery
+mediacloud            # Media Cloud client (mediacloud_spike.py)
+requests              # HTTP (harvester.py)
+
+# Full text (harvester.py)
+beautifulsoup4        # HTML parsing
+trafilatura           # boilerplate removal (falls back to <p> if missing)
+langdetect            # per-article language
