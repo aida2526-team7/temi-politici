@@ -10,3 +10,4 @@ langdetect            # per-article language
 # Topic-modeling baseline (notebooks/classificatore.ipynb)
 pandas                # JSONL and tabular exports
 scikit-learn          # TF-IDF + NMF
+python-dotenv         # optional local .env for MC_API_KEY

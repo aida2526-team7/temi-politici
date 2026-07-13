@@ -1,0 +1,99 @@
+{
+  "run_at_utc": "2026-07-12T23:07:55.991466+00:00",
+  "python_version": "3.12.4",
+  "pandas_version": "2.2.2",
+  "scikit_learn_version": "1.4.2",
+  "inputs": [
+    {
+      "path": "data/processed/news_topic_review.csv",
+      "size_bytes": 98324094,
+      "sha256": "6bb5f46ef677b80560ea30e0266681d665b89cbfd5a7d4d87d880a3d9f1195a9"
+    },
+    {
+      "path": "data/processed/topic_model_metadata.json",
+      "size_bytes": 369,
+      "sha256": "d44ae5afa8f68f9561a8eb6eb332ba7d69aa63423420d5f34b916d7056362427"
+    }
+  ],
+  "review_rows": 96345,
+  "review_columns": [
+    "url",
+    "domain",
+    "seendate",
+    "title",
+    "language",
+    "chars",
+    "estratto",
+    "topic_0_peso",
+    "topic_1_peso",
+    "topic_2_peso",
+    "topic_3_peso",
+    "topic_4_peso",
+    "topic_5_peso",
+    "topic_6_peso",
+    "topic_7_peso",
+    "topic_8_peso",
+    "topic_9_peso",
+    "topic_10_peso",
+    "topic_11_peso",
+    "topic_id",
+    "confidenza_topic",
+    "termini_caratteristici"
+  ],
+  "parameters": {
+    "input_review_csv": "data/processed/news_topic_review.csv",
+    "input_metadata_json": "data/processed/topic_model_metadata.json",
+    "output_dir": "reports/topic_audit",
+    "random_seed": 42,
+    "near_duplicate_prefix_length": 300,
+    "confidence_thresholds": [
+      0.4,
+      0.5,
+      0.6
+    ],
+    "top_domains": 10,
+    "top_records": 10,
+    "sample_records": 5,
+    "encoding": "utf-8-sig",
+    "dominant_domain_warning_threshold": 0.5
+  },
+  "random_seed": 42,
+  "outputs": [
+    {
+      "path": "reports/topic_audit/topic_distribution.csv",
+      "size_bytes": 2102,
+      "sha256": "b37c0c39faaf7408bef267c46d16b696be83a5912a2bbd6c67fc9637a96c04c7"
+    },
+    {
+      "path": "reports/topic_audit/confidence_summary.csv",
+      "size_bytes": 3690,
+      "sha256": "3a681e33075fff08292d9886f3b07d1946a3c1b0ec6f2311266fd29b78980d7a"
+    },
+    {
+      "path": "reports/topic_audit/domain_summary.csv",
+      "size_bytes": 4305,
+      "sha256": "8c6b1729a8ec91e0ca625dfe0ca72195b49c69eb1d3f5d01390036d2d32a1a68"
+    },
+    {
+      "path": "reports/topic_audit/duplicate_summary.json",
+      "size_bytes": 710,
+      "sha256": "ba74eb796fb9b3d07266f57820dbf14ae89d1043fc88cae73765e5217448e6b3"
+    },
+    {
+      "path": "reports/topic_audit/audit_report.md",
+      "size_bytes": 37846,
+      "sha256": "c45a1eb1071fa54204fca6ee17fb7b8c4a32bb8839bec0dce976b4bb891ab858"
+    },
+    {
+      "path": "reports/topic_audit/run_manifest.json",
+      "size_bytes": null,
+      "sha256": null,
+      "note": "Self-hash non incorporato per evitare ricorsione del contenuto."
+    }
+  ],
+  "warnings": [
+    "Il metadata sorgente contiene un percorso input assoluto; il percorso è oscurato negli output.",
+    "Topic con dominio dominante >= 50.0%: [0, 2, 3, 4, 5, 6, 7, 11]",
+    "Il manifest non incorpora il proprio hash SHA-256."
+  ]
+}

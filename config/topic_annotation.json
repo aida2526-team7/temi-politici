@@ -1,0 +1,42 @@
+{
+  "input_sample": "reports/topic_human_review/review_sample.csv",
+  "input_manifest": "reports/topic_human_review/selection_manifest.json",
+  "output_directory": "annotations/topic_human_review",
+  "protocol_version": "1.0",
+  "reviewer_ids": ["R1", "R2"],
+  "calibration_rows": 5,
+  "categorie_classificazione": [
+    "tema politico coerente",
+    "tema politico misto",
+    "boilerplate o formato editoriale",
+    "contenuto non politico",
+    "dubbio"
+  ],
+  "valori_booleani_ammessi": ["sì", "no", "incerto"],
+  "decisioni_inclusione_ammesse": ["mantenere", "escludere", "riesaminare"],
+  "encoding": "utf-8-sig",
+  "colonne_sorgente_immutabili": [
+    "review_id",
+    "source_row_index",
+    "topic_id",
+    "tipo_selezione",
+    "selection_rank",
+    "domain",
+    "seendate",
+    "title",
+    "url",
+    "estratto",
+    "peso_topic_dominante",
+    "confidenza_topic",
+    "termini_caratteristici",
+    "valutazione_preliminare"
+  ],
+  "colonne_compilabili": [
+    "classificazione_umana",
+    "etichetta_tema_proposta",
+    "boilerplate_si_no",
+    "duplicato_sospetto_si_no",
+    "decisione_inclusione",
+    "note_revisore"
+  ]
+}

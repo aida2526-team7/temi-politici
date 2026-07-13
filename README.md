@@ -1,85 +1,191 @@
-# Temi politici
+# Progetto AIDA sui temi politici
 
-Progetto universitario di team del Master AIDA @ Unimib.it (A.A. 2025-2026) dedicato alla raccolta, elaborazione e analisi di dati politici.
-https://aidamasterbicocca.it/
+Progetto universitario del Master AIDA @ Unimib.it (A.A. 2025–2026) dedicato
+all'analisi data-driven dei temi politici italiani.
 
-## Obiettivo
+## Obiettivo della fase corrente
 
-Realizzare una pipeline dati che consenta di:
+La fase attuale analizza articoli raccolti tramite query Media Cloud su partiti e
+leader. Il corpus rappresenta **come la politica viene raccontata dalla stampa**:
+non misura automaticamente comunicazione diretta, attività legislativa,
+consenso, sentiment verso un partito o stance su una policy.
 
-- raccogliere dati da fonti pubbliche e contenuti online;
-- organizzare e classificare i principali temi politici;
-- analizzare candidati, partiti e copertura mediatica;
-- produrre indicatori, visualizzazioni e dashboard;
-- supportare attività di analisi per spin doctor, ricercatori e data journalist.
+L'obiettivo è scoprire microtemi con TF-IDF + NMF, controllarne qualità e
+boilerplate e prepararne la validazione umana. I macrotemi risultanti saranno
+ancora una tassonomia candidata, non un'ontologia definitiva multi-layer.
 
-## Componenti del progetto
+## Pipeline
 
-- scraping e acquisizione dati;
-- archiviazione e gestione dei dataset;
-- pulizia e trasformazione dei dati;
-- analisi testuale e individuazione dei macrotemi;
-- visualizzazione e dashboard;
-- documentazione metodologica.
+1. `src/mediacloud_spike.py` interroga Media Cloud e salva gli URL.
+2. `src/mediacloud_fulltext.py` e `src/harvester.py` scaricano e puliscono il
+   full-text, rilevano la lingua e producono la copertura aggregata.
+3. `src/news_topic_model.py` applica TF-IDF + NMF e genera 12 topic esplorativi.
+4. `scripts/run_topic_audit.py` verifica distribuzioni, confidenza, domini,
+   duplicati e anomalie degli output NMF.
+5. `scripts/run_topic_human_review.py` costruisce un campione deterministico di
+   27 record per lo human check.
+6. `scripts/prepare_topic_annotation_files.py` prepara due copie indipendenti
+   per R1 e R2; `scripts/validate_topic_annotations.py` le valida senza
+   modificarle.
 
-## Tecnologie
+I notebook richiamano o leggono la logica e gli output salvati nel repository:
 
-Il progetto potrà utilizzare Python, pandas, database SQL o NoSQL, KNIME, strumenti cloud e software di data visualization.
+- `notebooks/00_esegui_pipeline.ipynb`: orchestrazione didattica della pipeline;
+- `notebooks/classificatore.ipynb`: audit, campione e istruzioni di review.
 
-## Deposito automatico su Google Drive
+## Ambiente e dipendenze
 
-Con Google Drive Desktop installato, impostare il percorso locale della cartella
-di progetto prima di avviare la pipeline:
+Da una shell aperta nella root del repository:
 
 ```bash
-export GOOGLE_DRIVE_EXPORT_DIR="/percorso/reale/Politica Felice"
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 ```
 
-In alternativa, per conservarlo solo sul proprio computer, creare nel root del
-repository il file `.drive-export-dir` contenente il percorso. Il file e' ignorato
-da Git e prevale solo quando la variabile d'ambiente non e' presente.
+La discovery richiede `MC_API_KEY` come variabile d'ambiente oppure in un file
+locale `.env`, ignorato da Git.
 
-`src/mediacloud_spike.py` copierà `mediacloud_urls.jsonl` in `raw/`;
-`src/mediacloud_fulltext.py` copierà il full-text in `raw/` e la copertura per
-partito in `processed/`. Le copie sono prima scritte in un file temporaneo, per
-evitare che Drive sincronizzi output parziali. Senza la variabile, la pipeline
-continua a scrivere solo nel repository locale.
+## Esecuzione della pipeline
 
-## Stato
+Discovery degli URL, full-text e classificatore:
 
-Progetto in fase iniziale di definizione.
+```bash
+python src/mediacloud_spike.py
+python src/mediacloud_fulltext.py
+python src/news_topic_model.py --n-topics 12
+```
 
-********************************************************************
-English vers.
+Per uno smoke test della discovery:
 
-# "Temi Politici" ("Political Issues")
+```bash
+python src/mediacloud_spike.py --max-stories 500
+```
 
-A team project within the AIDA Master's program @ Unimib.it (Academic Year 2025-2026) dedicated to the collection, processing, and analysis of political data.
-https://aidamasterbicocca.it/
+Audit riproducibile:
 
-## Objective
+```bash
+python scripts/run_topic_audit.py --config config/topic_audit.json
+```
 
-Create a data pipeline that allows:
+Campione riproducibile per lo human check:
 
-- collect data from public sources and online content;
-- organize and classify key political issues;
-- analyze candidates, parties, and media coverage;
-- produce indicators, visualizations, and dashboards;
-- support analysis activities for spin doctors, researchers, and data journalists.
+```bash
+python scripts/run_topic_human_review.py --config config/topic_human_review.json
+```
 
-## Project Components
+Preparazione iniziale dei file R1/R2:
 
-- scraping and data acquisition;
-- dataset archiving and management;
-- data cleaning and transformation;
-- text analysis and identification of macro-themes;
-- visualization and dashboards;
-- methodological documentation.
+```bash
+python scripts/prepare_topic_annotation_files.py --config config/topic_annotation.json
+```
 
-## Technologies
+Controllo strutturale prima della compilazione:
 
-The project may use Python, pandas, SQL or NoSQL databases, KNIME, cloud tools, and data visualization software.
+```bash
+python scripts/validate_topic_annotations.py \
+  --config config/topic_annotation.json \
+  --allow-incomplete
+```
 
-## Status
+Validazione dopo la compilazione umana completa:
 
-Project in the early stages of definition.
+```bash
+python scripts/validate_topic_annotations.py --config config/topic_annotation.json
+```
+
+## Test e verifica del notebook
+
+Suite automatica completa:
+
+```bash
+python -m unittest discover -s tests -p "test_*.py" -v
+```
+
+Esecuzione del notebook da kernel pulito:
+
+```bash
+python -m jupyter nbconvert \
+  --to notebook \
+  --execute notebooks/classificatore.ipynb \
+  --stdout \
+  --ExecutePreprocessor.timeout=120 \
+  > /dev/null
+```
+
+## Output versionati
+
+Il checkpoint include soltanto output piccoli e verificabili:
+
+- `data/processed/mediacloud_coverage.csv`: copertura aggregata per partito;
+- `reports/topic_audit/`: audit, tabelle e manifest con hash;
+- `reports/topic_human_review/`: campione di 27 record, riepilogo, guida e
+  manifest;
+- `annotations/topic_human_review/`: template separati per R1 e R2;
+- `tests/fixtures/`: dati sintetici per i test.
+
+I conteggi di copertura per partito controllano la raccolta. Poiché un articolo
+può menzionare più partiti, le percentuali non devono necessariamente sommare a
+100% e non misurano il consenso.
+
+## Dati non versionati
+
+Restano fuori da Git:
+
+- `data/raw/*.jsonl` con URL e full-text;
+- `data/processed/news_topic_review.csv`;
+- `data/processed/news_topic_terms.csv`;
+- `data/processed/topic_model_metadata.json`;
+- `.env`, `.drive-export-dir`, credenziali e chiavi;
+- ambienti virtuali, cache, log e file temporanei.
+
+Gli input locali sono identificati dagli hash nei manifest. Il corpus completo
+non viene pubblicato perché è grande e contiene testi acquisiti da fonti
+editoriali esterne.
+
+## Provenienza e riproducibilità
+
+- `docs/data_provenance.md`: origine, trasformazioni e limiti dei dati;
+- `docs/reproducibility.md`: ambiente, test, audit e manifest;
+- `docs/topic_annotation_protocol.md`: categorie, calibrazione e revisione
+  indipendente R1/R2;
+- `AGENTS.md`: regole metodologiche e operative del progetto.
+
+## Mirror locale Google Drive
+
+Il mirror è facoltativo. Configurarlo soltanto sul proprio computer:
+
+```bash
+export GOOGLE_DRIVE_EXPORT_DIR="/percorso/al/mirror-locale"
+```
+
+In alternativa, inserire il percorso nel file locale `.drive-export-dir`. Il
+file è ignorato da Git. Senza configurazione la pipeline continua a scrivere
+soltanto nel repository locale.
+
+## Esecuzione notturna
+
+Per proseguire automaticamente dopo una discovery già avviata, su macOS:
+
+```bash
+mkdir -p logs
+nohup /usr/bin/caffeinate -dims zsh scripts/run_overnight_pipeline.sh \
+  > logs/overnight.log 2>&1 &
+```
+
+Lo script attende la fine della discovery e avvia full-text e classificatore.
+I log restano locali e sono ignorati da Git.
+
+## Stato delle milestone
+
+- Milestone 1R: audit NMF riproducibile approvato;
+- Milestone 2: campione deterministico per human review approvato;
+- Milestone 2A: protocollo tecnico R1/R2 approvato;
+- calibrazione umana: sospesa fino al checkpoint Git condivisibile;
+- Milestone 3: non iniziata.
+
+## Compliance
+
+Il repository è attualmente privato e destinato al lavoro accademico del team.
+Campioni, estratti e annotazioni saranno sottoposti a una revisione di compliance
+prima di un'eventuale pubblicazione.

@@ -1,0 +1,9 @@
+url,domain,seendate,title,language,chars,estratto,topic_0_peso,topic_1_peso,topic_id,confidenza_topic,termini_caratteristici
+https://example.test/1,a.test,2026-01-01,Alpha,it,500,Same excerpt repeated for audit,0.9,0.1,0,0.9,fixture topic zero
+https://example.test/2,a.test,2026-01-02,Alpha,it,500,Same excerpt repeated for audit,0.8,0.2,0,0.8,fixture topic zero
+https://example.test/3,b.test,2026-02-01,Beta,it,500,Common prefix near duplicate alpha unique tail,0.6,0.4,0,0.6,fixture topic zero
+https://example.test/4,b.test,2026-02-02,Gamma,it,500,Common prefix near duplicate beta unique tail,0.55,0.45,0,0.55,fixture topic zero
+https://example.test/5,c.test,2026-03-01,Delta,it,500,Second exact excerpt repeated,0.2,0.8,1,0.8,fixture topic one
+https://example.test/6,c.test,2026-03-02,Delta,it,500,Second exact excerpt repeated,0.25,0.75,1,0.75,fixture topic one
+https://example.test/7,d.test,2026-04-01,Foxtrot,it,500,Distinct topic one text,0.1,0.9,1,0.9,fixture topic one
+https://example.test/8,d.test,2026-04-02,Golf,it,500,Another distinct topic one text,0.35,0.65,1,0.65,fixture topic one

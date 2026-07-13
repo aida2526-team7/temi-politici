@@ -1,0 +1,16 @@
+topic_id,tipo_selezione,records,unique_domains,domain_limit_exception
+0,artifact_check,1,1,False
+1,random_seed_42,3,3,False
+1,top_weight,3,3,False
+2,artifact_check,1,1,False
+3,artifact_check,1,1,False
+4,artifact_check,1,1,False
+5,artifact_check,1,1,False
+6,artifact_check,1,1,False
+7,artifact_check,1,1,False
+8,random_seed_42,3,3,False
+8,top_weight,3,3,False
+9,random_seed_42,3,3,False
+9,top_weight,3,3,False
+10,artifact_check,1,1,False
+11,artifact_check,1,1,False

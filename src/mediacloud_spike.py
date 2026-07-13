@@ -35,9 +35,12 @@ Client docs: https://github.com/mediacloud/api-client
 # --- imports --------------------------------------------------------------
 import os
 import json
+import argparse
+import sys
 from datetime import date, timedelta
 from collections import Counter
 from drive_mirror import mirror_file
+from dotenv import load_dotenv
 
 try:
     import mediacloud.api
@@ -88,6 +91,7 @@ BLOCK_DOMAINS = {"gazzetta.it", "corrieredellosport.it", "tuttosport.com"}
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(os.path.dirname(HERE), "data")   # repo/data (this script lives in repo/src)
+load_dotenv(os.path.join(os.path.dirname(HERE), ".env"))  # local key only; .env is ignored by Git
 URLS_OUT = os.path.join(DATA, "raw", "mediacloud_urls.jsonl")
 # -------------------------------------------------------------------------
 
@@ -126,14 +130,28 @@ def domain_of(story):
     return u.split("/")[2] if "://" in u else u
 
 
-def main():
+def parse_args():
+    parser = argparse.ArgumentParser(description="Raccoglie URL Media Cloud per la pipeline temi politici.")
+    parser.add_argument(
+        "--max-stories",
+        type=int,
+        default=MAX_STORIES,
+        help="limite di URL per smoke test; omettere per l'intero periodo",
+    )
+    return parser.parse_args()
+
+
+def main(max_stories=MAX_STORIES):
     if mediacloud is None:
-        print("Missing client -> pip install mediacloud"); return
+        print("Missing client -> pip install mediacloud")
+        return 2
     if not MC_API_KEY:
-        print("Missing MC_API_KEY (see SETUP in the docstring)."); return
+        print("Missing MC_API_KEY (see SETUP in the docstring).")
+        return 2
     if COLLECTION_ID is None:
         find_italy_collections(MC_API_KEY)
-        print("\nSet COLLECTION_ID to the id you found and re-run."); return
+        print("\nSet COLLECTION_ID to the id you found and re-run.")
+        return 2
 
     search = mediacloud.api.SearchApi(MC_API_KEY)
     print(f"Window: {START} -> {END} | collection: {COLLECTION_ID}")
@@ -151,16 +169,16 @@ def main():
         counts[label] = n
         print(f"  {str(n):>8}  {label}")
 
-    # 2) URL sample with the combined query, paging up to MAX_STORIES
-    #    (or until the 6 months are exhausted if MAX_STORIES is None).
-    cap = "whole period" if MAX_STORIES is None else f"max {MAX_STORIES}"
+    # 2) URL sample with the combined query, paging up to max_stories
+    #    (or until the 6 months are exhausted if max_stories is None).
+    cap = "whole period" if max_stories is None else f"max {max_stories}"
     print(f"\nExtracting URL sample ({cap}) for the harvester...")
     sources = Counter()
     langs = Counter()
     kept = 0
     token = None
     with open(URLS_OUT, "w", encoding="utf-8") as fout:
-        while MAX_STORIES is None or kept < MAX_STORIES:
+        while max_stories is None or kept < max_stories:
             try:
                 page, token = search.story_list(
                     COMBINED_QUERY, start_date=START, end_date=END,
@@ -168,7 +186,7 @@ def main():
             except Exception as ex:
                 print(f"  story_list error: {ex}"); break
             for s in page:
-                if MAX_STORIES is not None and kept >= MAX_STORIES:
+                if max_stories is not None and kept >= max_stories:
                     break
                 url = s.get("url")
                 if not url:
@@ -201,7 +219,8 @@ def main():
     print("\nTop 20 SOURCES of the sample (to see the aggregator mix):")
     for dom, n in sources.most_common(20):
         print(f"  {n:5}  {dom}")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main(parse_args().max_stories))
