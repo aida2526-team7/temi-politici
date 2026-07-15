@@ -1,0 +1,13 @@
+{
+  "input_review_csv": "data/processed/news_topic_review.csv",
+  "input_metadata_json": "data/processed/topic_model_metadata.json",
+  "output_dir": "reports/topic_audit",
+  "random_seed": 42,
+  "near_duplicate_prefix_length": 300,
+  "confidence_thresholds": [0.4, 0.5, 0.6],
+  "top_domains": 10,
+  "top_records": 10,
+  "sample_records": 5,
+  "encoding": "utf-8-sig",
+  "dominant_domain_warning_threshold": 0.5
+}

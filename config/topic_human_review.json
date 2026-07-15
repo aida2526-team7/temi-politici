@@ -1,0 +1,21 @@
+{
+  "input_review_csv": "data/processed/news_topic_review.csv",
+  "input_topic_terms_csv": "data/processed/news_topic_terms.csv",
+  "output_directory": "reports/topic_human_review",
+  "random_seed": 42,
+  "topic_utili": [1, 8, 9],
+  "topic_artefatto": [0, 2, 3, 4, 5, 6, 7, 10, 11],
+  "top_weight_per_topic": 3,
+  "random_per_topic": 3,
+  "artifact_checks_per_topic": 1,
+  "max_same_domain_per_topic": 2,
+  "excerpt_max_chars": 500,
+  "encoding": "utf-8-sig",
+  "categorie_di_revisione": [
+    "tema politico coerente",
+    "tema politico misto",
+    "boilerplate o formato editoriale",
+    "contenuto non politico",
+    "dubbio"
+  ]
+}

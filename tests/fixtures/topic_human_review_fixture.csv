@@ -1,0 +1,13 @@
+url,domain,seendate,title,estratto,topic_0_peso,topic_1_peso,topic_2_peso,topic_id,confidenza_topic,termini_caratteristici
+https://example.test/0a,artifact-a.test,2026-01-01,Artefatto zero A,Estratto artefatto zero A,0.95,0.03,0.02,0,0.95,termini zero
+https://example.test/0b,artifact-b.test,2026-01-02,Artefatto zero B,Estratto artefatto zero B,0.85,0.10,0.05,0,0.85,termini zero
+https://example.test/1a,a.test,2026-02-01,Politica A,Estratto politica A,0.02,0.95,0.03,1,0.95,termini uno
+https://example.test/1b,a.test,2026-02-02,Politica B,Estratto politica B,0.03,0.90,0.07,1,0.90,termini uno
+https://example.test/1c,b.test,2026-02-03,Politica C,Estratto politica C,0.04,0.85,0.11,1,0.85,termini uno
+https://example.test/1d,c.test,2026-02-04,Politica D,Estratto politica D,0.10,0.80,0.10,1,0.80,termini uno
+https://example.test/1e,b.test,2026-02-05,Politica E,Estratto politica E,0.10,0.75,0.15,1,0.75,termini uno
+https://example.test/1f,d.test,2026-02-06,Politica F,Estratto politica F,0.10,0.70,0.20,1,0.70,termini uno
+https://example.test/1g,e.test,2026-02-07,Politica G,Estratto politica G,0.15,0.65,0.20,1,0.65,termini uno
+https://example.test/1dup,z.test,2026-02-08,Politica G,Estratto politica G,0.10,0.60,0.30,1,0.60,termini uno
+https://example.test/2a,artifact-c.test,2026-03-01,Artefatto due A,Estratto artefatto due A,0.02,0.03,0.95,2,0.95,termini due
+https://example.test/2b,artifact-d.test,2026-03-02,Artefatto due B,Estratto artefatto due B,0.05,0.10,0.85,2,0.85,termini due

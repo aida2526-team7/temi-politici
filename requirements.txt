@@ -6,3 +6,8 @@ requests              # HTTP (harvester.py)
 beautifulsoup4        # HTML parsing
 trafilatura           # boilerplate removal (falls back to <p> if missing)
 langdetect            # per-article language
+
+# Topic-modeling baseline (notebooks/classificatore.ipynb)
+pandas                # JSONL and tabular exports
+scikit-learn          # TF-IDF + NMF
+python-dotenv         # optional local .env for MC_API_KEY
