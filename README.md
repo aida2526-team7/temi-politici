@@ -14,6 +14,9 @@ L'obiettivo è scoprire microtemi con TF-IDF + NMF, controllarne qualità e
 boilerplate e prepararne la validazione umana. I macrotemi risultanti saranno
 ancora una tassonomia candidata, non un'ontologia definitiva multi-layer.
 
+Cos'è TF-IF: https://it.wikipedia.org/wiki/Tf-idf
+Cos'è NMF: https://share.google/aimode/WrVVpSDpQwY4P6i7H
+
 ## Pipeline
 
 1. `src/mediacloud_spike.py` interroga Media Cloud e salva gli URL.
