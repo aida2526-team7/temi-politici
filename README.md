@@ -5,8 +5,8 @@ all'analisi data-driven dei temi politici italiani.
 
 ## Obiettivo della fase corrente
 
-La fase attuale analizza articoli raccolti tramite query Media Cloud su partiti e
-leader. Il corpus rappresenta **come la politica viene raccontata dalla stampa**:
+La fase attuale analizza articoli raccolti tramite query Media Cloud (https://www.mediacloud.org/about-us)
+su partiti e leader. Il corpus rappresenta **come la politica viene raccontata dalla stampa**:
 non misura automaticamente comunicazione diretta, attività legislativa,
 consenso, sentiment verso un partito o stance su una policy.
 
