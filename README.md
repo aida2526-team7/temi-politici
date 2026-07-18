@@ -62,6 +62,21 @@ text, chars, language`) più i campi propri (`partiti`, `tipo_documento`,
 `consultazione`, `estrazione`). Dettagli, trappole e limiti in
 `docs/data_provenance.md`.
 
+### Sondaggi — Salienza dei temi (Ipsos)
+
+Stage separato dai corpus testuali (numeri, non testo): la salienza dei temi
+nell'opinione pubblica, da correlare a valle con i temi della stampa.
+
+`scripts/run_sondaggi_ipsos.py` estrae dal testo della pagina Ipsos Italia
+(*What Worries the World*) i temi principali con le relative percentuali e li
+accumula in un CSV tidy (`data, istituto, tema, valore, …`), deduplicando per
+mese e tema.
+
+L'approccio è **prospettico**: la pagina espone solo il mese corrente e lo storico
+non è recuperabile, quindi il dataset si costruisce nel tempo eseguendo l'ingest
+ogni mese. È un dataset che cresce in avanti, non una serie retrospettiva.
+Dettagli e limiti in `docs/data_provenance.md`.
+
 ## Ambiente e dipendenze
 
 Da una shell aperta nella root del repository:
@@ -102,6 +117,12 @@ Layer 1 — programmi elettorali (discovery, poi full-text con OCR):
 ```bash
 python scripts/run_viminale_discovery.py
 python src/programmi_fulltext.py
+```
+
+Sondaggi — salienza dei temi Ipsos (da eseguire ogni mese, il dataset si accumula):
+
+```bash
+python scripts/run_sondaggi_ipsos.py
 ```
 
 Campione riproducibile per lo human check:
@@ -172,6 +193,8 @@ Restano fuori da Git:
 - `data/processed/news_topic_review.csv`;
 - `data/processed/news_topic_terms.csv`;
 - `data/processed/topic_model_metadata.json`;
+- `data/processed/sondaggi_salienza_temi.csv` (dati Ipsos proprietari: versionarli
+  richiede la revisione di compliance);
 - `.env`, `.drive-export-dir`, credenziali e chiavi;
 - ambienti virtuali, cache, log e file temporanei.
 

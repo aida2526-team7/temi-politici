@@ -12,6 +12,10 @@ I due corpus condividono lo schema (`url`, `domain`, `seendate`, `title`, `text`
 `chars`, `language`) e il motore di acquisizione (`src/harvester.py`), così che
 gli stessi strumenti di misura possano girare su entrambi.
 
+A questi si affianca uno **stage sondaggi** (numeri, non testo), tenuto separato:
+la salienza dei temi nell'opinione pubblica, da correlare a valle con i temi della
+stampa. Vedi la sezione *Sondaggi* in fondo.
+
 ---
 
 # Layer 1 — Programmi elettorali (Elezioni trasparenti)
@@ -188,3 +192,49 @@ python scripts/run_layer1_recon.py
 
 Le credenziali, i percorsi locali e il mirror Google Drive non devono essere
 inseriti nei file versionati.
+
+---
+
+# Sondaggi — Salienza dei temi nell'opinione pubblica
+
+## Origine
+
+Ipsos "What Worries the World", indagine mensile su 30 paesi. Per l'Italia i temi
+principali e le relative percentuali sono pubblicati nel testo della pagina
+`ipsos.com/it-it/sondaggi-politici-oggi` (sezione "Le preoccupazioni degli
+italiani"), estraibili senza OCR.
+
+Il PDF globale mensile di Ipsos non serve: contiene solo la media mondiale.
+
+## Catena dei dati
+
+1. `scripts/run_sondaggi_ipsos.py` legge la pagina Ipsos Italia, `src/sondaggi_ipsos.py`
+   estrae il blocco "In Italia ... Fonte: What Worries The World, <mese>" e ne
+   ricava le coppie (tema, percentuale) e il mese della rilevazione.
+2. I record vengono accumulati in `data/processed/sondaggi_salienza_temi.csv`,
+   deduplicando per (data, istituto, indagine, tema).
+
+Schema: `data` (mese), `istituto`, `indagine`, `paese`, `tema`, `tema_norm`,
+`valore` (% menzioni), `unita`, `fonte`, `estrazione`, `url_fonte`.
+
+## Approccio prospettico
+
+La pagina espone solo il **mese corrente**, e lo storico non è recuperabile: la
+Wayback Machine ha archiviato solo il guscio JavaScript, senza i numeri
+(verificato: 1 mese su 7 snapshot). Il dataset si costruisce quindi **in avanti**,
+eseguendo l'ingest ogni mese. Non è una serie retrospettiva: è un dataset che
+cresce nel tempo, e va presentato come tale.
+
+## Limiti
+
+- Solo i ~5 temi principali sono nel testo; la lista completa è in un grafico
+  immagine, non estratta.
+- Una sola fonte (Ipsos): una seconda campana (es. SWG, i cui numeri però sono nei
+  grafici e richiederebbero OCR) resta da aggiungere.
+- I temi vanno mappati sulla tassonomia della stampa per la correlazione a valle;
+  la lista fissa Ipsos rende la mappatura trattabile.
+
+## Licenza
+
+I dati Ipsos sono proprietari. Il CSV accumulato è **ignorato da Git**: versionarlo
+o ridistribuirlo richiede la revisione di compliance già prevista dal progetto.
