@@ -5,8 +5,8 @@ all'analisi data-driven dei temi politici italiani.
 
 ## Obiettivo della fase corrente
 
-La fase attuale analizza articoli raccolti tramite query Media Cloud su partiti e
-leader. Il corpus rappresenta **come la politica viene raccontata dalla stampa**:
+La fase attuale analizza articoli raccolti tramite query Media Cloud (https://www.mediacloud.org/about-us)
+su partiti e leader. Il corpus rappresenta **come la politica viene raccontata dalla stampa**:
 non misura automaticamente comunicazione diretta, attività legislativa,
 consenso, sentiment verso un partito o stance su una policy.
 
@@ -20,6 +20,8 @@ In parallelo il repository predispone la **raccolta del layer 1** ("cosa dicono"
 è avere i due corpus nello stesso schema, così che gli stessi strumenti di misura
 possano girare su entrambi (vedi la sezione *Layer 1* più sotto e
 `docs/data_provenance.md`).
+Cos'è TF-IF: https://it.wikipedia.org/wiki/Tf-idf
+Cos'è NMF: https://share.google/aimode/WrVVpSDpQwY4P6i7H
 
 ## Pipeline
 
