@@ -1,0 +1,27 @@
+{
+  "_nota": "Mappatura lista depositata -> partiti di config/programmi_discovery.json. Non e' 1:1: una lista puo' essere una coalizione (piu' partiti, un solo programma) e i nomi cambiano tra una consultazione e l'altra ('LEGA NORD' 2018 -> 'LEGA PER SALVINI PREMIER' 2022). Validata a mano dal gruppo il 2026-07-17. Le liste non elencate restano nel corpus con `partiti: []`: ci sono, ma non sono attribuite a nessuno dei partiti seguiti.",
+  "_coalizioni": "Un programma condiviso viene attribuito a ENTRAMBI i partiti. Un documento puo' quindi contare per piu' partiti, come gia' accade nel layer 3 (vedi PARTY_PATTERNS in mediacloud_fulltext.py e AGENTS.md sezione 5): i conteggi per partito non sommano al totale dei documenti.",
+
+  "politiche2022": {
+    "FRATELLI D'ITALIA CON GIORGIA MELONI": ["fdi"],
+    "LEGA PER SALVINI PREMIER": ["lega"],
+    "FORZA ITALIA": ["fi"],
+    "NOI MODERATI / LUPI - TOTI - BRUGNARO - UDC": ["noi_moderati"],
+    "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA": ["pd"],
+    "MOVIMENTO 5 STELLE": ["m5s"],
+    "AZIONE - ITALIA VIVA - CALENDA": ["azione", "italia_viva"],
+    "ALLEANZA VERDI E SINISTRA": ["europa_verde", "sinistra_italiana"],
+    "+EUROPA": ["piu_europa"]
+  },
+
+  "politiche2018": {
+    "FRATELLI D'ITALIA CON GIORGIA MELONI": ["fdi"],
+    "LEGA NORD": ["lega"],
+    "MOVIMENTO POLITICO FORZA ITALIA": ["fi"],
+    "NOI CON L'ITALIA - UDC": ["noi_moderati"],
+    "PARTITO DEMOCRATICO": ["pd"],
+    "MOVIMENTO 5 STELLE": ["m5s"],
+    "LIBERI E UGUALI": ["europa_verde", "sinistra_italiana"],
+    "ASSOCIAZIONE \"+EUROPA\"": ["piu_europa"]
+  }
+}
