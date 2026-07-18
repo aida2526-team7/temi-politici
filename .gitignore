@@ -38,4 +38,7 @@ data/processed/*.jsonl
 data/processed/news_topic_review.csv
 data/processed/news_topic_terms.csv
 data/processed/topic_model_metadata.json
+# Salienza dei temi dai sondaggi: dati proprietari (Ipsos). Versionarli richiede
+# la revisione di compliance; per ora restano fuori da Git.
+data/processed/sondaggi_salienza_temi.csv
 .drive-export-dir

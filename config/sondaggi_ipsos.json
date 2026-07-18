@@ -1,0 +1,9 @@
+{
+  "url": "ipsos.com/it-it/sondaggi-politici-oggi",
+  "user_agent": "AIDA-temi-politici/1.0 (ricerca universitaria; ingest sondaggi)",
+  "output_csv": "data/processed/sondaggi_salienza_temi.csv",
+  "timeout": 40,
+  "pause": 0.8,
+  "dal": 2026,
+  "al": 2026
+}
