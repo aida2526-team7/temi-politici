@@ -39,21 +39,84 @@ session = requests.Session()
 session.headers.update(HEADERS)   # .update() merges this dict into the default headers
 
 
+def fetch_response(url, retries=1, timeout=12):
+    """Download a URL and return the whole Response (or None on failure).
+
+    Why the Response and not just the text: a PDF is bytes. r.text would decode
+    them as if they were a string and destroy the file. Callers that need bytes
+    read r.content; callers that need HTML read r.text.
+    """
+    for i in range(retries + 1):
+        try:
+            r = session.get(url, timeout=timeout)
+            if r.status_code == 200:
+                return r
+        except requests.RequestException:
+            pass
+        time.sleep(1 + i)
+    return None
+
+
 def fetch(url, retries=1):
     """Download an article's HTML, with retry + backoff. Uses the Session.
 
     Short timeout and a single retry: for full text a page that does not answer in
     ~12s is not worth the wait (there are thousands of URLs, many dead or very slow).
+
+    Kept as-is (returns the body as a string) so existing callers do not change.
     """
-    for i in range(retries + 1):
-        try:
-            r = session.get(url, timeout=12)
-            if r.status_code == 200:
-                return r.text           # r.text = the page body as a string
-        except requests.RequestException:
-            pass
-        time.sleep(1 + i)
-    return None                         # None = "I failed" (see scrape_one)
+    r = fetch_response(url, retries)
+    return r.text if r is not None else None   # None = "I failed" (see scrape_one)
+
+
+def is_pdf(content, content_type=""):
+    """True if these bytes are a PDF.
+
+    Checks the magic number first and the Content-Type second: a URL can serve a
+    PDF without saying so in the path (and vice versa). The electoral programmes
+    of the Interior Ministry are all PDFs.
+    """
+    if content[:5] == b"%PDF-":
+        return True
+    return "pdf" in (content_type or "").lower()
+
+
+def extract_pdf_text(content):
+    """Text of a PDF, or "" if it cannot be read.
+
+    Returns "" instead of raising: a malformed file must not stop a run of
+    hundreds of documents. scrape_one already drops records without text.
+
+    Note: a scanned PDF has no selectable text and yields "" here. That is not a
+    bug, it is the OCR case, which this project does not cover.
+    """
+    try:
+        from pypdf import PdfReader
+        from io import BytesIO
+        reader = PdfReader(BytesIO(content))
+        return "\n".join((page.extract_text() or "") for page in reader.pages).strip()
+    except Exception:
+        return ""
+
+
+def parse_pdf(content, meta):
+    """Extract the fields from a PDF. Same schema as parse() for HTML.
+
+    The layer-1 corpus must be readable by the same code as the layer-3 one:
+    same keys, same meaning.
+    """
+    text = extract_pdf_text(content)
+    return {
+        "url": meta.get("url"),
+        "domain": meta.get("domain"),
+        "seendate": meta.get("seendate"),
+        # A PDF has no <title>: the title comes from the metadata (for the
+        # Viminale programmes, the name of the deposited list).
+        "title": meta.get("title", ""),
+        "meta_description": None,       # no such thing in a PDF; key kept for schema parity
+        "text": text,
+        "chars": len(text),
+    }
 
 
 def _extract_body(html, soup):
@@ -117,12 +180,19 @@ def parse(html, meta):
 
 
 def scrape_one(meta):
-    """Download + extract ONE article. Returns the dict, or None if anything fails."""
-    html = fetch(meta["url"])
-    if not html:                        # 'if not html' = if html is None/empty
+    """Download + extract ONE document. Returns the dict, or None if anything fails.
+
+    Two branches: PDF (electoral programmes, layer 1) and HTML (everything else).
+    The HTML path is unchanged — same parse(), same result — so the layer-3
+    pipeline behaves exactly as before.
+    """
+    r = fetch_response(meta["url"])
+    if r is None:
         return None
     try:
-        return parse(html, meta)
+        if is_pdf(r.content, r.headers.get("content-type", "")):
+            return parse_pdf(r.content, meta)
+        return parse(r.text, meta)
     except Exception:                   # a malformed site must not stop everything
         return None
 
