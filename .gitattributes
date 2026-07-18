@@ -1,0 +1,9 @@
+# Normalizza i fine-riga dei file di testo, ma lascia intatti i binari:
+# senza questo, git converte LF<->CRLF anche nei PDF/immagini e li corrompe.
+* text=auto
+
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.xlsx binary

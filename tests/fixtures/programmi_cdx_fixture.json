@@ -1,0 +1,9 @@
+[
+  ["timestamp", "original", "mimetype", "statuscode", "digest"],
+  ["20220105100000", "http://www.partito-esempio.it/programma/", "text/html", "200", "AAA1"],
+  ["20220128180000", "http://www.partito-esempio.it/programma/", "text/html", "200", "AAA2"],
+  ["20220214090000", "http://www.partito-esempio.it/programma/", "text/html", "200", "AAA3"],
+  ["20220803120000", "http://www.partito-esempio.it/wp-content/uploads/2022/08/Programma_Elettorale.pdf", "application/pdf", "200", "BBB1"],
+  ["20230410080000", "http://www.partito-esempio.it/a14-autostrade-definisca-cronoprogramma-e-sospenda-pedaggio/", "text/html", "200", "CCC1"],
+  ["20230515110000", "http://www.partito-esempio.it/oggi-a-san-benedetto-per-chiedere-elezioni-subito/", "text/html", "200", "DDD1"]
+]

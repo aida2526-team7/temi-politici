@@ -1,0 +1,28 @@
+{
+  "output_urls_jsonl": "data/raw/programmi_urls.jsonl",
+  "user_agent": "AIDA-temi-politici/1.0 (ricerca universitaria; discovery layer 1)",
+  "dal": 2020,
+  "al": 2026,
+  "pause": 0.8,
+  "timeout": 30,
+  "max_sitemaps": 20,
+  "wayback": true,
+  "max_wayback": 2000,
+  "max_programmi": 40,
+  "max_comunicati": 60,
+  "max_programmi_wayback": 60,
+  "max_comunicati_wayback": 40,
+  "partiti": [
+    {"id": "fdi", "nome": "Fratelli d'Italia", "coalizione": "Maggioranza di centrodestra", "domini": ["fratelli-italia.it"], "url": ["https://www.fratelli-italia.it/", "https://www.fratelli-italia.it/programma/"]},
+    {"id": "lega", "nome": "Lega Salvini Premier", "coalizione": "Maggioranza di centrodestra", "domini": ["legaonline.it", "lega-per-salvini-premier.it"], "url": ["https://www.legaonline.it/", "https://www.lega-per-salvini-premier.it/"]},
+    {"id": "fi", "nome": "Forza Italia", "coalizione": "Maggioranza di centrodestra", "domini": ["forzaitalia.it"], "url": ["https://forzaitalia.it/"]},
+    {"id": "noi_moderati", "nome": "Noi Moderati", "coalizione": "Maggioranza di centrodestra", "domini": ["noimoderati.it"], "url": ["https://noimoderati.it/"]},
+    {"id": "pd", "nome": "Partito Democratico", "coalizione": "Opposizione", "domini": ["partitodemocratico.it"], "url": ["https://partitodemocratico.it/", "https://partitodemocratico.it/scarica-il-programma-elettorale-2022-2/"]},
+    {"id": "m5s", "nome": "Movimento 5 Stelle", "coalizione": "Opposizione", "domini": ["movimento5stelle.eu"], "url": ["https://www.movimento5stelle.eu/"]},
+    {"id": "azione", "nome": "Azione", "coalizione": "Opposizione", "domini": ["azione.it"], "url": ["https://www.azione.it/"]},
+    {"id": "italia_viva", "nome": "Italia Viva", "coalizione": "Opposizione", "domini": ["italiaviva.it"], "url": ["https://www.italiaviva.it/"]},
+    {"id": "europa_verde", "nome": "Europa Verde", "coalizione": "Alleanza Verdi e Sinistra", "domini": ["europaverde.it"], "url": ["https://www.europaverde.it/"]},
+    {"id": "sinistra_italiana", "nome": "Sinistra Italiana", "coalizione": "Alleanza Verdi e Sinistra", "domini": ["sinistraitaliana.si"], "url": ["https://sinistraitaliana.si/"]},
+    {"id": "piu_europa", "nome": "+Europa", "coalizione": "Opposizione", "domini": ["piueuropa.eu"], "url": ["https://www.piueuropa.eu/"]}
+  ]
+}

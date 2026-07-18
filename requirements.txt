@@ -6,6 +6,11 @@ requests              # HTTP (harvester.py)
 beautifulsoup4        # HTML parsing
 trafilatura           # boilerplate removal (falls back to <p> if missing)
 langdetect            # per-article language
+pypdf                 # testo dei PDF (programmi elettorali: trafilatura fa solo HTML)
+
+# OCR dei PDF scansionati (layer 1: il 77% dei programmi depositati sono scansioni)
+pymupdf               # rasterizza le pagine PDF in immagini
+rapidocr-onnxruntime  # OCR solo-pip, nessun binario di sistema (a differenza di tesseract)
 
 # Topic-modeling baseline (notebooks/classificatore.ipynb)
 pandas                # JSONL and tabular exports
