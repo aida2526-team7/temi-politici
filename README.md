@@ -14,6 +14,13 @@ L'obiettivo è scoprire microtemi con TF-IDF + NMF, controllarne qualità e
 boilerplate e prepararne la validazione umana. I macrotemi risultanti saranno
 ancora una tassonomia candidata, non un'ontologia definitiva multi-layer.
 
+In parallelo il repository predispone la **raccolta del layer 1** ("cosa dicono"
+— la comunicazione diretta dei partiti): i programmi elettorali depositati.
+È solo acquisizione: l'analisi tematica resta per ora sul corpus stampa. Lo scopo
+è avere i due corpus nello stesso schema, così che gli stessi strumenti di misura
+possano girare su entrambi (vedi la sezione *Layer 1* più sotto e
+`docs/data_provenance.md`).
+
 ## Pipeline
 
 1. `src/mediacloud_spike.py` interroga Media Cloud e salva gli URL.
@@ -32,6 +39,26 @@ I notebook richiamano o leggono la logica e gli output salvati nel repository:
 
 - `notebooks/00_esegui_pipeline.ipynb`: orchestrazione didattica della pipeline;
 - `notebooks/classificatore.ipynb`: audit, campione e istruzioni di review.
+
+### Layer 1 — Programmi elettorali (acquisizione)
+
+Raccolta della comunicazione diretta dei partiti dal portale *Elezioni
+trasparenti* del Viminale (fonte ufficiale ex legge 165/2017), con discovery dai
+siti dei partiti come fallback. Discovery separata dall'acquisizione, come nel
+layer 3:
+
+1. `scripts/run_viminale_discovery.py` legge gli indici delle consultazioni
+   (politiche 2018 e 2022) e salva i metadata dei programmi.
+2. `src/programmi_fulltext.py` scarica i PDF via `src/harvester.py`, ne estrae il
+   testo e applica l'**OCR** ai documenti scansionati (circa tre su quattro);
+   ogni record dichiara in `estrazione` se il testo è `nativa` o `ocr`.
+3. `src/programmi_discovery.py` e `scripts/run_programmi_discovery.py` raccolgono
+   dai siti dei partiti (sitemap e Wayback) ciò che il portale non copre.
+
+Il corpus esce con lo stesso schema del layer 3 (`url, domain, seendate, title,
+text, chars, language`) più i campi propri (`partiti`, `tipo_documento`,
+`consultazione`, `estrazione`). Dettagli, trappole e limiti in
+`docs/data_provenance.md`.
 
 ## Ambiente e dipendenze
 
@@ -66,6 +93,13 @@ Audit riproducibile:
 
 ```bash
 python scripts/run_topic_audit.py --config config/topic_audit.json
+```
+
+Layer 1 — programmi elettorali (discovery, poi full-text con OCR):
+
+```bash
+python scripts/run_viminale_discovery.py
+python src/programmi_fulltext.py
 ```
 
 Campione riproducibile per lo human check:
@@ -132,7 +166,7 @@ può menzionare più partiti, le percentuali non devono necessariamente sommare 
 
 Restano fuori da Git:
 
-- `data/raw/*.jsonl` con URL e full-text;
+- `data/raw/*.jsonl` con URL e full-text (stampa e programmi del layer 1);
 - `data/processed/news_topic_review.csv`;
 - `data/processed/news_topic_terms.csv`;
 - `data/processed/topic_model_metadata.json`;
