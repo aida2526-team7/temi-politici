@@ -87,6 +87,47 @@ text, chars, language`) più i campi propri (`partiti`, `tipo_documento`,
 `consultazione`, `estrazione`). Dettagli, trappole e limiti in
 `docs/data_provenance.md`.
 
+### Layer 2 — Progetti di legge della Camera
+
+Il layer "cosa fanno". Fonte: l'endpoint SPARQL pubblico
+<https://dati.camera.it/sparql>, nessuno scraping.
+
+```bash
+python scripts/run_camera_spike.py
+```
+
+6.865 progetti di legge delle legislature 18 e 19, in circa 22 secondi. Il testo
+tematizzabile è il **titolo** dell'atto, che alla Camera è una frase descrittiva
+completa (mediana 161 caratteri) — molto più corto di un articolo di stampa: un
+topic model tarato sul layer 3 non si applica tale e quale.
+
+Paginazione **per chiave**, non per OFFSET: con `OFFSET 10000` Virtuoso risponde
+500, perché per servire un offset profondo deve riordinare tutto il risultato a
+ogni richiesta. Resa, costo e limiti misurati in `reports/layer2_recon/camera.md`.
+
+### Risultati elettorali (catalogo Eligendo)
+
+Il layer "chi li sostiene". Fonte: i CSV del catalogo AgID del Viminale,
+download diretto.
+
+```bash
+python scripts/run_eligendo_spike.py
+```
+
+Camera e Senato 2022 ed europee 2024, aggregati a livello nazionale per lista
+(i file sono comunali; la granularità nazionale è quella decisa dal piano).
+Sette secondi in tutto.
+
+Politiche ed europee usano **due schemi diversi** per gli stessi concetti
+(`DESCRLISTA`/`VOTILISTA` contro `DESCLISTA`/`NUMVOTI`): il modulo lo dichiara
+una volta e solleva su un file con schema ignoto, invece di sommare zeri in
+silenzio.
+
+Due limiti che cambiano il piano, dettagliati in
+`reports/layer3_recon/eligendo.md`: **le politiche 2018 non sono nel catalogo**
+(quindi la finestra 2018→2026 copre una sola politica), e la Valle d'Aosta è
+assente dai file "Italia".
+
 ### Sondaggi — Salienza dei temi (Ipsos)
 
 Stage separato dai corpus testuali (numeri, non testo): la salienza dei temi
