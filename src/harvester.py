@@ -8,6 +8,10 @@ Hand-made scraper (no Scrapy), reusable and decoupled from the URL source.
 - Full text: requests + BeautifulSoup + trafilatura (boilerplate removal),
   concurrently via ThreadPoolExecutor (what Scrapy would do in its middlewares).
 - Enrichment: language (langdetect) per article.
+- Provenance: every record carries `estrazione`, saying how its text was read
+  ("trafilatura" | "fallback_p" for HTML, "nativa" for a PDF with a text layer).
+  Records marked "fallback_p" contain site chrome, not an article: filter them
+  out before any text analysis.
 - Output: JSON Lines, one article per line.
 
 Public API: scrape_metas(metas, out=..., workers=..., min_chars=...).
@@ -116,20 +120,33 @@ def parse_pdf(content, meta):
         "meta_description": None,       # no such thing in a PDF; key kept for schema parity
         "text": text,
         "chars": len(text),
+        # Same field as the HTML path, PDF vocabulary: "nativa" = the file has a
+        # real text layer. A scan yields "" here; programmi_fulltext.py then
+        # overwrites this with "ocr" or "fallita".
+        "estrazione": "nativa" if text else "",
     }
 
 
 def _extract_body(html, soup):
-    """Extract ONLY the article body, dropping the boilerplate (menu, cookie banner,
-    'related articles', footer, newsletter, captions).
+    """Article body AND how it was obtained. Returns the tuple (text, estrazione).
 
-    Why: the old method grabbed ALL the page's <p> -> any text analysis read a mush
-    (title + 'Accept cookies' + links to other pieces). Boilerplate pollutes topic
-    modeling and every downstream NLP step. trafilatura is the standard for
-    boilerplate removal, multilingual.
+    Two paths, and everything downstream needs to tell them apart:
 
-    If trafilatura is not installed or finds no body, fall back to the old join of
-    all <p>: the code still runs, just less clean.
+    - "trafilatura": the real article body, boilerplate (menu, cookie banner,
+      'related articles', footer, newsletter) already dropped;
+    - "fallback_p": trafilatura found no body, so we join all the page's <p>.
+      That text IS the site chrome. It is kept because a dirty record beats a
+      lost URL, but it must not reach a topic model unfiltered.
+
+    Why the flag: without it the two are indistinguishable in the JSONL, and the
+    chrome is the most regular text in the whole corpus. NMF then models the page
+    templates instead of the themes -- "in evidenza", "riproduzione riservata",
+    "vai all'articolo" came out as 7 of our 12 topics.
+
+    On favor_recall (was True, now dropped): it made trafilatura return
+    chrome-ish text instead of nothing, which then got labelled clean. Letting
+    those pages fall through to the flagged path is more useful than keeping them
+    mislabelled.
     """
     try:
         import trafilatura
@@ -137,14 +154,13 @@ def _extract_body(html, soup):
             html,
             include_comments=False,   # drop reader comments
             include_tables=False,     # drop tables (often side data)
-            favor_recall=True,        # prefer keeping real text over losing it
         )
         if body:
-            return body
+            return body, "trafilatura"
     except Exception:
         pass   # not installed or tricky page -> fallback below
-    # FALLBACK: old method (all the <p>). Dirty text beats nothing.
-    return "\n".join(p.get_text(" ", strip=True) for p in soup.find_all("p"))
+    # FALLBACK: all the <p>. Dirty text beats nothing, as long as it says so.
+    return "\n".join(p.get_text(" ", strip=True) for p in soup.find_all("p")), "fallback_p"
 
 
 def get_meta_description(soup):
@@ -160,8 +176,8 @@ def get_meta_description(soup):
 def parse(html, meta):
     """Extract the fields from a page. Returns a dict (it becomes a JSONL line)."""
     soup = BeautifulSoup(html, "html.parser")   # 'soup' = navigable tree of the HTML
-    # CLEAN body via trafilatura (with <p> fallback): see _extract_body.
-    text = _extract_body(html, soup)
+    # CLEAN body via trafilatura (with flagged <p> fallback): see _extract_body.
+    text, estrazione = _extract_body(html, soup)
     # Returns a dict. .get("x") reads a field of the input metadata;
     # if missing, .get returns None without error.
     return {
@@ -176,6 +192,9 @@ def parse(html, meta):
         "meta_description": get_meta_description(soup),   # light metadata signal (see theme detection)
         "text": text,
         "chars": len(text),             # len() = length (here number of characters)
+        # HOW the text was read: "trafilatura" (clean body) or "fallback_p"
+        # (all the <p>, i.e. site chrome). Filter on this before any NLP.
+        "estrazione": estrazione,
     }
 
 
