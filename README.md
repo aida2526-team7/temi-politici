@@ -26,16 +26,41 @@ Cos'è NMF: https://share.google/aimode/WrVVpSDpQwY4P6i7H
 ## Pipeline
 
 1. `src/mediacloud_spike.py` interroga Media Cloud e salva gli URL.
-2. `src/mediacloud_fulltext.py` e `src/harvester.py` scaricano e puliscono il
-   full-text, rilevano la lingua e producono la copertura aggregata.
-3. `src/news_topic_model.py` applica TF-IDF + NMF e genera 12 topic esplorativi.
-4. `scripts/run_topic_audit.py` verifica distribuzioni, confidenza, domini,
+2. `src/mediacloud_fulltext.py` e `src/harvester.py` scaricano il full-text,
+   rilevano la lingua e producono la copertura aggregata. Ogni record dichiara
+   in `estrazione` con che metodo è stato letto.
+3. `src/pulizia_corpus.py` toglie il boilerplate e i duplicati (vedi
+   *Pulizia del corpus* più sotto). Lo chiama il classificatore, prima di
+   modellare.
+4. `src/news_topic_model.py` applica TF-IDF + NMF e genera 12 topic esplorativi.
+5. `scripts/run_topic_audit.py` verifica distribuzioni, confidenza, domini,
    duplicati e anomalie degli output NMF.
-5. `scripts/run_topic_human_review.py` costruisce un campione deterministico di
+6. `scripts/run_topic_human_review.py` costruisce un campione deterministico di
    27 record per lo human check.
-6. `scripts/prepare_topic_annotation_files.py` prepara due copie indipendenti
+7. `scripts/prepare_topic_annotation_files.py` prepara due copie indipendenti
    per R1 e R2; `scripts/validate_topic_annotations.py` le valida senza
    modificarle.
+
+### Pulizia del corpus
+
+Il primo giro di TF-IDF + NMF ha prodotto 12 topic di cui 7 erano template di
+testate (`in evidenza`, `riproduzione riservata copyright ansa`, `vai all
+articolo su raiplay`) e 2 erano parole funzione italiane. Non è un difetto
+dell'NMF: quelle stringhe sono il testo più regolare del corpus, quindi anche la
+struttura più forte che una fattorizzazione può trovare.
+
+Il boilerplate non si riconosce guardando una pagina alla volta — su
+`adnkronos.com/internazionale/japanese/*` il corpo dell'articolo è renderizzato
+in JS e trafilatura restituisce la spalla come contenuto legittimo. Si riconosce
+guardando il corpus: `src/pulizia_corpus.py` marca come template le righe che
+ricorrono in almeno il 30% dei documenti di un dominio, più quelle che superano
+il 2% del corpus e stanno su almeno 3 testate diverse. Poi deduplica sull'hash
+del testo (non sull'URL: 3.095 URL diversi servivano lo stesso identico testo) e
+rilegge la lingua sul testo pulito.
+
+Verificato su 912 articoli reali: la perdita mediana di testo sugli articoli
+tenuti è **0%**. Il report di cosa è stato tolto finisce in
+`topic_model_metadata.json`.
 
 I notebook richiamano o leggono la logica e gli output salvati nel repository:
 
@@ -234,6 +259,20 @@ nohup /usr/bin/caffeinate -dims zsh scripts/run_overnight_pipeline.sh \
 
 Lo script attende la fine della discovery e avvia full-text e classificatore.
 I log restano locali e sono ignorati da Git.
+
+## Condividere l'input del classificatore
+
+`data/processed/news_topic_review.csv` pesa 98 MB, è in `.gitignore` e sta su una
+macchina sola: chi clona il repository non può rieseguire né l'audit né il
+campionamento. Sulla macchina che ha il file completo:
+
+```bash
+python scripts/prepara_review_condivisibile.py
+```
+
+Produce un campione stratificato per topic — 81 MB diventano 2.0 MB, il 2.5% —
+pensato per essere versionato, più un manifest con gli hash. Non stima le
+prevalenze: per quelle resta `reports/topic_audit/topic_distribution.csv`.
 
 ## Stato delle milestone
 
