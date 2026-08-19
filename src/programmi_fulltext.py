@@ -34,6 +34,9 @@ from harvester import fetch_response, scrape_metas
 
 sys.path.insert(0, str(ROOT))
 from src.ocr_pdf import ocr_pdf, serve_ocr
+# Stessa funzione che usa il layer 3: la lingua si rilegge sul testo buono,
+# non su quello che c'era prima di ripulirlo o di riconoscerlo.
+from src.pulizia_corpus import ricontrolla_lingua
 
 URLS_IN = ROOT / "data" / "raw" / "programmi_viminale_urls.jsonl"
 FULLTEXT_OUT = ROOT / "data" / "raw" / "programmi_fulltext.jsonl"
@@ -196,6 +199,15 @@ def main() -> int:
                            min_chars=TIENI_TUTTO)
     records = rifai_join(records, metas)
     records = applica_ocr(records)
+
+    # La lingua va riletta DOPO l'OCR. scrape_metas la rileva sul testo che ha in
+    # quel momento, e per una scansione quel testo e' vuoto: senza questo, tutti
+    # i documenti riconosciuti restano "unknown" (misurato: 45 su 60). Conta,
+    # perche' news_topic_model.load_corpus filtra su language == "it" e li
+    # butterebbe tutti.
+    cambiati = ricontrolla_lingua(records)
+    if cambiati:
+        print(f"\nLingua ricalcolata sul testo dopo l'OCR: {cambiati} record aggiornati")
 
     # Il filtro si applica DOPO l'OCR: prima un programma scansionato avrebbe
     # zero caratteri e verrebbe buttato senza che nessuno provi a leggerlo.
