@@ -69,6 +69,13 @@ class NormalizzazioneCampiTest(unittest.TestCase):
     def test_gruppo_perde_la_data_di_adesione(self) -> None:
         self.assertEqual(cd.pulisci_gruppo("MISTO (18.10.2022)"), "MISTO")
 
+    def test_gruppo_perde_l_intervallo_di_mandato(self) -> None:
+        """Senza, lo stesso partito conta come due gruppi diversi fra la
+        legislatura 18 e la 19, e l'aggregazione per partito salta."""
+        self.assertEqual(
+            cd.pulisci_gruppo("PARTITO DEMOCRATICO (27.03.2018-12.10.2022)"),
+            "PARTITO DEMOCRATICO")
+
     def test_gruppo_senza_data_resta(self) -> None:
         self.assertEqual(cd.pulisci_gruppo("MOVIMENTO 5 STELLE"), "MOVIMENTO 5 STELLE")
 

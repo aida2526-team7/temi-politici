@@ -164,8 +164,11 @@ _CODA = re.compile(r'[""»"]?\s*(?:\(\d+\))?\s*$')
 _VIRGOLETTA_INIZIALE = re.compile(r'^[""«"]\s*')
 # La data arriva come 20221013, non come 2022-10-13.
 _DATA_COMPATTA = re.compile(r"^(\d{4})(\d{2})(\d{2})$")
-# L'etichetta del gruppo porta in coda la data di adesione: "MISTO (18.10.2022)".
-_DATA_ADESIONE = re.compile(r"\s*\(\d{2}\.\d{2}\.\d{4}\)\s*$")
+# L'etichetta del gruppo porta in coda la data di adesione — "MISTO (18.10.2022)"
+# — oppure l'intervallo di mandato, "PARTITO DEMOCRATICO (27.03.2018-12.10.2022)".
+# Vanno tolti entrambi: altrimenti lo stesso partito conta come due gruppi
+# diversi fra una legislatura e l'altra, e l'aggregazione per partito salta.
+_DATA_ADESIONE = re.compile(r"\s*\(\d{2}\.\d{2}\.\d{4}(?:\s*-\s*\d{2}\.\d{2}\.\d{4})?\)\s*$")
 
 
 def pulisci_titolo(titolo):
