@@ -30,6 +30,20 @@ _MOTORE = None
 DPI_DEFAULT = 200          # compromesso qualita'/velocita' verificato sui programmi
 MIN_CARATTERI_PAGINA = 20  # sotto: pagina vuota o solo logo, non un fallimento
 
+# Tetto di pixel per pagina rasterizzata.
+#
+# Il DPI da solo non basta: descrive la densita', non la dimensione. Una pagina
+# A4 a 200 DPI fa 3.9 Mpx, ma fra i programmi depositati ce n'e' una da 107 Mpx
+# (`1_Prog_Elettorale.pdf`: formato manifesto, o MediaBox sbagliata). Stessa
+# richiesta di DPI, ventotto volte il lavoro. Quel documento da solo vale 450
+# Mpx e il totale sui 46 scansionati e' 2.260 Mpx: piu' di due ore di OCR, che
+# infatti non e' mai arrivato in fondo.
+#
+# 6 Mpx sta sopra l'A4 a 200 DPI, quindi le pagine normali non vengono toccate.
+# Scende solo cio' che e' fuori scala, e una pagina fisicamente enorme ha testo
+# grande, che resta leggibile a densita' minore.
+MAX_PIXEL_PAGINA = 6_000_000
+
 
 def crea_motore():
     """Motore OCR, creato una volta e riusato."""
@@ -40,8 +54,30 @@ def crea_motore():
     return _MOTORE
 
 
-def pdf_a_immagini(content: bytes, dpi: int = DPI_DEFAULT, max_pagine: int | None = None):
-    """Pagine del PDF come array numpy, pronte per l'OCR."""
+def dpi_effettivo(larghezza_pt: float, altezza_pt: float, dpi: int,
+                  max_pixel: int = MAX_PIXEL_PAGINA) -> int:
+    """DPI da usare per questa pagina, abbassato se sforerebbe il tetto di pixel.
+
+    Le misure di un PDF sono in punti tipografici (1/72 di pollice), quindi i
+    pixel a un dato DPI sono `punti * dpi / 72` per lato. Si scala di
+    `sqrt(max/effettivi)` perche' il vincolo e' sull'area.
+    """
+    if larghezza_pt <= 0 or altezza_pt <= 0:
+        return dpi
+    pixel = (larghezza_pt * dpi / 72) * (altezza_pt * dpi / 72)
+    if pixel <= max_pixel:
+        return dpi
+    return max(36, int(dpi * (max_pixel / pixel) ** 0.5))
+
+
+def pdf_a_immagini(content: bytes, dpi: int = DPI_DEFAULT, max_pagine: int | None = None,
+                   max_pixel: int = MAX_PIXEL_PAGINA):
+    """Pagine del PDF come array numpy, pronte per l'OCR.
+
+    Il DPI e' per pagina, non per documento: una pagina fuori scala viene
+    rasterizzata piu' bassa invece di far esplodere il lavoro (vedi
+    MAX_PIXEL_PAGINA).
+    """
     import fitz
     import numpy as np
     from PIL import Image
@@ -51,7 +87,8 @@ def pdf_a_immagini(content: bytes, dpi: int = DPI_DEFAULT, max_pagine: int | Non
     for numero, pagina in enumerate(documento):
         if max_pagine is not None and numero >= max_pagine:
             break
-        pixmap = pagina.get_pixmap(dpi=dpi)
+        effettivo = dpi_effettivo(pagina.rect.width, pagina.rect.height, dpi, max_pixel)
+        pixmap = pagina.get_pixmap(dpi=effettivo)
         immagini.append(np.array(Image.open(io.BytesIO(pixmap.tobytes("png")))))
     documento.close()
     return immagini
@@ -67,7 +104,7 @@ def ocr_immagine(immagine, motore=None) -> str:
 
 
 def ocr_pdf(content: bytes, dpi: int = DPI_DEFAULT, max_pagine: int | None = None,
-            motore=None) -> str:
+            motore=None, max_pixel: int = MAX_PIXEL_PAGINA) -> str:
     """Testo di un PDF scansionato, pagina per pagina.
 
     `motore` e' iniettabile per i test: cosi' la logica si verifica senza caricare
@@ -78,7 +115,8 @@ def ocr_pdf(content: bytes, dpi: int = DPI_DEFAULT, max_pagine: int | None = Non
     """
     motore = motore or crea_motore()
     pagine = []
-    for immagine in pdf_a_immagini(content, dpi=dpi, max_pagine=max_pagine):
+    for immagine in pdf_a_immagini(content, dpi=dpi, max_pagine=max_pagine,
+                                   max_pixel=max_pixel):
         try:
             testo = ocr_immagine(immagine, motore)
         except Exception:
