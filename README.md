@@ -270,6 +270,10 @@ editoriali esterne.
 
 ## Provenienza e riproducibilità
 
+- `docs/ontologia_tematica.md`: la tassonomia dei macrotemi, **congelata alla
+  v1.0**. È il contratto fra i tre layer: definisce i 13 macrotemi, l'unità di
+  misura di ciascun layer (paragrafo, atto, articolo) e le quattro decisioni
+  prese con la conseguenza che ognuna comporta;
 - `docs/data_provenance.md`: origine, trasformazioni e limiti dei dati;
 - `docs/reproducibility.md`: ambiente, test, audit e manifest;
 - `docs/topic_annotation_protocol.md`: categorie, calibrazione e revisione
