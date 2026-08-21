@@ -1,0 +1,19 @@
+[
+  {
+    "id": "pd",
+    "base": "https://partitodemocratico.it",
+    "index_url": "",
+    "children": [],
+    "wordpress": false,
+    "post_sitemap": "",
+    "page_sitemap": "",
+    "post_sitemap_pagine": 0,
+    "post_urls": 0,
+    "lastmod_presenti": 0,
+    "lastmod_giorni_distinti": 0,
+    "lastmod_campione": [],
+    "lastmod_min": "",
+    "lastmod_max": "",
+    "note": "sitemap protetta da Cloudflare (403 'Just a moment'): esiste ma non è raschiabile. Da prendere via Wayback."
+  }
+]

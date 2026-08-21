@@ -16,6 +16,7 @@ import unittest
 from pathlib import Path
 
 from src.ocr_pdf import MIN_CARATTERI_PAGINA, ocr_immagine, ocr_pdf, pdf_a_immagini, serve_ocr
+import src.ocr_pdf as ocr_pdf_mod
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -111,3 +112,34 @@ class MotoreRealeTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DpiEffettivoTest(unittest.TestCase):
+    """Il DPI descrive la densità, non la dimensione. Fra i programmi depositati
+    c'è una pagina da 107 Mpx a 200 DPI (`1_Prog_Elettorale.pdf`): stessa
+    richiesta di DPI, ventotto volte il lavoro di un A4."""
+
+    A4 = (595, 842)          # punti tipografici
+    MANIFESTO = (3370, 2384)  # la pagina vera che ha fatto esplodere il run
+
+    def test_a4_non_viene_toccata(self) -> None:
+        """3.9 Mpx a 200 DPI: sotto il tetto, resta com'è."""
+        self.assertEqual(ocr_pdf_mod.dpi_effettivo(*self.A4, 200), 200)
+
+    def test_pagina_fuori_scala_viene_abbassata(self) -> None:
+        effettivo = ocr_pdf_mod.dpi_effettivo(*self.MANIFESTO, 200)
+        self.assertLess(effettivo, 200)
+
+    def test_il_risultato_rispetta_il_tetto(self) -> None:
+        larghezza, altezza = self.MANIFESTO
+        effettivo = ocr_pdf_mod.dpi_effettivo(larghezza, altezza, 200)
+        pixel = (larghezza * effettivo / 72) * (altezza * effettivo / 72)
+        self.assertLessEqual(pixel, ocr_pdf_mod.MAX_PIXEL_PAGINA * 1.01)
+
+    def test_non_scende_sotto_una_soglia_leggibile(self) -> None:
+        """Meglio una pagina pesante che una illeggibile: sotto i 36 DPI l'OCR
+        non riconoscerebbe più niente e il lavoro sarebbe sprecato comunque."""
+        self.assertGreaterEqual(ocr_pdf_mod.dpi_effettivo(20000, 20000, 200), 36)
+
+    def test_pagina_degenere_non_solleva(self) -> None:
+        self.assertEqual(ocr_pdf_mod.dpi_effettivo(0, 0, 200), 200)

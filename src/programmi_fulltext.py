@@ -34,9 +34,15 @@ from harvester import fetch_response, scrape_metas
 
 sys.path.insert(0, str(ROOT))
 from src.ocr_pdf import ocr_pdf, serve_ocr
+# Stessa funzione che usa il layer 3: la lingua si rilegge sul testo buono,
+# non su quello che c'era prima di ripulirlo o di riconoscerlo.
+from src.pulizia_corpus import ricontrolla_lingua
 
 URLS_IN = ROOT / "data" / "raw" / "programmi_viminale_urls.jsonl"
 FULLTEXT_OUT = ROOT / "data" / "raw" / "programmi_fulltext.jsonl"
+# Cache dell'OCR: e' la parte cara del lavoro, e va conservata fra le
+# esecuzioni. Non versionata (data/raw/*.jsonl e' in .gitignore).
+CACHE_OCR = ROOT / "data" / "raw" / "programmi_ocr_cache.jsonl"
 
 # I programmi sono documenti lunghi: sotto questa soglia c'e' un file rotto o una
 # scansione che nemmeno l'OCR ha saputo leggere. La soglia del layer 3 (200) e'
@@ -76,7 +82,21 @@ def rifai_join(records: list[dict], metas: list[dict]) -> list[dict]:
     return uniti
 
 
-def applica_ocr(records: list[dict]) -> list[dict]:
+def leggi_cache(path: Path) -> dict[str, str]:
+    """Testi gia' riconosciuti nelle esecuzioni precedenti, per URL."""
+    if not path.exists():
+        return {}
+    cache = {}
+    with path.open(encoding="utf-8") as handle:
+        for riga in handle:
+            if not riga.strip():
+                continue
+            voce = json.loads(riga)
+            cache[voce["url"]] = voce["text"]
+    return cache
+
+
+def applica_ocr(records: list[dict], cache_path: Path | None = None) -> list[dict]:
     """OCR dei record senza testo nativo.
 
     E' un fallback: i programmi depositati come PDF veri restano come sono, e sono
@@ -85,24 +105,49 @@ def applica_ocr(records: list[dict]) -> list[dict]:
     Ogni record dichiara come e' stato letto nel campo `estrazione`: un testo
     riconosciuto da un'immagine non e' il testo depositato, e chi legge i
     risultati deve poterlo distinguere.
+
+    RIPARTIBILE. Ogni documento riconosciuto va subito in `cache_path`, e un
+    rilancio lo salta. Sono 46 documenti, alcuni da minuti l'uno: senza cache
+    un'interruzione al quarantesimo butta via tutto il lavoro — ed e' successo.
     """
     da_ocr = [r for r in records if serve_ocr(r.get("text", ""))]
     if not da_ocr:
         return records
 
-    print(f"\nOCR di {len(da_ocr)} documenti scansionati (nessun testo nativo)...")
+    cache_path = cache_path or CACHE_OCR
+    cache = leggi_cache(cache_path)
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+
+    print(f"\nOCR di {len(da_ocr)} documenti scansionati (nessun testo nativo)."
+          f" Gia' in cache: {sum(1 for r in da_ocr if r['url'] in cache)}", flush=True)
     for numero, record in enumerate(da_ocr, 1):
         etichetta = (record.get("title") or record["url"].split("/")[-1])[:40]
+
+        if record["url"] in cache:
+            testo = cache[record["url"]]
+            record["text"] = testo
+            record["chars"] = len(testo)
+            record["estrazione"] = "ocr" if testo else "fallita"
+            print(f"  {numero:2d}/{len(da_ocr)}  {etichetta:42s} {len(testo):7,} "
+                  f"caratteri  [cache]", flush=True)
+            continue
+
         response = fetch_response(record["url"], timeout=90)
         if response is None:
             record["estrazione"] = "fallita"
-            print(f"  {numero:2d}/{len(da_ocr)}  {etichetta:42s} non scaricabile")
+            print(f"  {numero:2d}/{len(da_ocr)}  {etichetta:42s} non scaricabile",
+                  flush=True)
             continue
         testo = ocr_pdf(response.content)
         record["text"] = testo
         record["chars"] = len(testo)
         record["estrazione"] = "ocr" if testo else "fallita"
-        print(f"  {numero:2d}/{len(da_ocr)}  {etichetta:42s} {len(testo):7,} caratteri")
+        # Si scrive PRIMA di passare al prossimo: il costo e' gia' stato pagato.
+        with cache_path.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps({"url": record["url"], "text": testo},
+                                    ensure_ascii=False) + "\n")
+        print(f"  {numero:2d}/{len(da_ocr)}  {etichetta:42s} {len(testo):7,} caratteri",
+              flush=True)
 
     # harvester.parse_pdf marca gia' "nativa" i PDF con uno strato di testo e
     # lascia il campo vuoto sulle scansioni. Resta vuoto solo cio' che non e'
@@ -154,6 +199,15 @@ def main() -> int:
                            min_chars=TIENI_TUTTO)
     records = rifai_join(records, metas)
     records = applica_ocr(records)
+
+    # La lingua va riletta DOPO l'OCR. scrape_metas la rileva sul testo che ha in
+    # quel momento, e per una scansione quel testo e' vuoto: senza questo, tutti
+    # i documenti riconosciuti restano "unknown" (misurato: 45 su 60). Conta,
+    # perche' news_topic_model.load_corpus filtra su language == "it" e li
+    # butterebbe tutti.
+    cambiati = ricontrolla_lingua(records)
+    if cambiati:
+        print(f"\nLingua ricalcolata sul testo dopo l'OCR: {cambiati} record aggiornati")
 
     # Il filtro si applica DOPO l'OCR: prima un programma scansionato avrebbe
     # zero caratteri e verrebbe buttato senza che nessuno provi a leggerlo.
