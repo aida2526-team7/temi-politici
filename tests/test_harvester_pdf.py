@@ -25,6 +25,7 @@ if str(REPO_ROOT / "src") not in sys.path:
 import harvester
 
 FIXTURE_PDF = REPO_ROOT / "tests" / "fixtures" / "programma_fixture.pdf"
+SCANSIONE_PDF = REPO_ROOT / "tests" / "fixtures" / "programma_scansione_fixture.pdf"
 
 HTML = """
 <html><head><title>Titolo di prova</title></head><body>
@@ -115,6 +116,40 @@ class NonRegressioneHtmlTest(unittest.TestCase):
         html_record = harvester.parse(HTML, meta)
         pdf_record = harvester.parse_pdf(FIXTURE_PDF.read_bytes(), meta)
         self.assertEqual(sorted(html_record), sorted(pdf_record))
+
+
+class ProvenienzaEstrazioneTest(unittest.TestCase):
+    """Il campo `estrazione` e' l'unico modo per distinguere a valle un articolo
+    dal chrome del sito. Senza, l'NMF modella i template delle testate."""
+
+    def test_pagina_normale_dichiara_trafilatura(self) -> None:
+        record = harvester.parse(HTML, {"url": "u"})
+        self.assertEqual(record["estrazione"], "trafilatura")
+
+    def test_pagina_senza_corpo_dichiara_il_fallback(self) -> None:
+        """Quando trafilatura non restituisce nulla si ripiega sui <p>, e il
+        record lo dichiara.
+
+        Nota: trafilatura e' permissiva. Su una pagina di soli menu NON fallisce,
+        restituisce il menu come se fosse un articolo (verificato su
+        adnkronos.com/internazionale/japanese/*, dove il corpo e' renderizzato in
+        JS: escono 739 caratteri di spalla "in Evidenza" marcati "trafilatura").
+        Il flag serve alla provenienza, non a riconoscere il boilerplate: quello
+        lo fa src/pulizia_corpus.py, a livello di corpus."""
+        vuota = "<html><head><title>Sezione</title></head><body></body></html>"
+        record = harvester.parse(vuota, {"url": "u"})
+        self.assertEqual(record["estrazione"], "fallback_p")
+
+    def test_pdf_con_testo_dichiara_nativa(self) -> None:
+        record = harvester.parse_pdf(FIXTURE_PDF.read_bytes(), {"url": "u"})
+        self.assertEqual(record["estrazione"], "nativa")
+
+    def test_pdf_scansionato_lascia_il_campo_vuoto(self) -> None:
+        """Una scansione non ha testo estraibile: il campo resta vuoto perche' e'
+        programmi_fulltext.py, dopo l'OCR, a dire com'e' andata."""
+        record = harvester.parse_pdf(SCANSIONE_PDF.read_bytes(), {"url": "u"})
+        self.assertEqual(record["text"], "")
+        self.assertEqual(record["estrazione"], "")
 
 
 if __name__ == "__main__":

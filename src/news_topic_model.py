@@ -26,14 +26,78 @@ DEFAULT_INPUT = ROOT / "data" / "raw" / "mediacloud_fulltext.jsonl"
 DEFAULT_OUTPUT_DIR = ROOT / "data" / "processed"
 REQUIRED_COLUMNS = {"url", "domain", "seendate", "title", "text"}
 
-# Piccola lista trasparente: puo' crescere solo con termini non tematici emersi
-# nella revisione, non con parole politiche sostantive.
+# Parole funzione italiane. Lista esplicita e nel repository di proposito: e'
+# verificabile a colpo d'occhio e non aggiunge una dipendenza per 300 stringhe.
+#
+# Perche' e' lunga cosi'. La versione precedente ne aveva 44, scelte a mano, e
+# non conteneva si, ma, da, al, le, dei, dell, nel, alla. Risultato misurato sul
+# primo giro: i topic 1 e 9 — il 62% del corpus — erano fatti esattamente di
+# quelle parole ("si, ma, da, al, le, se, ci, chi, alla" e "dei, le, dell, da,
+# al, si"). Non significano niente e assorbono la maggioranza dei documenti.
+#
+# scikit-learn non ha una lista italiana (`stop_words="italian"` non esiste);
+# questa segue quella di NLTK, con le forme senza accento che servono perche'
+# TfidfVectorizer usa strip_accents="unicode".
+#
+# Regola invariata: qui entrano solo parole funzione e termini non tematici.
+# Nessuna parola politica sostantiva, mai.
 STOPWORDS_IT = {
-    "anche", "ancora", "avere", "come", "con", "contro", "dalla", "dalle", "dello",
-    "della", "delle", "dopo", "essere", "fatto", "fare", "gli", "ha", "hanno",
-    "legge", "nelle", "non", "ogni", "per", "perche", "perché", "piu", "più",
-    "quale", "quello", "questa", "questo", "sara", "sarà", "sono", "sua", "sue",
-    "sul", "sulla", "tutti", "una", "uno", "verso", "oggi", "ieri", "dice", "secondo",
+    # articoli, preposizioni, articoli preposizionati.
+    # ("i", "e", "a" non ci sono: il token_pattern di TfidfVectorizer scarta gia'
+    # i token di un solo carattere.)
+    "il", "lo", "la", "gli", "le", "un", "uno", "una", "del", "dello", "della",
+    "dei", "degli", "delle", "dell", "al", "allo", "alla", "ai", "agli", "alle",
+    "all", "dal", "dallo", "dalla", "dai", "dagli", "dalle", "nel", "nello",
+    "nella", "nei", "negli", "nelle", "sul", "sullo", "sulla", "sui", "sugli",
+    "sulle", "col", "coi", "di", "da", "in", "con", "su", "per", "tra", "fra",
+    # forme elise. normalizza_testo toglie gli apostrofi, quindi "dall'Italia"
+    # diventa il token "dall": senza queste, le preposizioni articolate rientrano
+    # dalla finestra. Misurato: erano fra i primi termini del topic dominante.
+    "dall", "nell", "sull", "quell", "quest", "un", "sant", "grand", "bell",
+    "anch", "com", "ell", "gl",
+    # congiunzioni e comparativi rimasti
+    "ad", "ed", "od", "sia", "siano", "ovvero", "nonche", "eppure", "seppure",
+    # numerali scritti in lettere: normalizza_testo cancella le cifre, non queste,
+    # e un numerale non e' un tema.
+    "due", "tre", "quattro", "cinque", "sei", "sette", "otto", "nove", "dieci",
+    "venti", "trenta", "quaranta", "cinquanta", "cento", "mille", "milioni",
+    "miliardi", "primi", "prime", "secondi", "seconda", "seconde", "terzo",
+    "terza", "terzi", "terze",
+    # pronomi e determinanti
+    "mi", "ti", "ci", "vi", "si", "lui", "lei", "loro", "noi", "voi", "io", "tu",
+    "me", "te", "se", "chi", "che", "cui", "cosa", "quale", "quali", "quanto",
+    "quanti", "quanta", "quante", "questo", "questa", "questi", "queste", "quello",
+    "quella", "quelli", "quelle", "stesso", "stessa", "stessi", "stesse", "altro",
+    "altra", "altri", "altre", "tutto", "tutta", "tutti", "tutte", "ogni", "ognuno",
+    "qualche", "alcuni", "alcune", "nessuno", "nessuna", "molto", "molti", "molte",
+    "poco", "pochi", "poche", "tanto", "tanti", "troppo", "suo", "sua", "suoi",
+    "sue", "mio", "mia", "miei", "mie", "nostro", "nostra", "nostri", "nostre",
+    "vostro", "vostra", "proprio", "propria", "propri", "proprie",
+    # congiunzioni e avverbi
+    "ma", "anche", "ancora", "ora", "poi", "gia", "già", "non", "piu", "più",
+    "meno", "come", "dove", "quando", "perche", "perché", "pero", "però", "quindi",
+    "dunque", "invece", "inoltre", "oltre", "senza", "contro", "verso", "dopo",
+    "prima", "sempre", "mai", "solo", "soltanto", "appena", "circa", "cosi",
+    "così", "bene", "male", "meglio", "peggio", "sopra", "sotto", "dentro",
+    "fuori", "davanti", "dietro", "durante", "mentre", "affinche", "affinché",
+    "nonche", "nonché", "ovvero", "oppure", "anzi", "cioe", "cioè", "infatti",
+    "intanto", "insomma", "almeno", "magari", "forse", "ecco", "proprio",
+    # verbi ausiliari e di servizio (forme piu' frequenti)
+    "essere", "sono", "sei", "siamo", "siete", "era", "erano", "eravamo", "sara",
+    "sarà", "saranno", "sarebbe", "sarebbero", "stato", "stata", "stati", "state",
+    "avere", "ho", "hai", "ha", "abbiamo", "avete", "hanno", "aveva", "avevano",
+    "avra", "avrà", "avranno", "avrebbe", "avrebbero", "avuto", "essendo",
+    "fare", "fa", "fanno", "fatto", "fatta", "fatti", "faceva", "fara", "farà",
+    "puo", "può", "possono", "potrebbe", "potrebbero", "potuto", "deve", "devono",
+    "dovrebbe", "dovuto", "viene", "vengono", "venuto", "andare", "va", "vanno",
+    "dice", "dicono", "detto", "detta", "dire", "vuole", "vogliono", "voluto",
+    "resta", "restano", "rimane", "diventa", "diventano", "trova", "trovano",
+    # marcatori di cronaca non tematici
+    "oggi", "ieri", "domani", "sera", "mattina", "notte", "anno", "anni", "mese",
+    "mesi", "giorno", "giorni", "settimana", "ore", "ora", "volta", "volte",
+    "secondo", "primo", "prima", "ultimo", "ultima", "nuovo", "nuova", "nuovi",
+    "nuove", "grande", "grandi", "parte", "parti", "caso", "casi", "punto",
+    "modo", "cosa", "cose", "via", "senso", "fine", "inizio", "corso",
 }
 
 
@@ -46,6 +110,9 @@ def parse_args():
     parser.add_argument("--max-df", type=float, default=0.85, help="document frequency massima TF-IDF")
     parser.add_argument("--min-text-chars", type=int, default=300, help="lunghezza minima del testo pulito")
     parser.add_argument("--random-state", type=int, default=42, help="seed riproducibile")
+    parser.add_argument("--senza-pulizia", action="store_true",
+                        help="salta la rimozione di boilerplate e duplicati "
+                             "(serve solo a riprodurre il primo giro, non a lavorare)")
     return parser.parse_args()
 
 
@@ -56,7 +123,14 @@ def normalizza_testo(value):
     return re.sub(r"\s+", " ", value).strip()
 
 
-def load_corpus(path, min_text_chars):
+def load_corpus(path, min_text_chars, pulizia=True):
+    """Corpus pronto per il modello. Ritorna (corpus, report_pulizia).
+
+    L'ordine conta: la pulizia del boilerplate viene PRIMA del filtro di lingua e
+    prima della soglia sui caratteri. Se si filtra per lingua sul testo sporco,
+    40 articoli con titolo in caratteri non latini passano come italiani perche'
+    il menu attorno a loro e' italiano — e' quello che e' successo al primo giro.
+    """
     if not path.is_file():
         raise FileNotFoundError(
             f"Input non trovato: {path}\n"
@@ -69,6 +143,20 @@ def load_corpus(path, min_text_chars):
         raise ValueError(f"Campi mancanti nel JSONL: {sorted(missing)}")
 
     corpus = raw.drop_duplicates(subset="url").copy()
+    corpus["title"] = corpus["title"].fillna("")
+    corpus["text"] = corpus["text"].fillna("")
+
+    report = {}
+    if pulizia:
+        # Toglie i template delle testate, i duplicati che la dedup per URL non
+        # vede e ricalcola la lingua sul testo pulito. Vedi src/pulizia_corpus.py.
+        from pulizia_corpus import pulisci
+        records = corpus.to_dict("records")
+        records, report = pulisci(records, min_chars=min_text_chars)
+        if not records:
+            raise ValueError("La pulizia non ha lasciato nessun documento: rivedere le soglie.")
+        corpus = pd.DataFrame(records)
+
     if "language" in corpus.columns:
         corpus = corpus[corpus["language"].fillna("it").eq("it")].copy()
     else:
@@ -76,13 +164,11 @@ def load_corpus(path, min_text_chars):
     if "chars" not in corpus.columns:
         corpus["chars"] = corpus["text"].fillna("").str.len()
 
-    corpus["title"] = corpus["title"].fillna("")
-    corpus["text"] = corpus["text"].fillna("")
     corpus["testo_modello"] = (corpus["title"] + " " + corpus["text"]).map(normalizza_testo)
     corpus = corpus[corpus["testo_modello"].str.len() >= min_text_chars].copy()
     if len(corpus) < 10:
         raise ValueError("Corpus insufficiente: servono almeno 10 articoli con testo valido.")
-    return corpus
+    return corpus, report
 
 
 def build_topics(corpus, requested_topics, min_df, max_df, random_state):
@@ -153,7 +239,8 @@ def main():
     args = parse_args()
     if args.n_topics < 2:
         raise ValueError("--n-topics deve essere almeno 2")
-    corpus = load_corpus(args.input, args.min_text_chars)
+    corpus, report_pulizia = load_corpus(args.input, args.min_text_chars,
+                                         pulizia=not args.senza_pulizia)
     model, weights, features, shape, n_topics, effective_min_df = build_topics(
         corpus, args.n_topics, args.min_df, args.max_df, args.random_state
     )
@@ -167,6 +254,10 @@ def main():
         "min_df": effective_min_df,
         "max_df": args.max_df,
         "random_state": args.random_state,
+        # Cosa e' stato tolto prima di modellare: senza, i topic non sono
+        # confrontabili fra un giro e l'altro.
+        "pulizia": report_pulizia,
+        "stopwords": len(STOPWORDS_IT),
     }
     review_path, terms_path, metadata_path, terms = export_results(
         corpus, model, weights, features, args.output_dir, metadata

@@ -104,8 +104,12 @@ def applica_ocr(records: list[dict]) -> list[dict]:
         record["estrazione"] = "ocr" if testo else "fallita"
         print(f"  {numero:2d}/{len(da_ocr)}  {etichetta:42s} {len(testo):7,} caratteri")
 
+    # harvester.parse_pdf marca gia' "nativa" i PDF con uno strato di testo e
+    # lascia il campo vuoto sulle scansioni. Resta vuoto solo cio' che non e'
+    # passato di qui: nessun testo leggibile, in nessun modo.
     for record in records:
-        record.setdefault("estrazione", "nativa")
+        if not record.get("estrazione"):
+            record["estrazione"] = "fallita"
     return records
 
 
