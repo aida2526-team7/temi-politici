@@ -236,7 +236,8 @@ def scrivi_csv(path: Path, righe: list[dict], colonne: list[str] | None = None) 
 
 def tabella_confronto(l1: dict, l2: dict, l3: dict) -> list[dict]:
     righe = []
-    for tema in list(mo.MACROTEMI) + [mo.NON_ASSEGNATO, mo.BOILERPLATE]:
+    servizio = [mo.POLITICA_NON_TEMATICA, mo.NON_ASSEGNATO, mo.BOILERPLATE]
+    for tema in list(mo.MACROTEMI) + servizio:
         a, b, c = l1.get(tema, 0.0), l2.get(tema, 0.0), l3.get(tema, 0.0)
         if a == b == c == 0.0:
             continue
@@ -312,10 +313,16 @@ def main() -> int:
             for p in (PROGRAMMI_IN, CAMERA_IN, _scorri_layer3()[1], DISTRIBUZIONE_IN)
         ],
         "copertura_pct_assegnati": {
-            "layer1": round(100.0 - q1.get(mo.NON_ASSEGNATO, 0.0), 2),
-            "layer2": round(100.0 - q2.get(mo.NON_ASSEGNATO, 0.0), 2),
-            "layer3": round(100.0 - q3.get(mo.NON_ASSEGNATO, 0.0)
-                            - q3.get(mo.BOILERPLATE, 0.0), 2),
+            layer: round(sum(v for k, v in q.items() if isinstance(k, int)), 2)
+            for layer, q in (("layer1", q1), ("layer2", q2), ("layer3", q3))
+        },
+        # Quanto ogni layer parla di politica come processo invece che di policy.
+        # Sul layer 3 è l'indice di game frame; sui layer 1 e 2 è la linea di base
+        # dal lato dei politici, che quando fanno hanno sempre un oggetto.
+        "politica_non_tematica_pct": {
+            "layer1": round(q1.get(mo.POLITICA_NON_TEMATICA, 0.0), 2),
+            "layer2": round(q2.get(mo.POLITICA_NON_TEMATICA, 0.0), 2),
+            "layer3": round(q3.get(mo.POLITICA_NON_TEMATICA, 0.0), 2),
         },
         "divergenza_variazione_totale_pp": divergenze,
         "sottotemi": sottotemi,
@@ -334,6 +341,9 @@ def main() -> int:
     print("\nDivergenza fra layer (variazione totale, punti percentuali):")
     for coppia, valore in divergenze.items():
         print(f"  {coppia}: {valore:5.1f}")
+    print("\nPolitica come processo invece che come policy:")
+    for layer, valore in manifest["politica_non_tematica_pct"].items():
+        print(f"  {layer}: {valore:5.1f}%")
     print("\nSottotemi (quota del proprio macrotema padre):")
     for figlio, valori in sottotemi.items():
         print(f"  {figlio} {mo.etichetta(figlio)}: L1 "

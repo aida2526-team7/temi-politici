@@ -86,6 +86,9 @@ Non sono temi politici e restano separate, altrimenti inquinano ogni conteggio:
   `src/pulizia_corpus.py` prima del modello; la categoria resta per i residui.
 - **`politica non tematica`** — cronaca politica senza policy: nomine,
   dichiarazioni di posizionamento, sondaggi, retroscena. È politica, non è un tema.
+  Misurata: vale il **10,35% della stampa** contro lo 0,55% dei programmi e lo
+  0,52% dei progetti di legge. Lo scarto fra i layer è il dato, non la quota da
+  sola — vedi `reports/ontologia_mapping/mappatura.md`.
 - **`non politico`** — cronaca nera, risultati sportivi, gossip finiti nel corpus
   per omonimia. La riga di confine con i temi 14 e 15 è la policy: il finanziamento
   di un teatro è 14, la recensione dello spettacolo no; la legge sugli impianti

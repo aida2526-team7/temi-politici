@@ -133,6 +133,40 @@ class TestSottotemi(unittest.TestCase):
         self.assertIsNone(mo.sottotema("buongiorno", mo.NON_ASSEGNATO))
 
 
+class TestPoliticaNonTematica(unittest.TestCase):
+    """Politica come processo invece che come policy.
+
+    La regola che conta e' che questa categoria *concorra* coi macrotemi invece di
+    filtrare prima di loro: quasi ogni articolo su una policy nomina anche il
+    gioco, e un filtro a monte svuoterebbe la tassonomia.
+    """
+
+    def test_riconosce_il_processo_puro(self):
+        testo = "Rimpasto di governo, sondaggi in calo per la coalizione: il retroscena"
+        self.assertEqual(mo.classifica(testo)[0], mo.POLITICA_NON_TEMATICA)
+
+    def test_riconosce_la_gara_elettorale(self):
+        testo = "Primarie del PD, testa a testa fra i due candidati"
+        self.assertEqual(mo.classifica(testo)[0], mo.POLITICA_NON_TEMATICA)
+
+    def test_una_policy_vince_sul_processo(self):
+        testo = "Il governo presenta la manovra: tagli all'Irpef e nuove accise"
+        self.assertEqual(mo.classifica(testo)[0], 4)
+
+    def test_una_policy_vince_anche_se_il_gioco_e_nominato(self):
+        testo = ("Vertice di maggioranza sulla riforma della sanita': piu' fondi "
+                 "contro le liste di attesa negli ospedali")
+        self.assertEqual(mo.classifica(testo)[0], 7)
+
+    def test_i_termini_generici_non_bastano(self):
+        """"governo", "ministro", "partito" stanno in ogni articolo politico."""
+        testo = "Il ministro del governo ha parlato a nome del partito."
+        self.assertNotEqual(mo.classifica(testo)[0], mo.POLITICA_NON_TEMATICA)
+
+    def test_un_testo_senza_politica_non_prende_punteggio_di_processo(self):
+        self.assertEqual(mo.punteggio_processo("liste di attesa negli ospedali"), 0)
+
+
 class TestBoilerplate(unittest.TestCase):
     def test_riconosce_le_formule_editoriali(self):
         self.assertGreater(mo.quota_boilerplate("Riproduzione riservata © Copyright ANSA"), 0)
