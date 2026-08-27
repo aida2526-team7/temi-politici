@@ -52,6 +52,7 @@ SOTTOTEMI: dict[str, str] = {
 # Categorie di servizio, fuori tassonomia (ontologia, sezione omonima).
 NON_ASSEGNATO = "non assegnato"
 BOILERPLATE = "boilerplate"
+POLITICA_NON_TEMATICA = "politica non tematica"
 
 # Ogni voce è un pattern già in forma "senza accenti e minuscolo": il testo viene
 # normalizzato allo stesso modo prima del confronto, così "sanità" e "sanita"
@@ -201,6 +202,35 @@ LESSICO_SOTTOTEMI: dict[str, tuple[str, ...]] = {
     ),
 }
 
+# Politica come processo invece che come policy: nomine, candidature, sondaggi,
+# retroscena, chi sale e chi scende. L'ontologia la tiene fuori tassonomia — è
+# politica, non è un tema — ed è il terzo dei tre topic NMF più grandi del corpus
+# pulito (`meloni, premier, palazzo chigi`; `sindaco, candidato, coalizione`).
+#
+# Il lessico è deliberatamente **specifico del processo**. "governo", "ministro",
+# "partito" e "opposizione" restano fuori: compaiono in ogni articolo politico,
+# anche in quelli che parlano di una policy, e includerli farebbe vincere questa
+# categoria su tutto il resto.
+LESSICO_POLITICA_NON_TEMATICA: tuple[str, ...] = (
+    # chi entra e chi esce
+    r"\brimpast\w*", r"\bnomin\w*", r"sottosegretari\w*", r"\bincarico\b",
+    r"crisi di governo", r"\bdimission\w*", r"voto di fiducia", r"questione di fiducia",
+    r"\bstaffett\w*", r"\bpoltron\w*",
+    # la gara
+    r"\bsondagg\w*", r"intenzioni di voto", r"exit poll", r"\bballottagg\w*",
+    r"testa a testa", r"\bsorpass\w*", r"\brimont\w*", r"\bcandidatur\w*",
+    r"\bcandidat\w*", r"\bprimarie\b", r"\bcongresso\b", r"\bcorrent\w* interne?\b",
+    r"campagna elettoral\w*", r"\bcomizio\b", r"\bendorsement\b",
+    r"\bcoalizion\w*", r"\balleanza elettoral\w*", r"\blista civica\b",
+    # il retroscena
+    r"\bretroscen\w*", r"\bindiscrezion\w*", r"fonti parlamentar\w*",
+    r"\bmalumor\w*", r"\bfibrillazion\w*", r"vertice di maggioranza",
+    r"\bpalazzo chigi\b", r"\bnazareno\b", r"\btransatlantico\b",
+    # la schermaglia
+    r"botta e risposta", r"\bpolemic\w*", r"\bbagarre\b", r"\baffond\w*",
+    r"\bsiluro\b", r"\bduello\b", r"attacca il\b", r"\breplica a\b",
+)
+
 # Residui di struttura editoriale: l'ontologia li tiene fuori tassonomia perché
 # altrimenti inquinano ogni conteggio. Sono i pattern che l'audit NMF ha trovato
 # come topic interi (`reports/topic_audit/audit_report.md`).
@@ -233,6 +263,7 @@ _COMPILATI: dict[int, list[re.Pattern[str]]] = {
 }
 _COMPILATI_BOILERPLATE = [re.compile(p) for p in LESSICO_BOILERPLATE]
 _COMPILATI_ESCLUSIONI = [re.compile(p) for p in ESCLUSIONI]
+_COMPILATI_PNT = [re.compile(p) for p in LESSICO_POLITICA_NON_TEMATICA]
 _COMPILATI_SOTTOTEMI: dict[str, list[re.Pattern[str]]] = {
     figlio: [re.compile(p) for p in pattern]
     for figlio, pattern in LESSICO_SOTTOTEMI.items()
@@ -269,6 +300,12 @@ def quota_boilerplate(testo: str) -> int:
     return sum(len(rx.findall(norm)) for rx in _COMPILATI_BOILERPLATE)
 
 
+def punteggio_processo(testo: str) -> int:
+    """Occorrenze del lessico della politica come processo."""
+    norm = normalizza(testo)
+    return sum(len(rx.findall(norm)) for rx in _COMPILATI_PNT)
+
+
 def classifica(testo: str, min_punteggio: int = 1) -> tuple[int | str, float]:
     """Il macrotema dominante e quanto domina.
 
@@ -278,12 +315,20 @@ def classifica(testo: str, min_punteggio: int = 1) -> tuple[int | str, float]:
 
     Sotto `min_punteggio` esce `non assegnato`: preferisco un buco dichiarato a
     un'etichetta inventata.
+
+    `politica non tematica` concorre come i macrotemi, non filtra prima di loro:
+    un pezzo sulla manovra che cita anche il vertice di maggioranza parla di
+    manovra. A parità di punteggio vince il macrotema, perché la parità dice che
+    il testo una policy ce l'ha.
     """
     score = punteggi(testo)
-    totale = sum(score.values())
+    processo = punteggio_processo(testo)
+    totale = sum(score.values()) + processo
     if totale < min_punteggio:
         return NON_ASSEGNATO, 0.0
     tema, punti = max(score.items(), key=lambda kv: (kv[1], -kv[0]))
+    if processo > punti:
+        return POLITICA_NON_TEMATICA, processo / totale
     return tema, punti / totale
 
 

@@ -168,6 +168,15 @@ il confronto si fa su quote, mai su conteggi. Il layer 3 usa il corpus completo 
 è presente in locale, altrimenti ricade sul campione stratificato e lo ripesa
 sulle prevalenze reali; la modalità usata finisce nel manifest.
 
+Oltre ai 15 temi il lessico riconosce `politica non tematica` — la politica
+raccontata come processo invece che come policy: nomine, sondaggi, candidature,
+retroscena. Vale il **10,35% della stampa** contro lo 0,55% dei programmi e lo
+0,52% dei progetti di legge. La linea di base vicina allo zero sui due layer
+politici è ciò che rende leggibile il numero della stampa: quando i partiti
+promettono e la Camera legifera hanno quasi sempre un oggetto, quindi il 10,35% è
+una scelta di inquadramento del racconto, non un riflesso di come si comporta chi
+fa politica.
+
 Risultati, divergenze fra layer e limiti in `reports/ontologia_mapping/mappatura.md`.
 
 ## Ambiente e dipendenze
