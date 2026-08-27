@@ -143,6 +143,33 @@ non è recuperabile, quindi il dataset si costruisce nel tempo eseguendo l'inges
 ogni mese. È un dataset che cresce in avanti, non una serie retrospettiva.
 Dettagli e limiti in `docs/data_provenance.md`.
 
+### Mappatura sull'ontologia — i tre layer sui 15 macrotemi
+
+Il passaggio che mette i tre corpus sulla stessa scala. Fino a qui ogni layer
+aveva la propria nomenclatura e i 15 macrotemi esistevano solo sulla carta.
+
+```bash
+python scripts/run_mappa_ontologia.py
+```
+
+`src/mappa_ontologia.py` assegna il macrotema con un **lessico deterministico**:
+350 pattern sui 15 temi, punteggio per occorrenze, vince il più alto. Chi non
+pesca in nessun lessico esce `non assegnato` invece di essere forzato nel tema più
+vicino — la copertura è la misura di qualità del metodo, e un'etichetta inventata
+la falserebbe verso l'alto.
+
+Un secondo modello non supervisionato è stato scartato di proposito: l'ontologia è
+congelata dall'alto perché un topic model non restituisce categorie politiche, e
+mapparci sopra con un altro modello riporterebbe lo stesso problema un livello più
+su.
+
+Le tre unità di misura sono quelle del contratto — paragrafo, atto, articolo — e
+il confronto si fa su quote, mai su conteggi. Il layer 3 usa il corpus completo se
+è presente in locale, altrimenti ricade sul campione stratificato e lo ripesa
+sulle prevalenze reali; la modalità usata finisce nel manifest.
+
+Risultati, divergenze fra layer e limiti in `reports/ontologia_mapping/mappatura.md`.
+
 ## Ambiente e dipendenze
 
 Da una shell aperta nella root del repository:
@@ -189,6 +216,12 @@ Sondaggi — salienza dei temi Ipsos (da eseguire ogni mese, il dataset si accum
 
 ```bash
 python scripts/run_sondaggi_ipsos.py
+```
+
+Mappatura dei tre layer sui 15 macrotemi dell'ontologia:
+
+```bash
+python scripts/run_mappa_ontologia.py
 ```
 
 Campione riproducibile per lo human check:
@@ -242,6 +275,8 @@ Il checkpoint include soltanto output piccoli e verificabili:
 
 - `data/processed/mediacloud_coverage.csv`: copertura aggregata per partito;
 - `reports/topic_audit/`: audit, tabelle e manifest con hash;
+- `reports/ontologia_mapping/`: le tre distribuzioni sui 15 macrotemi, le
+  divergenze fra layer e il manifest con gli hash degli input;
 - `reports/topic_human_review/`: campione di 27 record, riepilogo, guida e
   manifest;
 - `annotations/topic_human_review/`: template separati per R1 e R2;
@@ -271,7 +306,7 @@ editoriali esterne.
 ## Provenienza e riproducibilità
 
 - `docs/ontologia_tematica.md`: la tassonomia dei macrotemi, **congelata alla
-  v1.0**. È il contratto fra i tre layer: definisce i 13 macrotemi, l'unità di
+  v2.0**. È il contratto fra i tre layer: definisce i 15 macrotemi, l'unità di
   misura di ciascun layer (paragrafo, atto, articolo) e le quattro decisioni
   prese con la conseguenza che ognuna comporta;
 - `docs/data_provenance.md`: origine, trasformazioni e limiti dei dati;
@@ -307,7 +342,7 @@ I log restano locali e sono ignorati da Git.
 
 ## Condividere l'input del classificatore
 
-`data/processed/news_topic_review.csv` pesa 98 MB, è in `.gitignore` e sta su una
+`data/processed/news_topic_review.csv` pesa 92 MB, è in `.gitignore` e sta su una
 macchina sola: chi clona il repository non può rieseguire né l'audit né il
 campionamento. Sulla macchina che ha il file completo:
 
@@ -315,17 +350,24 @@ campionamento. Sulla macchina che ha il file completo:
 python scripts/prepara_review_condivisibile.py
 ```
 
-Produce un campione stratificato per topic — 81 MB diventano 2.0 MB, il 2.5% —
+Produce un campione stratificato per topic — 92,3 MB diventano 3,2 MB, il 3,4% —
 pensato per essere versionato, più un manifest con gli hash. Non stima le
 prevalenze: per quelle resta `reports/topic_audit/topic_distribution.csv`.
+
+Il campione versionato è quello del corpus **pulito**: chi clona ha in mano gli
+stessi topic della macchina che ha il file intero.
 
 ## Stato delle milestone
 
 - Milestone 1R: audit NMF riproducibile approvato;
 - Milestone 2: campione deterministico per human review approvato;
 - Milestone 2A: protocollo tecnico R1/R2 approvato;
-- calibrazione umana: sospesa fino al checkpoint Git condivisibile;
-- Milestone 3: non iniziata.
+- calibrazione umana: **sbloccata**. Era sospesa in attesa di un checkpoint Git
+  condivisibile; il campione del corpus pulito pesa 3,2 MB ed è versionato. Resta
+  da ripuntare il protocollo R1/R2 dai topic NMF ai 15 macrotemi;
+- Milestone 3: ontologia v2.0 congelata e tre layer mappati su di essa
+  (`reports/ontologia_mapping/`). Il lessico non è ancora validato contro codifica
+  umana, e l'indice di coerenza programmatica H1 non è calcolato.
 
 ## Compliance
 

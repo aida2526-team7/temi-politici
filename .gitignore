@@ -42,3 +42,10 @@ data/processed/topic_model_metadata.json
 # la revisione di compliance; per ora restano fuori da Git.
 data/processed/sondaggi_salienza_temi.csv
 .drive-export-dir
+
+# Export scaricati da Drive: archivi transitori, si rigenerano dalla fonte.
+DATI-*.zip
+
+# Finanziamenti ai partiti: dato grezzo di un layer che l'ontologia non copre
+# ancora. Fuori da Git finche' non c'e' una decisione su come entra nel piano.
+data/raw/finanziamenti_partiti.*

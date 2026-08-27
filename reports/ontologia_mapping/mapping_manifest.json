@@ -1,0 +1,46 @@
+{
+  "generato_utc": "2026-08-27T08:22:31.243604+00:00",
+  "ontologia": "docs/ontologia_tematica.md v2.0 (congelata 2026-08-27)",
+  "metodo": "lessicale deterministico, src/mappa_ontologia.py",
+  "min_chars_paragrafo": 200,
+  "layer3_sorgente": "completo",
+  "input": [
+    {
+      "path": "data/raw/programmi_fulltext.jsonl",
+      "sha256": "1a27aff3fb82658d3d65abcc6083e4bd47d7807cf22115ac3035379c3f6ca732",
+      "byte": 2001697
+    },
+    {
+      "path": "data/raw/camera_ddl.jsonl",
+      "sha256": "2dcffc4c1f30e1ea846b67947c11eb18e2f07cfd5d71e27088180e5cbc7957bd",
+      "byte": 4719523
+    },
+    {
+      "path": "data/processed/news_topic_review.csv",
+      "sha256": "c332c64a29cdb3968ebf7bff7ae2bfd539a3045ab11a64923be894a34293e4ca",
+      "byte": 92276804
+    },
+    {
+      "path": "reports/topic_audit/topic_distribution.csv",
+      "sha256": "f770cb99e8e64143e77196e1c6fdaf10ce9bd570e47521a7715644dfb24389cc",
+      "byte": 2139
+    }
+  ],
+  "copertura_pct_assegnati": {
+    "layer1": 83.79,
+    "layer2": 72.64,
+    "layer3": 75.01
+  },
+  "divergenza_variazione_totale_pp": {
+    "layer1_vs_layer2": 20.1,
+    "layer2_vs_layer3": 25.83,
+    "layer1_vs_layer3": 31.84
+  },
+  "sottotemi": {
+    "9.1": {
+      "layer1_su_padre_pct": 18.98,
+      "layer2_su_padre_pct": 41.34
+    }
+  },
+  "avvertenza": "Le quote sono confrontabili fra layer solo come quote: le tre unità di misura (paragrafo, atto, articolo) hanno dimensioni di ordini di grandezza diversi. Il lessico non è validato contro codifica umana."
+}
