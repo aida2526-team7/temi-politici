@@ -48,6 +48,12 @@ except ImportError:
     mediacloud = None
 
 # --- configuration --------------------------------------------------------
+# .env FIRST, then the key. The other way round (which is how this file used to
+# read) the key is looked up before the file is loaded, so it is always None and
+# the .env support documented in the README never actually works: it only works
+# when the variable is exported in the shell.
+HERE = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(os.path.dirname(HERE), ".env"))  # local key only; .env is ignored by Git
 MC_API_KEY = os.environ.get("MC_API_KEY")     # see SETUP in the docstring
 
 # Id of the "Italy - National" collection. None -> the script looks it up and prints it.
@@ -89,9 +95,7 @@ MAX_STORIES = None
 # PURE-sport domains to exclude (do not confuse with gazzettadelsud/diparma, generalist).
 BLOCK_DOMAINS = {"gazzetta.it", "corrieredellosport.it", "tuttosport.com"}
 
-HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(os.path.dirname(HERE), "data")   # repo/data (this script lives in repo/src)
-load_dotenv(os.path.join(os.path.dirname(HERE), ".env"))  # local key only; .env is ignored by Git
 URLS_OUT = os.path.join(DATA, "raw", "mediacloud_urls.jsonl")
 # -------------------------------------------------------------------------
 
