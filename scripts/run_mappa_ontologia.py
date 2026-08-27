@@ -40,6 +40,7 @@ import mappa_ontologia as mo  # noqa: E402
 
 CAMERA_IN = ROOT / "data/raw/camera_ddl.jsonl"
 PROGRAMMI_IN = ROOT / "data/raw/programmi_fulltext.jsonl"
+INTEGRAZIONE_IN = ROOT / "data/raw/programmi_integrazione.jsonl"
 REVIEW_IN = ROOT / "data/processed/news_topic_review.csv"
 CAMPIONE_IN = ROOT / "data/processed/news_topic_review_campione.csv"
 DISTRIBUZIONE_IN = ROOT / "reports/topic_audit/topic_distribution.csv"
@@ -118,8 +119,36 @@ def paragrafi(testo: str) -> list[str]:
     return [p.strip() for p in grezzi if len(p.strip()) >= MIN_CHARS_PARAGRAFO]
 
 
+def sorgenti_layer1() -> tuple[list[dict], list[dict]]:
+    """I programmi da misurare, e le coppie su cui si può fare il controllo.
+
+    Due fonti per lo stesso layer: il deposito al Viminale (atto formale, legge
+    165/2017) e il programma preso dal sito di partito o da Wayback (materiale di
+    campagna). Non sono la stessa unità di misura, quindi non si sommano.
+
+    Per ogni lista si tiene **una** fonte, e dove il deposito è troppo corto per
+    stimare una distribuzione su 15 temi si preferisce l'integrazione. Le liste
+    presenti in entrambe restano appaiate a parte: la distanza fra le loro due
+    distribuzioni è la misura di quanto le due unità divergano davvero, ed è
+    l'unico controllo empirico che abbiamo su questa scelta.
+    """
+    viminale = leggi_jsonl(PROGRAMMI_IN)
+    integrazione = leggi_jsonl(INTEGRAZIONE_IN) if INTEGRAZIONE_IN.exists() else []
+    for record in viminale:
+        record.setdefault("fonte", "viminale")
+
+    per_lista = {(r["partito_lista"], r["consultazione"]): r for r in viminale}
+    coppie = []
+    for record in integrazione:
+        chiave = (record["partito_lista"], record["consultazione"])
+        if chiave in per_lista:
+            coppie.append({"viminale": per_lista[chiave], "integrazione": record})
+        per_lista[chiave] = record
+    return list(per_lista.values()), coppie
+
+
 def mappa_layer1() -> tuple[Counter, list[dict], Counter]:
-    programmi = leggi_jsonl(PROGRAMMI_IN)
+    programmi, _ = sorgenti_layer1()
     conteggi: Counter = Counter()
     sotto: Counter = Counter()
     righe = []
@@ -137,6 +166,8 @@ def mappa_layer1() -> tuple[Counter, list[dict], Counter]:
             righe.append({
                 "partito_lista": prog.get("partito_lista", ""),
                 "consultazione": prog.get("consultazione", ""),
+                "gruppo_camera": prog.get("gruppo_camera", ""),
+                "fonte": prog.get("fonte", "viminale"),
                 "estrazione": prog.get("estrazione", ""),
                 "paragrafi": len(blocchi),
                 **{str(k): round(v, 2) for k, v in quote(locale).items()},
@@ -223,6 +254,72 @@ def mappa_layer3() -> tuple[Counter, Counter, list[dict], str]:
 
 # --------------------------------------------------------------------------- #
 
+def distribuzione_testo(testo: str) -> dict:
+    """Quote sui 15 macrotemi di un singolo documento, per paragrafo."""
+    conteggi: Counter = Counter()
+    for blocco in paragrafi(testo):
+        tema, _ = mo.classifica(blocco)
+        conteggi[tema] += 1
+    return {k: v for k, v in quote(conteggi).items() if isinstance(k, int)}
+
+
+def controllo_fonti(coppie: list[dict]) -> list[dict]:
+    """Quanto divergono le due fonti del layer 1 sulla stessa lista.
+
+    Se il deposito al Viminale e il programma dal sito raccontano la stessa
+    distribuzione, sostituire l'uno con l'altro non cambia la misura. Se divergono,
+    il valore qui e' il margine di errore che l'integrazione introduce, e va
+    riportato accanto a H1.
+    """
+    righe = []
+    for coppia in coppie:
+        vim, integ = coppia["viminale"], coppia["integrazione"]
+        d_vim = distribuzione_testo(vim.get("text", ""))
+        d_int = distribuzione_testo(integ.get("text", ""))
+        righe.append({
+            "partito_lista": vim["partito_lista"],
+            "paragrafi_viminale": len(paragrafi(vim.get("text", ""))),
+            "paragrafi_integrazione": len(paragrafi(integ.get("text", ""))),
+            "divergenza_fra_fonti_pp": round(divergenza_l1(d_vim, d_int), 2),
+        })
+    return righe
+
+
+def indice_h1(righe_l1: list[dict], per_gruppo: list[dict],
+              min_unita: int = 100) -> list[dict]:
+    """H1: distanza fra la distribuzione dei programmi e quella dei progetti di legge.
+
+    Sotto `min_unita` su uno dei due lati il valore esce ma marcato inaffidabile:
+    una distribuzione su 15 categorie stimata da 13 paragrafi non e' una misura, e
+    H1 e' una distanza, quindi l'errore si somma su entrambi i lati.
+    """
+    temi = [str(t) for t in mo.MACROTEMI]
+    gruppi = {r["gruppo"]: r for r in per_gruppo}
+    righe = []
+    for prog in righe_l1:
+        gruppo = gruppi.get(prog.get("gruppo_camera", ""))
+        if not gruppo:
+            continue
+        atti = sum(int(gruppo.get(t) or 0) for t in temi)
+        if not atti:
+            continue
+        d_prog = {t: float(prog.get(t) or 0) for t in temi}
+        somma = sum(d_prog.values())
+        d_prog = {t: 100 * v / somma for t, v in d_prog.items()} if somma else {}
+        d_atti = {t: 100 * int(gruppo.get(t) or 0) / atti for t in temi}
+        n_par = int(prog["paragrafi"])
+        righe.append({
+            "partito_lista": prog["partito_lista"],
+            "gruppo_camera": prog["gruppo_camera"],
+            "fonte_programma": prog.get("fonte", "viminale"),
+            "paragrafi": n_par,
+            "atti": atti,
+            "h1_variazione_totale_pp": round(divergenza_l1(d_prog, d_atti), 2),
+            "affidabile": "si" if n_par >= min_unita and atti >= min_unita else "no",
+        })
+    return sorted(righe, key=lambda r: r["h1_variazione_totale_pp"])
+
+
 def scrivi_csv(path: Path, righe: list[dict], colonne: list[str] | None = None) -> None:
     import csv
     if not righe:
@@ -272,6 +369,16 @@ def main() -> int:
                 "quota_dominante_pct", "boilerplate_pct", "non_assegnato_pct"])
     scrivi_csv(OUT_DIR / "layer1_per_programma.csv", per_programma)
     scrivi_csv(OUT_DIR / "layer2_per_gruppo.csv", per_gruppo)
+
+    _, coppie = sorgenti_layer1()
+    controllo = controllo_fonti(coppie)
+    scrivi_csv(OUT_DIR / "layer1_controllo_fonti.csv", controllo,
+               ["partito_lista", "paragrafi_viminale", "paragrafi_integrazione",
+                "divergenza_fra_fonti_pp"])
+    h1 = indice_h1(per_programma, per_gruppo)
+    scrivi_csv(OUT_DIR / "indice_h1.csv", h1,
+               ["partito_lista", "gruppo_camera", "fonte_programma", "paragrafi",
+                "atti", "h1_variazione_totale_pp", "affidabile"])
 
     # Le distribuzioni su cui si misura la divergenza escludono le categorie di
     # servizio: confrontare il boilerplate di un layer col welfare di un altro non
@@ -344,6 +451,18 @@ def main() -> int:
     print("\nPolitica come processo invece che come policy:")
     for layer, valore in manifest["politica_non_tematica_pct"].items():
         print(f"  {layer}: {valore:5.1f}%")
+    if controllo:
+        print("\nControllo: divergenza fra deposito Viminale e programma dal sito")
+        for riga in controllo:
+            print(f"  {riga['partito_lista'][:38]:40s} {riga['paragrafi_viminale']:5d} vs "
+                  f"{riga['paragrafi_integrazione']:5d} paragrafi  "
+                  f"{riga['divergenza_fra_fonti_pp']:5.1f} pp")
+    if h1:
+        print("\nH1 - coerenza fra programma e progetti di legge:")
+        for riga in h1:
+            marca = " " if riga["affidabile"] == "si" else "  (n basso)"
+            print(f"  {riga['partito_lista'][:34]:36s} {riga['paragrafi']:5d} par "
+                  f"{riga['atti']:5d} atti  H1 {riga['h1_variazione_totale_pp']:5.1f}{marca}")
     print("\nSottotemi (quota del proprio macrotema padre):")
     for figlio, valori in sottotemi.items():
         print(f"  {figlio} {mo.etichetta(figlio)}: L1 "

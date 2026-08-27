@@ -9,7 +9,7 @@ articolo vale uno.
 
 ## Quanto la politica parla di sé
 
-**Layer 1: 0,55%. Layer 2: 0,52%. Layer 3: 10,35%.**
+**Layer 1: 0,46%. Layer 2: 0,52%. Layer 3: 10,35%.**
 
 È la quota di ciascun corpus che finisce in `politica non tematica`: nomine,
 rimpasti, sondaggi, candidature, retroscena, chi sale e chi scende. Politica come
@@ -40,27 +40,27 @@ Quote entro il corpus di ciascun layer, come impone l'ontologia.
 
 | # | Macrotema | L1 programmi | L2 DDL | L3 stampa |
 |---|---|---|---|---|
-| 1 | Politica estera e difesa | 6,18% | 3,12% | **14,50%** |
-| 2 | Unione europea | 2,60% | 1,59% | 4,05% |
-| 3 | Istituzioni e assetto dello Stato | 7,22% | 9,57% | 11,01% |
-| 4 | Economia e finanza pubblica | 9,53% | 7,84% | 2,96% |
-| 5 | Lavoro e imprese | **18,32%** | 9,15% | 8,19% |
-| 6 | Welfare e pensioni | 3,06% | 2,48% | 0,75% |
-| 7 | Sanità | 4,59% | 7,43% | 4,25% |
-| 8 | Istruzione e ricerca | 7,26% | 4,97% | 3,30% |
-| 9 | Ambiente ed energia | 9,60% | 5,64% | 2,98% |
-| 10 | Immigrazione e cittadinanza | 2,28% | 1,65% | 1,87% |
-| 11 | Sicurezza e criminalità | 2,77% | **7,91%** | 4,40% |
-| 12 | Diritti civili e società | 2,77% | 2,77% | 2,15% |
-| 13 | Infrastrutture e territorio | 4,46% | 4,38% | 4,83% |
-| 14 | Cultura e patrimonio | 2,60% | 3,18% | 3,87% |
-| 15 | Sport | 0,42% | 0,96% | 2,38% |
-| — | politica non tematica | 0,55% | 0,52% | 10,35% |
-| — | non assegnato | 15,78% | 26,86% | 14,87% |
+| 1 | Politica estera e difesa | 5,49% | 3,12% | **14,50%** |
+| 2 | Unione europea | 3,17% | 1,59% | 4,05% |
+| 3 | Istituzioni e assetto dello Stato | 5,76% | 9,57% | 11,01% |
+| 4 | Economia e finanza pubblica | 9,61% | 7,84% | 2,96% |
+| 5 | Lavoro e imprese | **18,58%** | 9,15% | 8,19% |
+| 6 | Welfare e pensioni | 3,22% | 2,48% | 0,75% |
+| 7 | Sanità | 5,19% | 7,43% | 4,25% |
+| 8 | Istruzione e ricerca | 6,75% | 4,97% | 3,30% |
+| 9 | Ambiente ed energia | 10,72% | 5,64% | 2,98% |
+| 10 | Immigrazione e cittadinanza | 1,87% | 1,65% | 1,87% |
+| 11 | Sicurezza e criminalità | 2,94% | **7,91%** | 4,40% |
+| 12 | Diritti civili e società | 2,67% | 2,77% | 2,15% |
+| 13 | Infrastrutture e territorio | 5,74% | 4,38% | 4,83% |
+| 14 | Cultura e patrimonio | 2,61% | 3,18% | 3,87% |
+| 15 | Sport | 0,57% | 0,96% | 2,38% |
+| — | politica non tematica | 0,46% | 0,52% | 10,35% |
+| — | non assegnato | 14,65% | 26,86% | 14,87% |
 | — | boilerplate | 0,00% | 0,00% | 3,27% |
 
 Sottotema 9.1 *Animali e fauna*, come quota del proprio padre: **41,3% del tema 9
-nel layer 2**, 19,0% nel layer 1. Quasi metà dei progetti di legge che finiscono
+nel layer 2**, 18,0% nel layer 1. Quasi metà dei progetti di legge che finiscono
 in *Ambiente ed energia* alla Camera parla di randagismo, maltrattamento o fauna
 selvatica, non di energia o clima. Se il numero regge alla validazione umana,
 vuol dire che il tema 9 nel layer 2 sta misurando due cose.
@@ -71,17 +71,17 @@ Distanza in variazione totale, sui soli 15 macrotemi:
 
 | Coppia | Divergenza |
 |---|---|
-| L1 programmi ↔ L2 DDL | 20,2 pp |
+| L1 programmi ↔ L2 DDL | 20,6 pp |
 | L2 DDL ↔ L3 stampa | 25,8 pp |
-| L1 programmi ↔ L3 stampa | 32,1 pp |
+| L1 programmi ↔ L3 stampa | 32,5 pp |
 
 **Il lavoro si promette il doppio di quanto si legiferi.** *Lavoro e imprese* è il
-18,3% dei paragrafi di programma e il 9,2% dei progetti di legge: +9,2 pp. È il
+18,6% dei paragrafi di programma e il 9,2% dei progetti di legge: +9,4 pp. È il
 tema più grande del layer 1 e il secondo del layer 2. Nella stampa vale l'8,2%,
 quasi come nei DDL: lo scarto è fra ciò che i partiti promettono e tutto il resto.
 
 **La sicurezza si legifera il triplo di quanto si prometta.** *Sicurezza e
-criminalità* è il 2,8% dei programmi e il 7,9% dei DDL: −5,1 pp, lo scarto
+criminalità* è il 2,9% dei programmi e il 7,9% dei DDL: −5,0 pp, lo scarto
 invertito più largo. Il segno opposto rispetto al lavoro rende improbabile un
 artefatto del lessico, che sui due temi ha grana simile.
 
@@ -156,6 +156,61 @@ grande di tutti e il più diffuso: `euro, regionale, regione, risorse, territori
 imprese, lavoro` non è un tema, è il lessico dell'amministrazione che attraversa
 tutti i temi.
 
+## H1 — coerenza fra ciò che si promette e ciò che si legifera
+
+L'indice che il piano chiede: la distanza fra la distribuzione dei paragrafi di
+programma di un partito e quella dei suoi progetti di legge. Variazione totale sui
+15 macrotemi, in punti percentuali. Zero = identiche.
+
+| Partito | Paragrafi | Atti | H1 |
+|---|---|---|---|
+| Partito Democratico | 221 | 358 | **23,4** |
+| Lega | 988 | 681 | **24,3** |
+| Movimento 5 Stelle | 976 | 709 | **24,8** |
+| Forza Italia | 82 | 358 | 25,1 |
+| Fratelli d'Italia | 145 | 593 | **30,6** |
+
+Quattro valori su cinque reggono la soglia di 100 unità su entrambi i lati. Forza
+Italia resta sotto, con 82 paragrafi: il valore c'è ma è marcato inaffidabile in
+[`indice_h1.csv`](indice_h1.csv).
+
+I quattro affidabili stanno in una forcella stretta, 23,4-30,6. **Fratelli
+d'Italia è il meno coerente dei quattro**, con 7 punti di distacco dal PD. Va
+letto con prudenza: FdI ha anche il programma più corto fra i recuperati (145
+paragrafi contro i 988 della Lega), e la coda della distribuzione è quella che
+soffre di più con pochi paragrafi.
+
+H1 misura **distanza di agenda**, non incoerenza politica: dice che i temi su cui
+un partito deposita proposte di legge non sono, nelle stesse proporzioni, quelli
+su cui ha costruito il programma. Non dice che abbia tradito il programma.
+
+### Il controllo: le due fonti del layer 1 sono la stessa unità?
+
+H1 poggia su programmi presi dai siti di partito, non sui depositi al Viminale.
+Sono due unità diverse — l'atto formale previsto dalla legge 165/2017 contro il
+materiale di campagna — e la sostituzione va giustificata, non assunta.
+
+Cinque liste hanno entrambe le fonti, quindi la distanza fra le loro due
+distribuzioni si misura:
+
+| Partito | Paragrafi Viminale | Paragrafi sito | Divergenza |
+|---|---|---|---|
+| **Partito Democratico** | **172** | **221** | **6,4 pp** |
+| Fratelli d'Italia | 24 | 145 | 19,8 pp |
+| Forza Italia | 19 | 82 | 27,3 pp |
+| Movimento 5 Stelle | 13 | 976 | 33,1 pp |
+| Lega | 14 | 988 | 37,9 pp |
+
+Solo il PD ha numeri sufficienti da entrambe le parti, ed è l'unica riga che
+misura davvero la differenza fra le due unità: **6,4 pp**, contro valori di H1 fra
+23 e 31. Le altre quattro righe misurano soprattutto il rumore del lato corto —
+13 paragrafi contro 976 — non una divergenza di sostanza.
+
+Con un solo controllo la conclusione resta provvisoria, ma va nella direzione
+giusta: dove entrambe le fonti hanno testo a sufficienza raccontano quasi la stessa
+distribuzione, e il margine che l'integrazione introduce è dell'ordine di 6 punti,
+circa un quarto del valore di H1 che si vuole misurare.
+
 ## Metodo
 
 Mappatura **lessicale deterministica**, `src/mappa_ontologia.py`: 350 pattern sui
@@ -177,7 +232,7 @@ riporterebbe lo stesso problema un livello più su. Qui le regole si leggono e s
 discutono una per una.
 
 Le tre unità di misura seguono il contratto: paragrafo per il layer 1 (soglia 200
-caratteri, 3.073 paragrafi da 60 programmi), atto per il layer 2 (6.865 titoli),
+caratteri, 5.243 paragrafi da 60 programmi, di cui 5 presi dai siti di partito), atto per il layer 2 (6.865 titoli),
 articolo per il layer 3 (88.279).
 
 Con il corpus completo in locale lo script classifica tutti gli articoli. Senza —
@@ -192,7 +247,7 @@ servizio non contano come copertura, e il denominatore le include.
 
 | Layer | Copertura |
 |---|---|
-| L1 programmi | 83,7% |
+| L1 programmi | 84,9% |
 | L2 DDL | 72,6% |
 | L3 stampa | 71,5% |
 

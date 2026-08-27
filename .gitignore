@@ -49,3 +49,6 @@ DATI-*.zip
 # Finanziamenti ai partiti: dato grezzo di un layer che l'ontologia non copre
 # ancora. Fuori da Git finche' non c'e' una decisione su come entra nel piano.
 data/raw/finanziamenti_partiti.*
+
+# Discovery dai siti di partito: rigenerabile con run_programmi_discovery.py
+data/raw/programmi_urls.jsonl
