@@ -1,16 +1,16 @@
 {
-  "generato_utc": "2026-08-21T15:12:18.412373+00:00",
+  "generato_utc": "2026-08-27T08:17:41.427411+00:00",
   "sorgente": {
-    "path": "data/processed/news_topic_review.csv",
-    "righe": 96345,
-    "byte": 98324094,
-    "sha256": "6bb5f46ef677b80560ea30e0266681d665b89cbfd5a7d4d87d880a3d9f1195a9"
+    "path": "data\\processed\\news_topic_review.csv",
+    "righe": 88279,
+    "byte": 92276804,
+    "sha256": "c332c64a29cdb3968ebf7bff7ae2bfd539a3045ab11a64923be894a34293e4ca"
   },
   "campione": {
-    "path": "data/processed/news_topic_review_campione.csv",
-    "righe": 4786,
-    "byte": 3403428,
-    "sha256": "54feb718c2b926d4a8c01a52a246269e0191f91de9eaf7c1a8d0e7f0773524ba",
+    "path": "data\\processed\\news_topic_review_campione.csv",
+    "righe": 4322,
+    "byte": 3167020,
+    "sha256": "a922bdd22678a15853afde53aa9fc4b7c165a199afc7879df7096fcd723c10dd",
     "per_topic": 400,
     "seed": 42,
     "estratto_max_caratteri": 300,

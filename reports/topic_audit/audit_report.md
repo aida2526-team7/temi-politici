@@ -8,18 +8,18 @@
 
 | Topic | Articoli | Percentuale |
 |---|---|---|
-| 0 | 3099 | 3.217% |
-| 1 | 30908 | 32.081% |
-| 2 | 669 | 0.694% |
-| 3 | 635 | 0.659% |
-| 4 | 2303 | 2.390% |
-| 5 | 898 | 0.932% |
-| 6 | 394 | 0.409% |
-| 7 | 392 | 0.407% |
-| 8 | 16934 | 17.576% |
-| 9 | 29165 | 30.271% |
-| 10 | 2726 | 2.829% |
-| 11 | 8222 | 8.534% |
+| 0 | 17390 | 19.699% |
+| 1 | 891 | 1.009% |
+| 2 | 289 | 0.327% |
+| 3 | 10923 | 12.373% |
+| 4 | 14530 | 16.459% |
+| 5 | 270 | 0.306% |
+| 6 | 2234 | 2.531% |
+| 7 | 163 | 0.185% |
+| 8 | 9938 | 11.257% |
+| 9 | 20904 | 23.679% |
+| 10 | 9955 | 11.277% |
+| 11 | 792 | 0.897% |
 
 Output tabellare: [`topic_distribution.csv`](topic_distribution.csv).
 
@@ -27,17 +27,17 @@ Output tabellare: [`topic_distribution.csv`](topic_distribution.csv).
 
 | Metrica | Valore |
 |---|---|
-| min | 0.16285565 |
-| mean | 0.63621972 |
-| median | 0.61227740 |
-| p25 | 0.48605502 |
-| p75 | 0.78128437 |
-| p90 | 0.92276714 |
-| p99 | 1.00000000 |
-| exactly_1_percentage | 1.18843739 |
-| below_0.40_percentage | 9.94135658 |
-| below_0.50_percentage | 28.02324978 |
-| below_0.60_percentage | 47.81877627 |
+| min | 0.16750271 |
+| mean | 0.55973887 |
+| median | 0.53483528 |
+| p25 | 0.41851569 |
+| p75 | 0.68646296 |
+| p90 | 0.82197862 |
+| p99 | 0.98101213 |
+| exactly_1_percentage | 0.32737118 |
+| below_0.40_percentage | 20.99026949 |
+| below_0.50_percentage | 42.96831636 |
+| below_0.60_percentage | 62.04420077 |
 
 La confidenza è `max(pesi NMF) / somma(pesi NMF)`: non è una probabilità calibrata.
 Output completo: [`confidence_summary.csv`](confidence_summary.csv).
@@ -46,16 +46,16 @@ Output completo: [`confidence_summary.csv`](confidence_summary.csv).
 
 | Sezione | Metrica | Valore |
 |---|---|---|
-| exact_excerpt | records_in_duplicate_groups | 11459 |
-| exact_excerpt | duplicate_groups | 2772 |
-| exact_excerpt | largest_group | 3095 |
-| exact_title_excerpt | records_in_duplicate_groups | 4565 |
-| exact_title_excerpt | duplicate_groups | 1823 |
-| exact_title_excerpt | largest_group | 535 |
+| exact_excerpt | records_in_duplicate_groups | 3328 |
+| exact_excerpt | duplicate_groups | 1372 |
+| exact_excerpt | largest_group | 253 |
+| exact_title_excerpt | records_in_duplicate_groups | 1300 |
+| exact_title_excerpt | duplicate_groups | 620 |
+| exact_title_excerpt | largest_group | 4 |
 | near_duplicate_proxy | prefix_length | 300 |
-| near_duplicate_proxy | records_in_duplicate_groups | 13642 |
-| near_duplicate_proxy | duplicate_groups | 3573 |
-| near_duplicate_proxy | largest_group | 3095 |
+| near_duplicate_proxy | records_in_duplicate_groups | 5679 |
+| near_duplicate_proxy | duplicate_groups | 2324 |
+| near_duplicate_proxy | largest_group | 253 |
 | near_duplicate_proxy | definition | same normalized prefix of the review excerpt |
 
 Output strutturato: [`duplicate_summary.json`](duplicate_summary.json).
@@ -64,18 +64,331 @@ Output strutturato: [`duplicate_summary.json`](duplicate_summary.json).
 
 ```json
 {
-  "created_at_utc": "2026-07-12T08:27:10.550961+00:00",
+  "created_at_utc": "2026-08-27T08:16:46.737182+00:00",
   "input": "mediacloud_fulltext.jsonl",
-  "articles": 96345,
+  "articles": 88279,
   "tfidf_shape": [
-    96345,
-    1531569
+    88279,
+    1431448
   ],
   "n_topics": 12,
   "requested_n_topics": 12,
   "min_df": 3,
   "max_df": 0.85,
-  "random_state": 42
+  "random_state": 42,
+  "pulizia": {
+    "documenti": 97999,
+    "domini": 80,
+    "domini_con_template": 31,
+    "domini_sotto_soglia": 9,
+    "righe_template_globali": 1,
+    "righe_template_rimosse": 93329,
+    "scartati_senza_testo": 4644,
+    "scartati_duplicati": 3555,
+    "lingua_corretta": 0,
+    "documenti_finali": 89800,
+    "lingue_finali": {
+      "it": 88280,
+      "en": 1119,
+      "de": 329,
+      "fr": 61,
+      "pt": 10,
+      "ar": 1
+    },
+    "template_per_dominio": {
+      "varesenews.it": [
+        [
+          "- felice su da busto arsizio a milano per fare ricerca sul cancro: la storia di francesca peluso",
+          0.9790419161676647
+        ],
+        [
+          "loro ne fanno gia parte",
+          0.9790419161676647
+        ],
+        [
+          "- bustocco-71 su guasto tra le stazioni di varese e gallarate: ritardi e modifiche al servizio sulle tratte di porto ceresio e mendrisio",
+          0.9790419161676647
+        ],
+        [
+          "la community di varesenews",
+          0.9790419161676647
+        ],
+        [
+          "l'email e richiesta ma non verra mostrata ai visitatori. il contenuto di questo commento esprime il pensiero dell'autore e non rappresenta la linea editoriale di varesenews.it, che rimane autonoma e indipendente. i messaggi inclusi nei commenti non sono testi giornalistici, ma post inviati dai singoli lettori che possono essere automaticamente pubblicati senza filtro preventivo. i commenti che includano uno o piu link a siti esterni verranno rimossi in automatico dal sistema.",
+          0.9790419161676647
+        ],
+        [
+          "ultimi commenti",
+          0.9790419161676647
+        ],
+        [
+          "- felice su e pronta la prima scuola realizzata con il pnrr in provincia di varese. e le altre? ecco a che punto siamo",
+          0.9790419161676647
+        ],
+        [
+          "- principe.rosso su e pronta la prima scuola realizzata con il pnrr in provincia di varese. e le altre? ecco a che punto siamo",
+          0.9790419161676647
+        ],
+        [
+          "- felice su anche a varese la maturita si festeggia a colpi di uova, spumante e farina. e i rifiuti restano li",
+          0.9790419161676647
+        ],
+        [
+          "accedi o registrati per commentare questo articolo.",
+          0.9781864841745082
+        ]
+      ],
+      "tempi.it": [
+        [
+          "i commenti sono aperti solo per gli utenti registrati. abbonati subito per commentare!",
+          0.5100671140939598
+        ],
+        [
+          "articoli correlati",
+          0.5100671140939598
+        ],
+        [
+          "il quotidiano online + il mensile digitale",
+          0.47651006711409394
+        ],
+        [
+          "digitale",
+          0.47651006711409394
+        ],
+        [
+          "full",
+          0.47651006711409394
+        ],
+        [
+          "il quotidiano online + il mensile digitale e cartaceo",
+          0.47651006711409394
+        ],
+        [
+          "0 commenti",
+          0.4429530201342282
+        ],
+        [
+          "non ci sono ancora commenti.",
+          0.4429530201342282
+        ],
+        [
+          "contenuto riservato agli abbonati digitale e full",
+          0.3288590604026846
+        ]
+      ],
+      "italiachecambia.org": [
+        [
+          "segnala una notizia",
+          0.625
+        ],
+        [
+          "segnalaci una notizia interessante per io non mi rassegno.",
+          0.625
+        ],
+        [
+          "valuteremo il suo inserimento all'interno di un prossimo episodio.",
+          0.625
+        ],
+        [
+          "trascrizione episodio",
+          0.575
+        ],
+        [
+          "fonti",
+          0.55
+        ],
+        [
+          "questo episodio e disponibile anche su youtube",
+          0.425
+        ]
+      ],
+      "rai.it": [
+        [
+          "cultura e spettacolofilm - \"l’hangar rosso\", vai all'articolo, al trailer e alle clip 1 e 2 teatro - \"il barbiere di siviglia - opera buffa in due atti\", vai all'articolo e al video festival - \"60° festival teatrale di borgio verezzi\", vai all'articolo museo - \"museo del disco d’epoca\", vai all'articolo film in sala e quelli in arrivo, guarda i trailer clicca qui la nottola, programmazione roma e lazio clicca qui tutti i concerti di musica leggera",
+          0.992548435171386
+        ],
+        [
+          "pagina 690 - lottoestrazioni del lotto",
+          0.992548435171386
+        ],
+        [
+          "pagina 546 - magazine tvi mestieri di mirko – speciale alto adige estate, dal 24 luglio su raiplay con un nuovo episodio, vai all'articolo under 25 – giovani talenti, dal 26 maggio su raiplay, vai all'articolo e al video promo il club - canzoni sotto la pelle, dall’ 8 maggio su raiplay, vai all'articolo e al video promo",
+          0.992548435171386
+        ],
+        [
+          "pagina 556 - documentariarchivio dei documentari, clicca qui",
+          0.992548435171386
+        ],
+        [
+          "pagina 752 - la nuova tv digitale",
+          0.992548435171386
+        ]
+      ],
+      "adnkronos.com": [
+        [
+          "in evidenza presentato lo studio 'sinergie tra agricoltura e trasporto aereo per la produzione di saf'",
+          0.5263605442176871
+        ],
+        [
+          "in evidenza presentato a roma il 'forum delle citta della notte', aurigemma: \"il tema della sicurezza non ha colore politico\"",
+          0.5263605442176871
+        ],
+        [
+          "scoop su air force one donato dal qatar, nyt nel mirino di trump: mandati di comparizione per i reporter",
+          0.5263605442176871
+        ],
+        [
+          "in evidenza 'sindrome di rett: bisogni, prospettive e priorita emergenti dall’europa all’italia', digital talk adnkronos - acadia",
+          0.5263605442176871
+        ],
+        [
+          "in evidenza universita, a leonardo maria del vecchio la laurea honoris causa in diritto innovazione tecnologica e sostenibilita",
+          0.5263605442176871
+        ]
+      ],
+      "gazzettadiparma.it": [
+        [
+          "© riproduzione riservata",
+          0.9865513928914506
+        ],
+        [
+          "gazzetta di parma srl - p.i. 02361510346 - codice sdi: m5uxcr1",
+          0.9865513928914506
+        ],
+        [
+          "© gazzetta di parma - riproduzione riservata",
+          0.9865513928914506
+        ],
+        [
+          "roma",
+          0.44188280499519694
+        ]
+      ],
+      "laverita.info": [
+        [
+          "rinnova il tuo abbonamento per proseguire con la lettura >",
+          0.8908507223113965
+        ],
+        [
+          "contenuto riservato agli abbonati",
+          0.8908507223113965
+        ],
+        [
+          "prosegui con la lettura >",
+          0.8908507223113965
+        ]
+      ],
+      "tageszeitung.it": [
+        [
+          "ahnliche artikel",
+          1.0
+        ],
+        [
+          "du musst dich einloggen um die kommentare zu lesen.",
+          0.7555555555555555
+        ],
+        [
+          "lesen sie die netiquette und die nutzerbedingungen",
+          0.7555555555555555
+        ]
+      ],
+      "avvenire.it": [
+        [
+          "© riproduzione riservata",
+          1.0
+        ],
+        [
+          "seguici anche su google discover di avvenire",
+          0.6907894736842105
+        ]
+      ],
+      "ilsole24ore.com": [
+        [
+          "i punti chiave",
+          0.42798070296347346
+        ],
+        [
+          "3' di lettura",
+          0.3349414197105445
+        ]
+      ],
+      "ilroma.net": [
+        [
+          "copyright @ - nuovo giornale roma societa cooperativa - corso garibaldi, 32 - napoli - 80142 - partita iva 07406411210 - la societa percepisce i contributi di cui al decreto legislativo 15 maggio 2017, n. 70. indicazione resa ai sensi della lettera f) del comma 2 dell’articolo 5 del medesimo decreto legislativo - il giornale aderisce alla file (federazione italiana liberi editori) e all'iap (istituto di autodisciplina pubblicitaria) tutti i diritti sono riservati. nessuna parte di questo giornale puo essere riprodotta con alcun mezzo e/o diffusa in alcun modo e a qualsiasi titolo",
+          0.9942857142857143
+        ],
+        [
+          "tutte le novita",
+          0.9857142857142858
+        ]
+      ],
+      "ilmanifesto.it": [
+        [
+          "genova, 25 anni dopo.",
+          1.0
+        ],
+        [
+          "la storia sulle ferite del g8. il 17 luglio in edicola con il manifesto un inserto straordinario su quelle giornate del 2001.",
+          1.0
+        ]
+      ],
+      "ilgiornaledivicenza.it": [
+        [
+          "il giornale di vicenza e su whatsapp. clicca qui per iscriverti al nostro canale e rimanere aggiornato in tempo reale.",
+          0.9734848484848485
+        ]
+      ],
+      "ansa.it": [
+        [
+          "riproduzione riservata © copyright ansa",
+          0.9280182232346241
+        ]
+      ],
+      "larena.it": [
+        [
+          "l’arena e su whatsapp. clicca qui per iscriverti al nostro canale e rimanere aggiornato in tempo reale.",
+          0.9773584905660377
+        ]
+      ],
+      "ligurianotizie.it": [
+        [
+          "non perdere gli ultimi aggiornamenti su cronaca, eventi e politica in liguria! iscriviti sui canali di liguria notizie di telegram, facebook, twitter e youtube",
+          0.32038834951456313
+        ]
+      ],
+      "laprovinciadicomo.it": [
+        [
+          "© riproduzione riservata",
+          1.0
+        ]
+      ],
+      "leggo.it": [
+        [
+          "© riproduzione riservata",
+          0.9170896785109983
+        ]
+      ],
+      "italpress.com": [
+        [
+          "(italpress).",
+          0.671000565291125
+        ]
+      ],
+      "nove.firenze.it": [
+        [
+          "approfondimenti",
+          0.4094292803970223
+        ]
+      ]
+    },
+    "template_globali": [
+      [
+        "© riproduzione riservata",
+        0.04563311870529291
+      ]
+    ]
+  },
+  "stopwords": 348
 }
 ```
 
@@ -83,292 +396,75 @@ Output strutturato: [`duplicate_summary.json`](duplicate_summary.json).
 
 ### Topic 0
 
-- Articoli: 3099 (3.217%).
-- Termini registrati: in evidenza, evidenza, evidenza presentato, presentato, di rett, rett, bisogni prospettive, su air, rett bisogni, acadia, trump mandati, adnkronos acadia
+- Articoli: 17390 (19.699%).
+- Termini registrati: vita, storia, milano, persone, mondo, lega, famiglia, piazza, uomo, citta, casa, quel
 - Interpretazione semantica: **da validare da una persona**.
 
 Domini prevalenti:
 
 | Rank | Dominio | Articoli | % topic |
 |---|---|---|---|
-| 1 | adnkronos.com | 3096 | 99.903% |
-| 2 | lagazzettadelmezzogiorno.it | 1 | 0.032% |
-| 3 | lanazione.it | 1 | 0.032% |
-| 4 | laverita.info | 1 | 0.032% |
+| 1 | ilgiornale.it | 1474 | 8.476% |
+| 2 | ansa.it | 1131 | 6.504% |
+| 3 | lanazione.it | 1101 | 6.331% |
+| 4 | varesenews.it | 1090 | 6.268% |
+| 5 | ilrestodelcarlino.it | 910 | 5.233% |
+| 6 | iltempo.it | 742 | 4.267% |
+| 7 | lastampa.it | 711 | 4.089% |
+| 8 | ilmattino.it | 665 | 3.824% |
+| 9 | ilmessaggero.it | 629 | 3.617% |
+| 10 | ilfattoquotidiano.it | 616 | 3.542% |
 
 Distribuzione mensile:
 
 | Mese | Articoli |
 |---|---|
-| 2026-01 | 414 |
-| 2026-02 | 495 |
-| 2026-03 | 444 |
-| 2026-04 | 443 |
-| 2026-05 | 511 |
-| 2026-06 | 570 |
-| 2026-07 | 222 |
+| 2026-01 | 1703 |
+| 2026-02 | 2895 |
+| 2026-03 | 2584 |
+| 2026-04 | 2740 |
+| 2026-05 | 3040 |
+| 2026-06 | 3262 |
+| 2026-07 | 1166 |
 
 Record con peso più alto:
 
 | Rank | Peso | Dominio | Data | Titolo |
 |---|---|---|---|---|
-| 1 | 0.13436381 | adnkronos.com | 2026-03-24 | イラン：ベイルート、「レバノンでのイスラエル攻撃開始以来1,070人以上が死亡」 |
-| 2 | 0.13436381 | adnkronos.com | 2026-04-08 | レバノン保健省、死者数は112人に増加、負傷者は837人 |
-| 3 | 0.13436381 | adnkronos.com | 2026-02-03 | ウクライナ、ハルキウへのロシアの空爆で1人死亡、5人負傷 |
-| 4 | 0.13436381 | adnkronos.com | 2026-02-03 | ブラジル北東部でバス事故、少なくとも15人死亡 |
-| 5 | 0.13436381 | adnkronos.com | 2026-03-17 | ナイジェリア北東部で自爆テロ：死者23人、負傷者108人 |
-| 6 | 0.13436381 | adnkronos.com | 2026-05-20 | テヘラン、「過去24時間で26隻の船がホルムズ海峡を通過」 |
-| 7 | 0.13436381 | adnkronos.com | 2026-01-16 | ウクライナ、ドニプロペトロウシクへのロシアの空爆で女性2人死亡 |
-| 8 | 0.13436381 | adnkronos.com | 2026-03-30 | ベネズエラ、7年間の停止を経てカラカスで米国大使館が再開 |
-| 9 | 0.13436381 | adnkronos.com | 2026-07-02 | シリア、ダマスカスのカフェで爆発、死者7人に増加 |
-| 10 | 0.13436381 | adnkronos.com | 2026-01-21 | シリア、「クルド部隊のドローン攻撃で兵士7人死亡」 |
+| 1 | 0.05666593 | leggo.it | 2026-05-08 | Live la visita del Papa, in 20mila a Pompei. Il Pontefice a Piazza del Plebiscito: «Napoli non perdere la speranza» |
+| 2 | 0.05175062 | repubblica.it | 2026-06-13 | Repubblica delle idee 2026, la diretta. Renzi: “Basta litigare”. Saviano e l’inganno di Garlasco. Massini racconta Trump. Conte: “No alla patrimoniale” - la Repubblica |
+| 3 | 0.05159111 | ilmessaggero.it | 2026-05-09 | Festa della Mamma, i libri da regalare tra romanzi-coccola e storie di grandi donne |
+| 4 | 0.04811087 | ilgiorno.it | 2026-02-05 | Olimpiadi, la diretta a Milano: folla per la torcia in piazza Duomo. L’ultima tedofora Nicoletta Manni accende il braciere olimpico |
+| 5 | 0.04774722 | repubblica.it | 2026-05-08 | Papa Leone oggi a Pompei e a Napoli: "Affido alla Madonna l'intera umanitÃ " - la Repubblica |
+| 6 | 0.04670023 | ilgiorno.it | 2026-02-06 | Milano-Cortina 2026 la diretta, oggi l’inaugurazione a San Siro. La sorpresa di Mattarella: arriva in tram con Valentino Rossi. L’accensione del braciere all’Arco della Pace |
+| 7 | 0.04665976 | nove.firenze.it | 2026-06-23 | Lucca Comics and Games: presentata l'edizione dei 60 anni del festival • Nove da Firenze |
+| 8 | 0.04655311 | lastampa.it | 2026-02-06 | Cerimonia di apertura Olimpiadi Miano-Cortina 2026: segui la diretta  - La Stampa |
+| 9 | 0.04516180 | lastampa.it | 2026-05-16 | Salone del Libro, eventi ed ospiti di oggi 16 maggio. La diretta - La Stampa |
+| 10 | 0.04513700 | repubblica.it | 2026-01-24 | C.S.I., il ritorno. Giovanni Lindo Ferretti: “Non contano i pensieri ma le cose che accadono” - la Repubblica |
 
 Campione deterministico, seed base 42:
 
 | Rank | Peso | Confidenza | Dominio | Data | Titolo |
 |---|---|---|---|---|---|
-| 1 | 0.13317397 | 0.99697404 | adnkronos.com | 2026-04-17 | GrAudio edizione delle 16:30 del 17 aprile |
-| 2 | 0.13298923 | 0.99894252 | adnkronos.com | 2026-01-15 | GrAudio edizione delle 18:30 del 15 gennaio |
-| 3 | 0.13339568 | 0.99597412 | adnkronos.com | 2026-06-23 | GrAudio edizione delle 18:30 del 23 giugno |
-| 4 | 0.13292013 | 0.99804670 | adnkronos.com | 2026-04-22 | GrAudio Flash delle 18:50 del 22 aprile |
-| 5 | 0.12737217 | 0.98102268 | adnkronos.com | 2026-05-20 | Rubrica delle buone notizie del 20 maggio |
+| 1 | 0.00931534 | 0.39808425 | gazzettadiparma.it | 2026-07-10 | Tempo di meloni: dissetanti, dolci, ma con pochi zuccheri Ricchi di potassio, vitamina C, beta-carotene e  acidi - Gazzetta di Parma |
+| 2 | 0.01798310 | 0.56306770 | ilmattino.it | 2026-06-14 | Vannacci e il femminicidio, il papà di Ilaria Sula: «Rispetto per mia figlia e tutte le donne uccise» |
+| 3 | 0.02029789 | 0.56059771 | ilrestodelcarlino.it | 2026-05-25 | Stava preparando un attentato in centro a Reggio Emilia, arrestato un terrorista |
+| 4 | 0.01471520 | 0.39824288 | ilsole24ore.com | 2026-05-08 | Mamma di una bambina malata grave scrive a Meloni: “Non siamo invisibili” - Il Sole 24 ORE |
+| 5 | 0.01442932 | 0.62031064 | larena.it | 2026-02-09 | Giorgia torna live a Verona, gran finale del tour estivo in Arena: la data \| L'Arena |
 
 ### Topic 1
 
-- Articoli: 30908 (32.081%).
-- Termini registrati: si, ma, da, al, le, partito, se, ci, chi, alla, centrodestra, pd
+- Articoli: 891 (1.009%).
+- Termini registrati: agenzia vista, agenzia, nato milei, milei futuro, bertoldi states, states trump, livello valditara, avesse centrodestra, mascherine pasticcio, studentesca processi, studentesche lavori, partecipazione studentesca
 - Interpretazione semantica: **da validare da una persona**.
 
 Domini prevalenti:
 
 | Rank | Dominio | Articoli | % topic |
 |---|---|---|---|
-| 1 | ilgiornale.it | 2978 | 9.635% |
-| 2 | iltempo.it | 2014 | 6.516% |
-| 3 | lanazione.it | 1758 | 5.688% |
-| 4 | repubblica.it | 1710 | 5.533% |
-| 5 | lastampa.it | 1465 | 4.740% |
-| 6 | ilrestodelcarlino.it | 1336 | 4.323% |
-| 7 | ilmessaggero.it | 1212 | 3.921% |
-| 8 | ilmattino.it | 1151 | 3.724% |
-| 9 | ilfoglio.it | 1114 | 3.604% |
-| 10 | ilfattoquotidiano.it | 1081 | 3.497% |
-
-Distribuzione mensile:
-
-| Mese | Articoli |
-|---|---|
-| 2026-01 | 2885 |
-| 2026-02 | 5226 |
-| 2026-03 | 6212 |
-| 2026-04 | 4721 |
-| 2026-05 | 5031 |
-| 2026-06 | 5312 |
-| 2026-07 | 1521 |
-
-Record con peso più alto:
-
-| Rank | Peso | Dominio | Data | Titolo |
-|---|---|---|---|---|
-| 1 | 0.05402650 | repubblica.it | 2026-03-23 | I risultati del Referendum Giustizia 2026: vince il no - la Repubblica |
-| 2 | 0.05264575 | lastampa.it | 2026-03-23 | Risultati Referendum 2026, vince il NO Segui la diretta - La Stampa |
-| 3 | 0.05043786 | lastampa.it | 2026-03-24 | Referendum 2026, dopo il voto si dimettono Delmastro e Bartolozzi - La Stampa |
-| 4 | 0.04989536 | lastampa.it | 2026-05-26 | Risultati amministrative 2026. Meloni "Il nostro crollo rimandato a domani". La diretta - La Stampa |
-| 5 | 0.04931020 | laverita.info | 2026-03-19 | Barbera: «La sinistra che voterà No solo per dar contro a Meloni tradisce la Costituzione» — La Verità |
-| 6 | 0.04836242 | repubblica.it | 2026-03-25 | Santanchè ha dato le dimissioni \| Le news di oggi in diretta - la Repubblica |
-| 7 | 0.04806471 | repubblica.it | 2026-03-24 | Referendum Giustizia 2026, le reazioni dopo i risultati \| Diretta   - la Repubblica |
-| 8 | 0.04670681 | lastampa.it | 2026-03-25 | SantanchÃ© si Ã¨ dimessa, lettera a Meloni: âCara Giorgia, il mio certificato penale Ã¨ immacolatoâ - Segui la diretta - La Stampa |
-| 9 | 0.04642410 | tpi.it | 2026-03-06 | Referendum di mid-term: perché il 22-23 marzo la posta in gioco è doppia |
-| 10 | 0.04594883 | ilfoglio.it | 2026-05-25 | De Luca a valanga a Salerno. A Venezia il centrodestra verso la vittoria al primo turno. I risultati delle comunali |
-
-Campione deterministico, seed base 42:
-
-| Rank | Peso | Confidenza | Dominio | Data | Titolo |
-|---|---|---|---|---|---|
-| 1 | 0.02394013 | 0.49401362 | ansa.it | 2026-03-09 | Conte: 'Meloni scatenata, sulla giustizia il disegno della P2' - Dirette e live - Ansa.it |
-| 2 | 0.01028268 | 0.38751147 | bresciaoggi.it | 2026-01-23 | Manerba, si è spento Tonino Simoni: una vita di impegno per la sua comunità \| Bresciaoggi |
-| 3 | 0.01535350 | 0.34569953 | italpress.com | 2026-03-23 | Referendum, Meloni "Occasione persa per modernizzare l'Italia, ma andiamo avanti" Agenzia di stampa Italpress - Italpress |
-| 4 | 0.01830411 | 0.64505906 | lasicilia.it | 2026-07-09 | Futuro nazionale, exploit di comitati in Sicilia dopo il tour di Vannacci: quasi raddoppiati a 153 - La Sicilia |
-| 5 | 0.00907176 | 0.56499385 | mediaset.it | 2026-03-22 | Pontida, l'ultimo saluto a Umberto Bossi |
-
-### Topic 2
-
-- Articoli: 669 (0.694%).
-- Termini registrati: vai all, all articolo, vai, articolo al, su raiplay, al video, raiplay, pagina, clicca qui, clicca, video promo, raiplay vai
-- Interpretazione semantica: **da validare da una persona**.
-
-Domini prevalenti:
-
-| Rank | Dominio | Articoli | % topic |
-|---|---|---|---|
-| 1 | rai.it | 666 | 99.552% |
-| 2 | askanews.it | 2 | 0.299% |
-| 3 | ilrestodelcarlino.it | 1 | 0.149% |
-
-Distribuzione mensile:
-
-| Mese | Articoli |
-|---|---|
-| 2026-01 | 75 |
-| 2026-02 | 106 |
-| 2026-03 | 137 |
-| 2026-04 | 85 |
-| 2026-05 | 104 |
-| 2026-06 | 122 |
-| 2026-07 | 40 |
-
-Record con peso più alto:
-
-| Rank | Peso | Dominio | Data | Titolo |
-|---|---|---|---|---|
-| 1 | 0.18868751 | rai.it | 2026-01-11 | Televideo - Homepage |
-| 2 | 0.18868751 | rai.it | 2026-01-11 | Televideo - Homepage |
-| 3 | 0.18868751 | rai.it | 2026-01-12 | Televideo - Homepage |
-| 4 | 0.18868751 | rai.it | 2026-01-12 | Televideo - Homepage |
-| 5 | 0.18868751 | rai.it | 2026-01-12 | Televideo - Homepage |
-| 6 | 0.18868751 | rai.it | 2026-01-12 | Televideo - Homepage |
-| 7 | 0.18868751 | rai.it | 2026-01-13 | Televideo - Homepage |
-| 8 | 0.18868751 | rai.it | 2026-01-13 | Televideo - Homepage |
-| 9 | 0.18868751 | rai.it | 2026-01-13 | Televideo - Homepage |
-| 10 | 0.18868751 | rai.it | 2026-01-13 | Televideo - Homepage |
-
-Campione deterministico, seed base 42:
-
-| Rank | Peso | Confidenza | Dominio | Data | Titolo |
-|---|---|---|---|---|---|
-| 1 | 0.18868751 | 1.00000000 | rai.it | 2026-01-30 | Televideo - Homepage |
-| 2 | 0.18868751 | 1.00000000 | rai.it | 2026-02-19 | Televideo - Homepage |
-| 3 | 0.18868751 | 1.00000000 | rai.it | 2026-03-03 | Televideo - Homepage |
-| 4 | 0.18868751 | 1.00000000 | rai.it | 2026-04-17 | Televideo - Homepage |
-| 5 | 0.18868751 | 1.00000000 | rai.it | 2026-05-03 | Televideo - Homepage |
-
-### Topic 3
-
-- Articoli: 635 (0.659%).
-- Termini registrati: peppino, capri, di capri, peppino di, sanremo, rockers, nel partecipa, nel vince, champagne, incide, giuliana, album
-- Interpretazione semantica: **da validare da una persona**.
-
-Domini prevalenti:
-
-| Rank | Dominio | Articoli | % topic |
-|---|---|---|---|
-| 1 | ilfattoquotidiano.it | 622 | 97.953% |
-| 2 | askanews.it | 5 | 0.787% |
-| 3 | repubblica.it | 3 | 0.472% |
-| 4 | adnkronos.com | 1 | 0.157% |
-| 5 | affaritaliani.it | 1 | 0.157% |
-| 6 | ilgiorno.it | 1 | 0.157% |
-| 7 | lastampa.it | 1 | 0.157% |
-| 8 | mediaset.it | 1 | 0.157% |
-
-Distribuzione mensile:
-
-| Mese | Articoli |
-|---|---|
-| 2026-01 | 89 |
-| 2026-02 | 157 |
-| 2026-03 | 67 |
-| 2026-04 | 31 |
-| 2026-05 | 115 |
-| 2026-06 | 99 |
-| 2026-07 | 77 |
-
-Record con peso più alto:
-
-| Rank | Peso | Dominio | Data | Titolo |
-|---|---|---|---|---|
-| 1 | 0.21525363 | ilfattoquotidiano.it | 2026-07-04 | Attentato |
-| 2 | 0.21523437 | ilfattoquotidiano.it | 2026-05-30 | Panico? |
-| 3 | 0.21520540 | ilfattoquotidiano.it | 2026-06-06 | Montenegro |
-| 4 | 0.21516288 | ilfattoquotidiano.it | 2026-02-08 | Montanari sul Nove: " |
-| 5 | 0.21513054 | ilfattoquotidiano.it | 2026-05-26 | Il Papa contro l'IA |
-| 6 | 0.21512679 | ilfattoquotidiano.it | 2026-06-27 | Clima: situazione attuale |
-| 7 | 0.21508689 | ilfattoquotidiano.it | 2026-01-17 | La Riforma Addams |
-| 8 | 0.21500726 | ilfattoquotidiano.it | 2026-06-10 | Al via i lavori |
-| 9 | 0.21492296 | ilfattoquotidiano.it | 2026-07-03 | La sostituta |
-| 10 | 0.21488609 | ilfattoquotidiano.it | 2026-06-09 | Manica larga |
-
-Campione deterministico, seed base 42:
-
-| Rank | Peso | Confidenza | Dominio | Data | Titolo |
-|---|---|---|---|---|---|
-| 1 | 0.21414076 | 1.00000000 | ilfattoquotidiano.it | 2026-01-31 | Corteo Askatasuna a Torino: 50mila persone secondo gli organizzatori |
-| 2 | 0.21301854 | 0.99706465 | ilfattoquotidiano.it | 2026-02-02 | Olimpiadi Milano-Cortina, lo stupore dell'atleta canadese davanti al bidet in camera: "Ooh" - Video |
-| 3 | 0.21403112 | 0.99795813 | ilfattoquotidiano.it | 2026-02-06 | Referendum giustizia, Nordio: "Vinceremo e modificheremo codice procedura penale" \| Il Fatto |
-| 4 | 0.21376367 | 1.00000000 | ilfattoquotidiano.it | 2026-02-10 | Milano Cortina: lame dei pattini danneggiate dal podio, protesta del Giappone |
-| 5 | 0.21474171 | 1.00000000 | ilfattoquotidiano.it | 2026-05-17 | Giornata contro l'omofobia, Mattarella: "In Italia persistono discriminazioni" |
-
-### Topic 4
-
-- Articoli: 2303 (2.390%).
-- Termini registrati: varese, di varese, varese le, scuola realizzata, altre ecco, felice su, su pronta, prima scuola, realizzata il, pnrr in, punto siamo, pronta la
-- Interpretazione semantica: **da validare da una persona**.
-
-Domini prevalenti:
-
-| Rank | Dominio | Articoli | % topic |
-|---|---|---|---|
-| 1 | varesenews.it | 2289 | 99.392% |
-| 2 | laverita.info | 6 | 0.261% |
-| 3 | mediaset.it | 2 | 0.087% |
-| 4 | ilsecoloxix.it | 1 | 0.043% |
-| 5 | ladige.it | 1 | 0.043% |
-| 6 | lagazzettadelmezzogiorno.it | 1 | 0.043% |
-| 7 | lanazione.it | 1 | 0.043% |
-| 8 | lastampa.it | 1 | 0.043% |
-| 9 | vocedimantova.it | 1 | 0.043% |
-
-Distribuzione mensile:
-
-| Mese | Articoli |
-|---|---|
-| 2026-01 | 118 |
-| 2026-02 | 160 |
-| 2026-03 | 194 |
-| 2026-04 | 222 |
-| 2026-05 | 512 |
-| 2026-06 | 630 |
-| 2026-07 | 467 |
-
-Record con peso più alto:
-
-| Rank | Peso | Dominio | Data | Titolo |
-|---|---|---|---|---|
-| 1 | 0.18039043 | varesenews.it | 2026-03-26 | A Varese il generale Vannacci riempie la sala: “Futuro Nazionale nel 2027 ci sarà” |
-| 2 | 0.17645947 | varesenews.it | 2026-03-23 | Referendum, Alfieri (Pd) “Il governo esce sconfitto, ora serve un’alternativa” |
-| 3 | 0.17046471 | varesenews.it | 2026-06-24 | Sinistra Italiana: "La Lombardia non è immune dalle mafie, negarne il radicamento è un errore" |
-| 4 | 0.17028307 | varesenews.it | 2026-07-01 | Serate di evangelizzazione sotto la tenda con la Chiesa Evangelica ADI Castellanza |
-| 5 | 0.16716683 | varesenews.it | 2026-07-01 | Ferita una turista di 45 anni caduta in bici nelle valli sopra a Maccagno con Pino e Veddasca |
-| 6 | 0.16698147 | varesenews.it | 2026-07-06 | Ai domiciliari per tentato omicidio, 92enne trovato a passeggio: arrestato a Stresa per evasione |
-| 7 | 0.16662858 | varesenews.it | 2026-02-27 | Dal Lago Maggiore a Sanremo, l’arte femminile celebra il “Golden Sound of Nature” |
-| 8 | 0.16583108 | varesenews.it | 2026-07-05 | Al Sacro Monte arriva Ippolita Baldini: Santa Chiara raccontata tra ironia, cabaret e teatro |
-| 9 | 0.16481314 | varesenews.it | 2026-06-22 | Sequestrati a Malpensa due teschi di coccodrillo provenienti dalla Cambogia |
-| 10 | 0.16407302 | varesenews.it | 2026-04-30 | L'isola più antica delle Alpi riapre dopo 3 anni e anche l'ippodromo è pronto |
-
-Campione deterministico, seed base 42:
-
-| Rank | Peso | Confidenza | Dominio | Data | Titolo |
-|---|---|---|---|---|---|
-| 1 | 0.11297515 | 0.92160827 | varesenews.it | 2026-01-14 | Pellicini: “Solidarietà al cittadino aggredito nella sua casa a Lonate Pozzolo” |
-| 2 | 0.10434514 | 0.94284637 | varesenews.it | 2026-04-30 | Summer camp a Malnate: alla Tenuta La Novella settimane tra fattoria, natura e inglese |
-| 3 | 0.12372785 | 0.96346792 | varesenews.it | 2026-05-02 | A Lugano il Primo Maggio finisce in rissa, spray urticante per riportare la calma |
-| 4 | 0.10549177 | 0.89094182 | varesenews.it | 2026-06-20 | Festa e diritti arcobaleno nella Città Giardino per il decimo Varese Pride |
-| 5 | 0.08802111 | 0.83002926 | varesenews.it | 2026-07-01 | Cedri di viale Aguggiari, Europa Verde chiede lo stop al taglio: “Serve perizia super partes” |
-
-### Topic 5
-
-- Articoli: 898 (0.932%).
-- Termini registrati: agenzia vista, agenzia, il tempo, bertoldi states, nato milei, states trump, livello valditara, centrodestra pubblicit, decisionali alessandro, studentesca ai, studentesche ai, partecipazione studentesca
-- Interpretazione semantica: **da validare da una persona**.
-
-Domini prevalenti:
-
-| Rank | Dominio | Articoli | % topic |
-|---|---|---|---|
-| 1 | iltempo.it | 891 | 99.220% |
-| 2 | askanews.it | 3 | 0.334% |
-| 3 | lagazzettadelmezzogiorno.it | 3 | 0.334% |
-| 4 | laverita.info | 1 | 0.111% |
+| 1 | iltempo.it | 889 | 99.776% |
+| 2 | ansa.it | 1 | 0.112% |
+| 3 | lagazzettadelmezzogiorno.it | 1 | 0.112% |
 
 Distribuzione mensile:
 
@@ -376,377 +472,612 @@ Distribuzione mensile:
 |---|---|
 | 2026-01 | 127 |
 | 2026-02 | 96 |
-| 2026-03 | 167 |
-| 2026-04 | 166 |
-| 2026-05 | 130 |
-| 2026-06 | 175 |
-| 2026-07 | 37 |
-
-Record con peso più alto:
-
-| Rank | Peso | Dominio | Data | Titolo |
-|---|---|---|---|---|
-| 1 | 0.18715812 | iltempo.it | 2026-03-23 | Il Ministro Tajani vota per il referendum sulla giustizia a Fiuggi – Il Tempo |
-| 2 | 0.18282626 | iltempo.it | 2026-06-18 | Meloni arriva al Consiglio Ue di Bruxelles – Il Tempo |
-| 3 | 0.18226974 | iltempo.it | 2026-04-09 | Meloni entra in Senato per informativa in Aula – Il Tempo |
-| 4 | 0.17751123 | iltempo.it | 2026-01-16 | Takaichi fa gli auguri di compleanno a Meloni, l'applauso della delegazione giapponese – Il Tempo |
-| 5 | 0.17644590 | iltempo.it | 2026-04-30 | Salvini: Sono sempre d'accordo con la Presidente del Consiglio – Il Tempo |
-| 6 | 0.17591734 | iltempo.it | 2026-03-24 | Barelli (Fi): Ha vinto il No al Referendum, ma non è una sconfitta politica – Il Tempo |
-| 7 | 0.17584432 | iltempo.it | 2026-03-22 | Elly Schlein vota per il Referendum sulla giustizia – Il Tempo |
-| 8 | 0.17455130 | iltempo.it | 2026-02-10 | Calenda: Vannacci da sempre sostiene le ragioni di Putin – Il Tempo |
-| 9 | 0.17185903 | iltempo.it | 2026-05-08 | Rubio arriva a Palazzo Chigi per incontrare Meloni – Il Tempo |
-| 10 | 0.17069406 | iltempo.it | 2026-07-10 | Rampelli: Non si possono fare banchetti sull'Altare della Patria – Il Tempo |
-
-Campione deterministico, seed base 42:
-
-| Rank | Peso | Confidenza | Dominio | Data | Titolo |
-|---|---|---|---|---|---|
-| 1 | 0.11227095 | 0.91330338 | iltempo.it | 2026-01-28 | Referendum Giustizia, Boccia: Grave che Governo blocchi voto ai fuori sede – Il Tempo |
-| 2 | 0.13493667 | 0.91955402 | iltempo.it | 2026-03-03 | Meloni: Record storico occupazione femminile, risultato di cui vado fiera – Il Tempo |
-| 3 | 0.13634740 | 0.88959641 | iltempo.it | 2026-04-09 | Referendum giustizia, Meloni: Abbiamo coscienza a posto, onorata parola responsabilità – Il Tempo |
-| 4 | 0.10472057 | 0.87527692 | iltempo.it | 2026-04-09 | Richetti (Azione) a Meloni: No a un anno e mezzo di campagna elettorale in momento di crisi – Il Tempo |
-| 5 | 0.10687488 | 0.82438940 | iltempo.it | 2026-05-21 | Meloni a Niscemi: 150 milioni per messa in sicurezza e indennizzi, domani in Consiglio dei Ministri – Il Tempo |
-
-### Topic 6
-
-- Articoli: 394 (0.409%).
-- Termini registrati: websalvasalvata, redazione websalvasalvata, redazione, di redazione, antipasti, traghetti bus, luglio treni, treni traghetti, bus rischio, coinvoltesalvasalvata, regioni coinvoltesalvasalvata, traghetti
-- Interpretazione semantica: **da validare da una persona**.
-
-Domini prevalenti:
-
-| Rank | Dominio | Articoli | % topic |
-|---|---|---|---|
-| 1 | ilmessaggero.it | 341 | 86.548% |
-| 2 | ilmattino.it | 50 | 12.690% |
-| 3 | lagazzettadelmezzogiorno.it | 2 | 0.508% |
-| 4 | leggo.it | 1 | 0.254% |
-
-Distribuzione mensile:
-
-| Mese | Articoli |
-|---|---|
-| 2026-02 | 65 |
-| 2026-03 | 53 |
-| 2026-04 | 82 |
-| 2026-05 | 71 |
-| 2026-06 | 85 |
+| 2026-03 | 166 |
+| 2026-04 | 165 |
+| 2026-05 | 129 |
+| 2026-06 | 170 |
 | 2026-07 | 38 |
 
 Record con peso più alto:
 
 | Rank | Peso | Dominio | Data | Titolo |
 |---|---|---|---|---|
-| 1 | 0.24610014 | ilmessaggero.it | 2026-05-18 | Mondiali 2026 |
-| 2 | 0.24570788 | ilmessaggero.it | 2026-05-17 | Roma-Lazio |
-| 3 | 0.24564158 | ilmessaggero.it | 2026-05-20 | Palermo-Catanzaro |
-| 4 | 0.24532426 | ilmessaggero.it | 2026-06-16 | Francia-Senegal 3-1 |
-| 5 | 0.24522785 | ilmessaggero.it | 2026-05-04 | Cremonese-Lazio 1-2 |
-| 6 | 0.24497332 | ilmessaggero.it | 2026-02-28 | Inter-Genoa |
-| 7 | 0.24494306 | ilmessaggero.it | 2026-02-16 | Sinner debutta a Doha |
-| 8 | 0.24492739 | ilmessaggero.it | 2026-03-01 | Cremonese-Milan 0-2 |
-| 9 | 0.24488031 | ilmessaggero.it | 2026-05-11 | Napoli-Bologna 2-3 |
-| 10 | 0.24486773 | ilmessaggero.it | 2026-05-18 | Napoli-Conte |
+| 1 | 0.18448465 | iltempo.it | 2026-03-23 | Il Ministro Tajani vota per il referendum sulla giustizia a Fiuggi – Il Tempo |
+| 2 | 0.18177773 | iltempo.it | 2026-01-16 | Takaichi fa gli auguri di compleanno a Meloni, l'applauso della delegazione giapponese – Il Tempo |
+| 3 | 0.18072616 | iltempo.it | 2026-04-10 | Meloni in Senato: Non faremo misure demagogiche che devastano conti Stato come hanno fatto altri – Il Tempo |
+| 4 | 0.18016550 | iltempo.it | 2026-02-10 | Calenda: Vannacci da sempre sostiene le ragioni di Putin – Il Tempo |
+| 5 | 0.17799428 | iltempo.it | 2026-07-10 | Rampelli: Non si possono fare banchetti sull'Altare della Patria – Il Tempo |
+| 6 | 0.17522606 | iltempo.it | 2026-06-18 | Meloni arriva al Consiglio Ue di Bruxelles – Il Tempo |
+| 7 | 0.17431731 | iltempo.it | 2026-02-10 | Giorno del Ricordo, l'applauso dell'Aula di Montecitorio – Il Tempo |
+| 8 | 0.17338685 | iltempo.it | 2026-03-11 | Bonelli contro Tajani: Fatto appelli imbarazzanti su droni e “oggi come sono stati i bombardamenti” – Il Tempo |
+| 9 | 0.17304424 | iltempo.it | 2026-03-22 | Elly Schlein vota per il Referendum sulla giustizia – Il Tempo |
+| 10 | 0.17223401 | iltempo.it | 2026-04-30 | Salvini: Sono sempre d'accordo con la Presidente del Consiglio – Il Tempo |
 
 Campione deterministico, seed base 42:
 
 | Rank | Peso | Confidenza | Dominio | Data | Titolo |
 |---|---|---|---|---|---|
-| 1 | 0.09391997 | 0.91773411 | ilmattino.it | 2026-03-14 | ​La delegazione della LILT di Capri ha festeggiato il suo ventesimo compleanno |
-| 2 | 0.07696797 | 0.87604605 | ilmattino.it | 2026-04-27 | Rosi la gattina salvata a Roma: dopo cure e ricovero trova finalmente una nuova casa |
-| 3 | 0.22821793 | 0.99480464 | ilmessaggero.it | 2026-02-24 | L'artista a Castel di Tora |
-| 4 | 0.19576532 | 0.96818311 | ilmessaggero.it | 2026-02-18 | Caffé a rischio estinzione, la «cintura dei chicchi» non riesce più a produrre l'Arabica |
-| 5 | 0.20572358 | 0.97415459 | ilmessaggero.it | 2026-03-17 | Processo Becciu, riparte il dibattimento |
+| 1 | 0.14984109 | 0.90088289 | iltempo.it | 2026-01-16 | Selfie per Meloni e Sanae Takaichi di fronte al grande vaso di fiori nel Palazzo del Governo a Tokyo – Il Tempo |
+| 2 | 0.12898490 | 0.89959520 | iltempo.it | 2026-02-12 | Meloni: Costi energia? "Occorre partire da una revisione degli Ets e contrastare la speculazione" – Il Tempo |
+| 3 | 0.11465504 | 0.73124382 | iltempo.it | 2026-04-09 | Tregua Iran, Meloni: Condanniamo qualsiasi forma di violazione del cessate il fuoco – Il Tempo |
+| 4 | 0.15495276 | 0.75787361 | iltempo.it | 2026-04-28 | Caso Minetti, Meloni: Escludo le dimissioni di Nordio – Il Tempo |
+| 5 | 0.13153721 | 0.86978366 | iltempo.it | 2026-05-11 | Tajani su Hantavirus: Non sono per l'uscita dall'Oms – Il Tempo |
 
-### Topic 7
+### Topic 2
 
-- Articoli: 392 (0.407%).
-- Termini registrati: corriere di, personaggi opinioni, attualita esteri, carlo antini, tempo tv, rieti corriere, antini, edicola digitale, controtempo, di rieti, chi siamo, di viterbo
+- Articoli: 289 (0.327%).
+- Termini registrati: corriere viterbo, corriere rieti, tempo tv, carlo antini, attualita esteri, rieti corriere, personaggi opinioni, antini, edicola digitale, controtempo, rieti, viterbo
 - Interpretazione semantica: **da validare da una persona**.
 
 Domini prevalenti:
 
 | Rank | Dominio | Articoli | % topic |
 |---|---|---|---|
-| 1 | iltempo.it | 255 | 65.051% |
-| 2 | repubblica.it | 108 | 27.551% |
-| 3 | laverita.info | 14 | 3.571% |
-| 4 | rai.it | 5 | 1.276% |
-| 5 | lanazione.it | 3 | 0.765% |
-| 6 | ilgiorno.it | 2 | 0.510% |
-| 7 | italpress.com | 2 | 0.510% |
-| 8 | ilmessaggero.it | 1 | 0.255% |
-| 9 | ilrestodelcarlino.it | 1 | 0.255% |
-| 10 | ilsecoloxix.it | 1 | 0.255% |
+| 1 | iltempo.it | 253 | 87.543% |
+| 2 | laverita.info | 27 | 9.343% |
+| 3 | askanews.it | 2 | 0.692% |
+| 4 | lagazzettadelmezzogiorno.it | 2 | 0.692% |
+| 5 | adnkronos.com | 1 | 0.346% |
+| 6 | ilnuovolevante.it | 1 | 0.346% |
+| 7 | italpress.com | 1 | 0.346% |
+| 8 | repubblica.it | 1 | 0.346% |
+| 9 | unionesarda.it | 1 | 0.346% |
 
 Distribuzione mensile:
 
 | Mese | Articoli |
 |---|---|
 | 2026-01 | 42 |
-| 2026-02 | 58 |
-| 2026-03 | 42 |
-| 2026-04 | 117 |
-| 2026-05 | 78 |
-| 2026-06 | 41 |
-| 2026-07 | 14 |
+| 2026-02 | 56 |
+| 2026-03 | 43 |
+| 2026-04 | 51 |
+| 2026-05 | 40 |
+| 2026-06 | 44 |
+| 2026-07 | 13 |
 
 Record con peso più alto:
 
 | Rank | Peso | Dominio | Data | Titolo |
 |---|---|---|---|---|
-| 1 | 0.25405094 | iltempo.it | 2026-06-10 | Meloni "L'Italia non è la repubblica delle banane" – Il Tempo |
-| 2 | 0.25349122 | iltempo.it | 2026-02-27 | Salvini "Lavorerò per le Olimpiadi di Roma 2040" – Il Tempo |
-| 3 | 0.24934196 | iltempo.it | 2026-05-04 | Nato, Meloni "L'Italia ha sempre mantenuto gli impegni" – Il Tempo |
-| 4 | 0.24833567 | iltempo.it | 2026-04-23 | Energia, Meloni "L'Europa sia più coraggiosa" – Il Tempo |
-| 5 | 0.24764154 | iltempo.it | 2026-03-02 | Iran, Salvini "L'Italia non è in guerra, non manderemo soldati" – Il Tempo |
-| 6 | 0.24718475 | iltempo.it | 2026-01-28 | Meloni a Niscemi, le immagini dell'arrivo – Il Tempo |
-| 7 | 0.24708251 | iltempo.it | 2026-06-15 | Lega, Guidesi "Discussione sia strutturale, non contingente o elettorale" – Il Tempo |
-| 8 | 0.24617437 | iltempo.it | 2026-05-11 | Tajani "L'Iran non può avere l'arma nucleare" – Il Tempo |
-| 9 | 0.24599425 | iltempo.it | 2026-01-28 | Niscemi, Meloni "Non ripetere il '97, lavorare insieme per risposte rapide" – Il Tempo |
-| 10 | 0.24596034 | iltempo.it | 2026-04-23 | Migranti, Meloni "Servono soluzioni innovative" – Il Tempo |
+| 1 | 0.25743253 | iltempo.it | 2026-03-07 | Iran, Lupi "Le iniziative della Meloni vanno verso la via diplomatica" – Il Tempo |
+| 2 | 0.25511847 | iltempo.it | 2026-06-24 | Meloni "Nel 2025 dal Governo 160 milioni di euro contro le dipendenze" – Il Tempo |
+| 3 | 0.25318374 | iltempo.it | 2026-06-15 | Lega, Guidesi "Discussione sia strutturale, non contingente o elettorale" – Il Tempo |
+| 4 | 0.25260099 | iltempo.it | 2026-06-10 | Meloni "L'Italia non è la repubblica delle banane" – Il Tempo |
+| 5 | 0.25170500 | iltempo.it | 2026-02-27 | Salvini "Lavorerò per le Olimpiadi di Roma 2040" – Il Tempo |
+| 6 | 0.25130414 | iltempo.it | 2026-04-23 | Energia, Meloni "L'Europa sia più coraggiosa" – Il Tempo |
+| 7 | 0.25011982 | iltempo.it | 2026-04-29 | Tajani "Sull'energia l'Unione Europea deve essere più elastica" – Il Tempo |
+| 8 | 0.24976886 | iltempo.it | 2026-02-27 | Legge elettorale Salvini "Se garantisce la stabilità va benissimo" – Il Tempo |
+| 9 | 0.24932795 | iltempo.it | 2026-05-11 | Tajani "L'Iran non può avere l'arma nucleare" – Il Tempo |
+| 10 | 0.24836283 | iltempo.it | 2026-05-04 | Nato, Meloni "L'Italia ha sempre mantenuto gli impegni" – Il Tempo |
 
 Campione deterministico, seed base 42:
 
 | Rank | Peso | Confidenza | Dominio | Data | Titolo |
 |---|---|---|---|---|---|
-| 1 | 0.22840275 | 0.99768832 | iltempo.it | 2026-01-12 | Meloni "Gioia per liberazione di Trentini e Burlò, al lavoro col Venezuela" – Il Tempo |
-| 2 | 0.23370536 | 0.99693086 | iltempo.it | 2026-05-04 | Ue, Salvini "Superare il Patto di Stabilità è questione di sopravvivenza" – Il Tempo |
-| 3 | 0.23336868 | 0.98453579 | iltempo.it | 2026-05-07 | Ue, Meloni "Da Italia e Polonia stessa linea sul nuovo quadro finanziario" – Il Tempo |
-| 4 | 0.01012668 | 0.38257320 | repubblica.it | 2026-04-09 | Fenerbahçe - Real Madrid (69-74) Euroleague - la Repubblica |
-| 5 | 0.01014371 | 0.38180715 | repubblica.it | 2026-04-19 | Torino - Baltur Cento (80-69) Serie A2 - la Repubblica |
+| 1 | 0.23789313 | 0.98713295 | iltempo.it | 2026-02-24 | Tajani "Vogliamo far sì che Matera sia un ponte verso tutta l'area mediterranea" – Il Tempo |
+| 2 | 0.22737320 | 0.96813887 | iltempo.it | 2026-03-16 | Tajani "Rafforzare la missione Aspides ma no all'allargamento a Hormuz" – Il Tempo |
+| 3 | 0.22313055 | 0.96411506 | iltempo.it | 2026-04-09 | Meloni "In Iran flebile prospettiva di pace, Israele fermi escalation in Libano" – Il Tempo |
+| 4 | 0.23597023 | 0.97124209 | iltempo.it | 2026-05-07 | Ue, Meloni "Da Italia e Polonia stessa linea sul nuovo quadro finanziario" – Il Tempo |
+| 5 | 0.24932795 | 0.97408873 | iltempo.it | 2026-05-11 | Tajani "L'Iran non può avere l'arma nucleare" – Il Tempo |
+
+### Topic 3
+
+- Articoli: 10923 (12.373%).
+- Termini registrati: meloni, giorgia, giorgia meloni, premier, presidente consiglio, presidente, consiglio, consiglio giorgia, chigi, palazzo chigi, palazzo, roma
+- Interpretazione semantica: **da validare da una persona**.
+
+Domini prevalenti:
+
+| Rank | Dominio | Articoli | % topic |
+|---|---|---|---|
+| 1 | askanews.it | 1144 | 10.473% |
+| 2 | ansa.it | 1069 | 9.787% |
+| 3 | iltempo.it | 931 | 8.523% |
+| 4 | repubblica.it | 863 | 7.901% |
+| 5 | ilgiornale.it | 576 | 5.273% |
+| 6 | italpress.com | 540 | 4.944% |
+| 7 | adnkronos.com | 411 | 3.763% |
+| 8 | gazzettadiparma.it | 397 | 3.635% |
+| 9 | giornaledibrescia.it | 371 | 3.397% |
+| 10 | lastampa.it | 356 | 3.259% |
+
+Distribuzione mensile:
+
+| Mese | Articoli |
+|---|---|
+| 2026-01 | 951 |
+| 2026-02 | 1224 |
+| 2026-03 | 1393 |
+| 2026-04 | 2661 |
+| 2026-05 | 1730 |
+| 2026-06 | 2276 |
+| 2026-07 | 688 |
+
+Record con peso più alto:
+
+| Rank | Peso | Dominio | Data | Titolo |
+|---|---|---|---|---|
+| 1 | 0.08617188 | askanews.it | 2026-03-18 | Governo, Meloni incontra Giorgetti a Palazzo Chigi |
+| 2 | 0.08154691 | adnkronos.com | 2026-03-16 | L’agenda del Premier |
+| 3 | 0.07932773 | askanews.it | 2026-04-28 | Meloni: entro la fine della settimana Piano casa |
+| 4 | 0.07869262 | adnkronos.com | 2026-04-13 | L’agenda del Premier |
+| 5 | 0.07800963 | adnkronos.com | 2026-06-22 | L’agenda del premier Giorgia Meloni |
+| 6 | 0.07717425 | askanews.it | 2026-04-11 | Ucraina, Zelensky mercoledì a Roma incontra Meloni |
+| 7 | 0.07565925 | gazzettadiparma.it | 2026-05-16 | Fonti Chigi, Meloni segue con massima attenzione quanto accaduto a Modena - Gazzetta di Parma |
+| 8 | 0.07411972 | askanews.it | 2026-04-02 | Governo, vertice maggioranza con Meloni a palazzo Chigi su Dfp |
+| 9 | 0.07391666 | adnkronos.com | 2026-06-08 | L’agenda del Premier Meloni |
+| 10 | 0.07371504 | adnkronos.com | 2026-04-20 | L’agenda del premier Giorgia Meloni |
+
+Campione deterministico, seed base 42:
+
+| Rank | Peso | Confidenza | Dominio | Data | Titolo |
+|---|---|---|---|---|---|
+| 1 | 0.01417993 | 0.69612631 | askanews.it | 2026-04-21 | Terna, Giuseppina Di Foggia rinuncia all’indennità di fine rapporto |
+| 2 | 0.03178265 | 0.46220744 | adnkronos.com | 2026-06-25 | Meloni e il summit con Macron, oggi il vertice bilaterale ad Antibes: i temi |
+| 3 | 0.02899148 | 0.59848212 | ansa.it | 2026-04-14 | Meloni, l'economia preoccupa molto se non riapre Hormuz - Ultima ora - Ansa.it |
+| 4 | 0.02948189 | 0.39449113 | ilgiornaledivicenza.it | 2026-03-31 | Roma chiama Luca Zaia. E il Veneto si prepara al dopo \| G. di Vicenza |
+| 5 | 0.00850500 | 0.41212501 | repubblica.it | 2026-06-05 | Salvini batte cassa alle banche: “Unicredit e Intesa diano un contributo”. E i titoli vanno giù - la Repubblica |
+
+### Topic 4
+
+- Articoli: 14530 (16.459%).
+- Termini registrati: sindaco, centrodestra, partito, candidato, centrosinistra, coalizione, pd, forza italia, elezioni, forza, elettorale, lista
+- Interpretazione semantica: **da validare da una persona**.
+
+Domini prevalenti:
+
+| Rank | Dominio | Articoli | % topic |
+|---|---|---|---|
+| 1 | lanazione.it | 1605 | 11.046% |
+| 2 | ansa.it | 1370 | 9.429% |
+| 3 | ilrestodelcarlino.it | 952 | 6.552% |
+| 4 | gazzettadelsud.it | 809 | 5.568% |
+| 5 | ilgiornale.it | 651 | 4.480% |
+| 6 | ilmattino.it | 570 | 3.923% |
+| 7 | lastampa.it | 567 | 3.902% |
+| 8 | repubblica.it | 508 | 3.496% |
+| 9 | ilgiorno.it | 499 | 3.434% |
+| 10 | ilgazzettino.it | 460 | 3.166% |
+
+Distribuzione mensile:
+
+| Mese | Articoli |
+|---|---|
+| 2026-01 | 1162 |
+| 2026-02 | 1946 |
+| 2026-03 | 1746 |
+| 2026-04 | 2371 |
+| 2026-05 | 3300 |
+| 2026-06 | 3153 |
+| 2026-07 | 852 |
+
+Record con peso più alto:
+
+| Rank | Peso | Dominio | Data | Titolo |
+|---|---|---|---|---|
+| 1 | 0.08735698 | ilfoglio.it | 2026-05-25 | De Luca a valanga a Salerno. A Venezia il centrodestra verso la vittoria al primo turno. I risultati delle comunali |
+| 2 | 0.08375187 | ilgiornale.it | 2026-05-25 | Amministrative, da Arezzo a Reggio Calabria: tutte le sfide-chiave nelle città  - il Giornale |
+| 3 | 0.08297321 | ilfattoquotidiano.it | 2026-05-23 | Elezioni amministrative 2026: Venezia, Salerno, Messina e Reggio Calabria le sfide chiave \| Il Fatto Quotidiano.it |
+| 4 | 0.07981509 | adnkronos.com | 2026-05-06 | Elezioni amministrative 2026, dove si vota il 24 e 25 maggio: comuni, schieramenti e candidati |
+| 5 | 0.07839232 | ilmattino.it | 2026-05-25 | Elezioni Comunali 24 e 25 maggio 2026, i risultati in diretta, le preferenze e gli exit poll in provincia di Avellino, Benevento, Caserta Napoli e Salerno |
+| 6 | 0.07818664 | agi.it | 2026-05-24 | Da Venezia a Reggio Calabria, oggi 6 milioni e mezzo di italiani |
+| 7 | 0.07750925 | repubblica.it | 2026-05-22 | Elezioni comunali 2026: dove e come si vota il 24 e 25 maggio - la Repubblica |
+| 8 | 0.07710441 | repubblica.it | 2026-05-24 | Comunali 2026, dove e come si vota - la Repubblica |
+| 9 | 0.07641016 | avvenire.it | 2026-05-22 | Le “bizze” della Lega, la sfida per Venezia, il caso De Luca: tutto quello che c'è da sapere sulle Comunali |
+| 10 | 0.07636253 | lastampa.it | 2026-06-08 | Elezioni comunali 2026, i risultati dei ballottaggi in diretta - La Stampa |
+
+Campione deterministico, seed base 42:
+
+| Rank | Peso | Confidenza | Dominio | Data | Titolo |
+|---|---|---|---|---|---|
+| 1 | 0.02871268 | 0.70515478 | gazzettadelsud.it | 2026-01-15 | Amministrazione al giro di boa a Vibo: Romeo sussurra, il Pd borbotta - Gazzetta del Sud |
+| 2 | 0.01892174 | 0.38515922 | adnkronos.com | 2026-05-04 | Forza Italia, Marina Berlusconi resta fuori: tensioni in Campania e appello all’unità |
+| 3 | 0.00849717 | 0.33341162 | iltempo.it | 2026-04-01 | Il Tempo di Osho, la vignetta di oggi: Grillo-Conte, altro round in tribunale (mercoledì 1 aprile) – Il Tempo |
+| 4 | 0.02610932 | 0.59674156 | iltempo.it | 2026-02-12 | Vannacci: "Sostengo il Governo ma resto critico su invio armi a Kiev" – Il Tempo |
+| 5 | 0.04094596 | 0.78635404 | lanazione.it | 2026-01-17 | Graverini mantiene il pallino. Prende tempo sulla risposta e mette a fuoco la squadra. Tanti e Comanducci in pista |
+
+### Topic 5
+
+- Articoli: 270 (0.306%).
+- Termini registrati: avellino, irpinia, pratola, reg, ariano, serra, grottaminarda, magia, corriere, momenti, gianni festa, irpini
+- Interpretazione semantica: **da validare da una persona**.
+
+Domini prevalenti:
+
+| Rank | Dominio | Articoli | % topic |
+|---|---|---|---|
+| 1 | corriereirpinia.it | 263 | 97.407% |
+| 2 | lagazzettadelmezzogiorno.it | 2 | 0.741% |
+| 3 | ansa.it | 1 | 0.370% |
+| 4 | askanews.it | 1 | 0.370% |
+| 5 | giornaledibrescia.it | 1 | 0.370% |
+| 6 | lanazione.it | 1 | 0.370% |
+| 7 | ligurianotizie.it | 1 | 0.370% |
+
+Distribuzione mensile:
+
+| Mese | Articoli |
+|---|---|
+| 2026-01 | 19 |
+| 2026-02 | 27 |
+| 2026-03 | 42 |
+| 2026-04 | 59 |
+| 2026-05 | 73 |
+| 2026-06 | 40 |
+| 2026-07 | 10 |
+
+Record con peso più alto:
+
+| Rank | Peso | Dominio | Data | Titolo |
+|---|---|---|---|---|
+| 1 | 0.29007320 | corriereirpinia.it | 2026-04-03 | Il Sud che vuole cambiare – Corriere dell'Irpinia |
+| 2 | 0.28789114 | corriereirpinia.it | 2026-04-30 | Primo maggio, spazio alla dignità del lavoro – Corriere dell'Irpinia |
+| 3 | 0.28370598 | corriereirpinia.it | 2026-05-17 | I 18 anni di Maia – Corriere dell'Irpinia |
+| 4 | 0.28217344 | corriereirpinia.it | 2026-05-20 | Noi di Centro, Negrone: “L’entusiasmo dei giovani, una marcia in più per Nello Pizza” – Corriere dell'Irpinia |
+| 5 | 0.28170606 | corriereirpinia.it | 2026-04-12 | Il battesimo di Carlo – Corriere dell'Irpinia |
+| 6 | 0.27966108 | corriereirpinia.it | 2026-07-09 | Laurea Preziosi, auguri alla neodottoressa – Corriere dell'Irpinia |
+| 7 | 0.27911855 | corriereirpinia.it | 2026-04-24 | Buon compleanno Roberta – Corriere dell'Irpinia |
+| 8 | 0.27662143 | corriereirpinia.it | 2026-04-14 | Lutto Vitale, l’abbraccio della redazione ai colleghi Giancarlo e Norberto – Corriere dell'Irpinia |
+| 9 | 0.27475991 | corriereirpinia.it | 2026-05-01 | Auguroni di buon compleanno alla splendida Sara Tozza – Corriere dell'Irpinia |
+| 10 | 0.27191569 | corriereirpinia.it | 2026-05-27 | Buon compleanno Renato – Corriere dell'Irpinia |
+
+Campione deterministico, seed base 42:
+
+| Rank | Peso | Confidenza | Dominio | Data | Titolo |
+|---|---|---|---|---|---|
+| 1 | 0.21905458 | 0.91032602 | corriereirpinia.it | 2026-05-21 | Amministrative Ariano, domani gli appelli finali. Tre candidati sindaci,12 liste,187 aspiranti consiglieri comunali – Corriere dell'Irpinia |
+| 2 | 0.01477084 | 0.42902382 | corriereirpinia.it | 2026-05-27 | Gargani, Sena: “Ha valorizzato la presenza dell’Irpinia nelle istituzioni” – Corriere dell'Irpinia |
+| 3 | 0.22450788 | 0.92740600 | corriereirpinia.it | 2026-03-23 | Micillo (M5s): i cittadini hanno difeso con il No la garanzia di diritti e libertà – Corriere dell'Irpinia |
+| 4 | 0.24021768 | 0.98629186 | corriereirpinia.it | 2026-05-17 | Montoro, è realtà il sogno Promozione – Corriere dell'Irpinia |
+| 5 | 0.12556979 | 0.81836074 | corriereirpinia.it | 2026-03-28 | Piano di rientro, Sarracino: “Si apre una stagione nuova” – Corriere dell'Irpinia |
+
+### Topic 6
+
+- Articoli: 2234 (2.531%).
+- Termini registrati: agenzia vista, agenzia, vista, jakhnagiev, alexander jakhnagiev, vista alexander, alexander, fonte agenzia, fonte, vista roma, immobile asta, tuo immobile
+- Interpretazione semantica: **da validare da una persona**.
+
+Domini prevalenti:
+
+| Rank | Dominio | Articoli | % topic |
+|---|---|---|---|
+| 1 | agi.it | 783 | 35.049% |
+| 2 | ilmessaggero.it | 675 | 30.215% |
+| 3 | affaritaliani.it | 380 | 17.010% |
+| 4 | ilmattino.it | 318 | 14.235% |
+| 5 | ilgazzettino.it | 65 | 2.910% |
+| 6 | corriereadriatico.it | 3 | 0.134% |
+| 7 | italpress.com | 3 | 0.134% |
+| 8 | laverita.info | 2 | 0.090% |
+| 9 | leggo.it | 2 | 0.090% |
+| 10 | ilmanifesto.it | 1 | 0.045% |
+
+Distribuzione mensile:
+
+| Mese | Articoli |
+|---|---|
+| 2026-01 | 115 |
+| 2026-02 | 189 |
+| 2026-03 | 388 |
+| 2026-04 | 524 |
+| 2026-05 | 417 |
+| 2026-06 | 487 |
+| 2026-07 | 114 |
+
+Record con peso più alto:
+
+| Rank | Peso | Dominio | Data | Titolo |
+|---|---|---|---|---|
+| 1 | 0.19415288 | ilmessaggero.it | 2026-03-14 | Il dietro la tenda dell'intervista con Conte del direttore di Agenzia Vista Alexander Jakhnagiev |
+| 2 | 0.18337201 | ilmessaggero.it | 2026-06-11 | Meloni esce dal Senato e saluta il direttore di Agenzia Vista Alexander Jakhnagiev a fine seduta |
+| 3 | 0.16743704 | ilmessaggero.it | 2026-06-13 | Vannacci: La Costituzione è antifascista? Non mi risulta |
+| 4 | 0.16387794 | ilmessaggero.it | 2026-04-30 | Salvini: Sono sempre d’accordo con la Presidente del Consiglio |
+| 5 | 0.16200175 | ilmessaggero.it | 2026-04-15 | L'abbraccio tra Meloni e Zelensky all'arrivo del Presidente ucraino a Palazzo Chigi |
+| 6 | 0.15900859 | ilmessaggero.it | 2026-05-25 | Dalla biennale a Gaza, dalla benzina a Taiwan, ecco gli ultimi elenchi di Salvini |
+| 7 | 0.15820310 | ilmessaggero.it | 2026-04-28 | Meloni: Su Patto di Stabilità non va esclusa deroga generale |
+| 8 | 0.15750568 | ilmessaggero.it | 2026-03-23 | Meloni, il selfie con le sostenitrici dopo aver votato |
+| 9 | 0.15722288 | ilmessaggero.it | 2026-02-17 | Il Presidente Mattarella allAmbasciata della Santa Sede a Roma per i 97 anni dei Patti Lateranensi |
+| 10 | 0.15667869 | ilmessaggero.it | 2026-05-30 | 'Siate coraggiosi e io farò lo stesso' su Camera con VIsta su La7 di Alexander Jakhnagiev |
+
+Campione deterministico, seed base 42:
+
+| Rank | Peso | Confidenza | Dominio | Data | Titolo |
+|---|---|---|---|---|---|
+| 1 | 0.08675679 | 0.65948384 | affaritaliani.it | 2026-06-11 | Meloni risponde a Silvestri sulle 'ginocchiere', ovazione dal centrodestra alla Camera |
+| 2 | 0.08467565 | 0.68520128 | affaritaliani.it | 2026-05-01 | Primo Maggio, Meloni visita PizzAut a Monza |
+| 3 | 0.04597686 | 0.57480244 | agi.it | 2026-02-14 | Guerra Ucraina, Tajani: 'Per garantire sicurezza serve impegno Usa soprattutto su difesa aerea' |
+| 4 | 0.05761460 | 0.57584447 | agi.it | 2026-05-07 | Meloni: Italia e Polonia condividono radici culturali profonde |
+| 5 | 0.10191886 | 0.76646367 | ilmessaggero.it | 2026-05-14 | Meloni al Comint: Ok a documento strategico di politica spaziale nazionale |
+
+### Topic 7
+
+- Articoli: 163 (0.185%).
+- Termini registrati: wimbledon, ciclismo tour, de france, calcio mondiali, tour de, ciclismo, tennis wimbledon, france, km tennis, tennis, mondiali, km
+- Interpretazione semantica: **da validare da una persona**.
+
+Domini prevalenti:
+
+| Rank | Dominio | Articoli | % topic |
+|---|---|---|---|
+| 1 | repubblica.it | 106 | 65.031% |
+| 2 | lagazzettadelmezzogiorno.it | 11 | 6.748% |
+| 3 | ilfattoquotidiano.it | 8 | 4.908% |
+| 4 | askanews.it | 6 | 3.681% |
+| 5 | ansa.it | 5 | 3.067% |
+| 6 | italpress.com | 4 | 2.454% |
+| 7 | adnkronos.com | 3 | 1.840% |
+| 8 | iltempo.it | 3 | 1.840% |
+| 9 | leggo.it | 3 | 1.840% |
+| 10 | varesenews.it | 3 | 1.840% |
+
+Distribuzione mensile:
+
+| Mese | Articoli |
+|---|---|
+| 2026-01 | 2 |
+| 2026-02 | 7 |
+| 2026-03 | 2 |
+| 2026-04 | 70 |
+| 2026-05 | 54 |
+| 2026-06 | 20 |
+| 2026-07 | 8 |
+
+Record con peso più alto:
+
+| Rank | Peso | Dominio | Data | Titolo |
+|---|---|---|---|---|
+| 1 | 0.30831567 | repubblica.it | 2026-04-19 | Pesaro - Forlì (85-73) Serie A2 - la Repubblica |
+| 2 | 0.30821779 | repubblica.it | 2026-04-19 | Torino - Baltur Cento (80-69) Serie A2 - la Repubblica |
+| 3 | 0.30817045 | repubblica.it | 2026-04-10 | Monaco - Barcelona (93-86) Euroleague - la Repubblica |
+| 4 | 0.30807913 | repubblica.it | 2026-04-19 | Pistoia - Brindisi (79-71) Serie A2 - la Repubblica |
+| 5 | 0.30804706 | repubblica.it | 2026-04-07 | Valencia - Milano (102-96) Euroleague - la Repubblica |
+| 6 | 0.30803751 | repubblica.it | 2026-04-17 | Dubai - Valencia (85-95) Euroleague - la Repubblica |
+| 7 | 0.30799351 | repubblica.it | 2026-04-12 | Baltur Cento - Scafati (83-88) Serie A2 - la Repubblica |
+| 8 | 0.30796419 | repubblica.it | 2026-04-16 | Partizan - Baskonia (91-79) Euroleague - la Repubblica |
+| 9 | 0.30795907 | repubblica.it | 2026-04-07 | Žalgiris - Dubai (65-77) Euroleague - la Repubblica |
+| 10 | 0.30792452 | repubblica.it | 2026-04-16 | Olympiacos - Milano (85-76) Euroleague - la Repubblica |
+
+Campione deterministico, seed base 42:
+
+| Rank | Peso | Confidenza | Dominio | Data | Titolo |
+|---|---|---|---|---|---|
+| 1 | 0.30741370 | 1.00000000 | repubblica.it | 2026-04-09 | Fenerbahçe - Real Madrid (69-74) Euroleague - la Repubblica |
+| 2 | 0.30678959 | 1.00000000 | repubblica.it | 2026-05-05 | Hapoel Tel Aviv - Real Madrid (76-69) Euroleague - la Repubblica |
+| 3 | 0.30722945 | 1.00000000 | repubblica.it | 2026-04-09 | Valencia - Panathinaikos (102-84) Euroleague - la Repubblica |
+| 4 | 0.30732362 | 1.00000000 | repubblica.it | 2026-04-10 | Virtus Bologna - Baskonia (72-82) Euroleague - la Repubblica |
+| 5 | 0.30708042 | 0.99786140 | repubblica.it | 2026-04-26 | Real Sebastiani Rieti - Torino (80-66) Serie A2 - la Repubblica |
 
 ### Topic 8
 
-- Articoli: 16934 (17.576%).
-- Termini registrati: trump, meloni, iran, tajani, ministro, uniti, stati uniti, usa, stati, esteri, guerra, premier
+- Articoli: 9938 (11.257%).
+- Termini registrati: referendum, riforma, giustizia, no, magistratura, magistrati, governo, nordio, schlein, voto, costituzione, legge
 - Interpretazione semantica: **da validare da una persona**.
 
 Domini prevalenti:
 
 | Rank | Dominio | Articoli | % topic |
 |---|---|---|---|
-| 1 | iltempo.it | 1523 | 8.994% |
-| 2 | askanews.it | 1081 | 6.384% |
-| 3 | ilgiornale.it | 1060 | 6.260% |
-| 4 | ansa.it | 906 | 5.350% |
-| 5 | ilmessaggero.it | 894 | 5.279% |
-| 6 | repubblica.it | 893 | 5.273% |
-| 7 | adnkronos.com | 849 | 5.014% |
-| 8 | italpress.com | 768 | 4.535% |
-| 9 | lastampa.it | 690 | 4.075% |
-| 10 | laverita.info | 588 | 3.472% |
+| 1 | ilgiornale.it | 1116 | 11.230% |
+| 2 | iltempo.it | 1056 | 10.626% |
+| 3 | ansa.it | 845 | 8.503% |
+| 4 | ilfattoquotidiano.it | 503 | 5.061% |
+| 5 | repubblica.it | 488 | 4.910% |
+| 6 | ilfoglio.it | 465 | 4.679% |
+| 7 | lastampa.it | 417 | 4.196% |
+| 8 | ilmanifesto.it | 399 | 4.015% |
+| 9 | ilriformista.it | 331 | 3.331% |
+| 10 | laverita.info | 317 | 3.190% |
 
 Distribuzione mensile:
 
 | Mese | Articoli |
 |---|---|
-| 2026-01 | 1932 |
-| 2026-02 | 1833 |
-| 2026-03 | 3015 |
-| 2026-04 | 3568 |
-| 2026-05 | 2771 |
-| 2026-06 | 2897 |
-| 2026-07 | 918 |
+| 2026-01 | 1100 |
+| 2026-02 | 2093 |
+| 2026-03 | 3487 |
+| 2026-04 | 1138 |
+| 2026-05 | 786 |
+| 2026-06 | 956 |
+| 2026-07 | 378 |
 
 Record con peso più alto:
 
 | Rank | Peso | Dominio | Data | Titolo |
 |---|---|---|---|---|
-| 1 | 0.09292682 | repubblica.it | 2026-04-09 | Guerra in Iran, le news del 9 aprile. Idf: “Evacuare Beirut sud”. Hormuz ancora chiuso - la Repubblica |
-| 2 | 0.09203011 | ilsole24ore.com | 2026-04-08 | Guerra in Iran, ultime notizie - Iran blocca Hormuz dopo raid Israele in Libano. Macron: tregua deve includerlo - Il Sole 24 ORE |
-| 3 | 0.09181207 | lastampa.it | 2026-04-08 | Guerra Iran, le news dopo lâattacco di Usa Israele. La diretta - La Stampa |
-| 4 | 0.09155194 | repubblica.it | 2026-03-19 | Guerra in Iran, le news del 19 marzo - la Repubblica |
-| 5 | 0.09039727 | mediaset.it | 2026-04-17 | Guerra Iran, oggi in diretta: Trump: "Non ci saremo per l'Italia" |
-| 6 | 0.09011648 | repubblica.it | 2026-04-17 | Guerra in Iran, le news del 17 aprile in diretta \| Tregua tra Israele e Libano - la Repubblica |
-| 7 | 0.09008055 | ilgiornale.it | 2026-03-10 | Allarme degli 007 Usa: "Teheran vuole minare Hormuz". Trump: "Le rimuova o conseguenze mai viste". Italia, Germania e Inghilterra al lavoro per proteggere le navi - il Giornale |
-| 8 | 0.08973047 | repubblica.it | 2026-06-15 | Guerra in Iran, le news del 15 giugno \| Accordo Usa - Iran raggiunto: riapre Hormuz - la Repubblica |
-| 9 | 0.08949902 | repubblica.it | 2026-06-24 | Le news del 24 giugno. Guerra in Iran. Rutte: “500 aerei Usa sono decollati da basi in Italia" - la Repubblica |
-| 10 | 0.08940057 | repubblica.it | 2026-06-17 | Guerra in Iran, le news del 17 giugno \| Venerdì la firma dell'accordo Usa - Iran - la Repubblica |
+| 1 | 0.08938695 | tpi.it | 2026-03-06 | Referendum di mid-term: perché il 22-23 marzo la posta in gioco è doppia |
+| 2 | 0.08645943 | laverita.info | 2026-03-19 | Referendum sulla giustizia: storia, quesiti e scontro politico — La Verità |
+| 3 | 0.08300977 | internazionale.it | 2026-03-10 | I rischi della riforma della magistratura - Alessandro Calvi - Internazionale |
+| 4 | 0.08254085 | panorama.it | 2026-01-12 | Giustizia, fissata la data del referendum il 22 e 23 marzo 2026: le novità punto per punto |
+| 5 | 0.08231324 | ilfattoquotidiano.it | 2026-03-20 | Referendum giustizia 2026: le ragioni per votare "No" |
+| 6 | 0.08230845 | tempi.it | 2026-02-15 | Battista: «Il mio sì al referendum sulla giustizia» - Tempi |
+| 7 | 0.08224274 | italpress.com | 2026-03-22 | Seggi aperti per il referendum sulla riforma della giustizia: i dati dell'affluenza |
+| 8 | 0.08152987 | ilfattoquotidiano.it | 2026-03-20 | Referendum 2026 sulla Giustizia: quando e per cosa si vota |
+| 9 | 0.08099440 | ildispariquotidiano.it | 2026-03-07 | Cristiano Rossetti: “Il referendum sulla magistratura? Guardate i contenuti, non le bandiere” – Il Dispari Quotidiano |
+| 10 | 0.08093508 | tpi.it | 2026-03-06 | Luciano Violante a TPI: "La riforma Nordio rafforza i pm" |
 
 Campione deterministico, seed base 42:
 
 | Rank | Peso | Confidenza | Dominio | Data | Titolo |
 |---|---|---|---|---|---|
-| 1 | 0.02038912 | 0.50421278 | ilgazzettino.it | 2026-04-07 | Emergenza energetica, si studia il piano: smart working, targhe alterne. Ecco cosa può succedere |
-| 2 | 0.02171661 | 0.70621753 | ilsole24ore.com | 2026-05-18 | Israele intercetta la Global Sumud Flotilla al largo di Cipro |
-| 3 | 0.01988873 | 0.42880850 | ladige.it | 2026-04-13 | Meloni al Papa, possa il suo viaggio in Africa portare la pace |
-| 4 | 0.02413225 | 0.51308598 | lagazzettadelmezzogiorno.it | 2026-06-25 | Meloni, presto conferenza internazionale sul Libano post Unifil - Gazzetta del Mezzogiorno |
-| 5 | 0.02517444 | 0.71015852 | mediaset.it | 2026-05-17 | Meloni a von der Leyen: "La deroga al Patto di stabilità sia estesa all'energia" |
+| 1 | 0.02557909 | 0.54143730 | ilmanifesto.it | 2026-03-13 | il manifesto |
+| 2 | 0.02356889 | 0.81428254 | repubblica.it | 2026-03-09 | Matone (Lega): âLa canzone di Da Vinci Ã¨ da matrimoni pacchiani ma aiuta il SÃ¬ al referendumâ - la Repubblica |
+| 3 | 0.01162852 | 0.24976980 | adnkronos.com | 2026-06-09 | Senato, Silvestro e l'accusa di violenza sessuale: come procede l'inchiesta oggi |
+| 4 | 0.03232828 | 0.62130098 | ansa.it | 2026-03-24 | Pedullà (M5s): "Le dimissioni di Dalmastro e Bartolozzi dovute, ora Santanché" - Video - Ansa.it |
+| 5 | 0.03772632 | 0.46032571 | ilmessaggero.it | 2026-07-01 | Conte-Schlein: «Destra al Colle? La premier vuole solo il potere» |
 
 ### Topic 9
 
-- Articoli: 29165 (30.271%).
-- Termini registrati: dei, le, dell, da, al, si, euro, regionale, alla, nel, regione, territorio
+- Articoli: 20904 (23.679%).
+- Termini registrati: euro, regionale, regione, risorse, territorio, imprese, lavoro, piano, commissione, sistema, interventi, cittadini
 - Interpretazione semantica: **da validare da una persona**.
 
 Domini prevalenti:
 
 | Rank | Dominio | Articoli | % topic |
 |---|---|---|---|
-| 1 | lanazione.it | 3299 | 11.312% |
-| 2 | ansa.it | 2376 | 8.147% |
-| 3 | ilrestodelcarlino.it | 2070 | 7.098% |
-| 4 | ilgiornale.it | 1190 | 4.080% |
-| 5 | iltempo.it | 1189 | 4.077% |
-| 6 | ilgiorno.it | 1047 | 3.590% |
-| 7 | lastampa.it | 1022 | 3.504% |
-| 8 | gazzettadelsud.it | 934 | 3.202% |
-| 9 | ilmattino.it | 865 | 2.966% |
-| 10 | lagazzettadelmezzogiorno.it | 854 | 2.928% |
+| 1 | ansa.it | 3339 | 15.973% |
+| 2 | lanazione.it | 2111 | 10.099% |
+| 3 | ilrestodelcarlino.it | 1299 | 6.214% |
+| 4 | varesenews.it | 902 | 4.315% |
+| 5 | iltempo.it | 805 | 3.851% |
+| 6 | ilgiornale.it | 725 | 3.468% |
+| 7 | lastampa.it | 699 | 3.344% |
+| 8 | ilgiorno.it | 656 | 3.138% |
+| 9 | adnkronos.com | 577 | 2.760% |
+| 10 | ilsole24ore.com | 548 | 2.622% |
 
 Distribuzione mensile:
 
 | Mese | Articoli |
 |---|---|
-| 2026-01 | 3001 |
-| 2026-02 | 4238 |
-| 2026-03 | 4119 |
-| 2026-04 | 5031 |
-| 2026-05 | 5373 |
-| 2026-06 | 5395 |
-| 2026-07 | 2008 |
+| 2026-01 | 2209 |
+| 2026-02 | 2806 |
+| 2026-03 | 2872 |
+| 2026-04 | 3480 |
+| 2026-05 | 3872 |
+| 2026-06 | 3986 |
+| 2026-07 | 1679 |
 
 Record con peso più alto:
 
 | Rank | Peso | Dominio | Data | Titolo |
 |---|---|---|---|---|
-| 1 | 0.06233348 | adnkronos.com | 2026-05-12 | Cni: "Rischio idrogeologico? Non solo fondi, da liberi professionisti 'serbatoio competenze' a cui gli enti locali dovrebbero maggiormente attingere" |
-| 2 | 0.05986092 | lagazzettadelmezzogiorno.it | 2026-07-08 | Crisafi (Remind) “Costruiamo insieme l’Italia che abiteremo” - Gazzetta del Mezzogiorno |
-| 3 | 0.05980193 | vocedimantova.it | 2026-07-08 | Crisafi (Remind) “Costruiamo insieme l’Italia che abiteremo” \| la Voce Di Mantova |
-| 4 | 0.05974579 | italpress.com | 2026-07-08 | Crisafi (Remind) "Costruiamo insieme l'Italia che abiteremo" Agenzia di stampa Italpress - Italpress |
-| 5 | 0.05971034 | iltempo.it | 2026-07-08 | Crisafi (Remind) “Costruiamo insieme l'Italia che abiteremo” – Il Tempo |
-| 6 | 0.05647560 | corriereirpinia.it | 2026-05-27 | Fico incontra gli architetti campani, a confronto su housing sociale, paesaggio e qualità urbana – Corriere dell'Irpinia |
-| 7 | 0.05586311 | corriereirpinia.it | 2026-05-08 | Campania, Zinzi (Lega): oltre 300 milioni ai Comuni campani per sicurezza territori e infrastrutture – Corriere dell'Irpinia |
-| 8 | 0.05477586 | nove.firenze.it | 2026-05-06 | Rigenerazione del patrimonio immobiliare pubblico: patto a Firenze • Nove da Firenze |
-| 9 | 0.05469533 | lasicilia.it | 2026-05-13 | Caro carburante, lavoratori Asu, B&b, dipendenti regionali: tutte le ultime norme approvate dall'Ars - La Sicilia |
-| 10 | 0.05438843 | corriereirpinia.it | 2026-06-30 | Movimento 5 Stelle Avellino: Antonio Aquino eletto capogruppo per il Consiglio comunale – Corriere dell'Irpinia |
+| 1 | 0.05776406 | adnkronos.com | 2026-05-12 | Cni: "Rischio idrogeologico? Non solo fondi, da liberi professionisti 'serbatoio competenze' a cui gli enti locali dovrebbero maggiormente attingere" |
+| 2 | 0.05738551 | ilfattoquotidiano.it | 2026-06-16 | PNRR: asili, studentati e Case della comunità, le grandi incompiute a 15 giorni dalla scadenza \| Il Fatto Quotidiano.it |
+| 3 | 0.05693535 | nove.firenze.it | 2026-03-16 | Europa: in Regione il punto sulla gestione dei fondi Ue • Nove da Firenze |
+| 4 | 0.05684943 | nove.firenze.it | 2026-03-31 | Variazione in bilancio per chiudere i conti 2025 della sanità toscana • Nove da Firenze |
+| 5 | 0.05345949 | lagazzettadelmezzogiorno.it | 2026-07-08 | Crisafi (Remind) “Costruiamo insieme l’Italia che abiteremo” - Gazzetta del Mezzogiorno |
+| 6 | 0.05341134 | vocedimantova.it | 2026-07-08 | Crisafi (Remind) “Costruiamo insieme l’Italia che abiteremo” \| la Voce Di Mantova |
+| 7 | 0.05334262 | iltempo.it | 2026-07-08 | Crisafi (Remind) “Costruiamo insieme l'Italia che abiteremo” – Il Tempo |
+| 8 | 0.05322056 | ansa.it | 2026-02-19 | Nuovo confronto in Assemblea legislativa sulla liste d'attesa - Notizie - Ansa.it |
+| 9 | 0.05251710 | lasicilia.it | 2026-05-13 | Caro carburante, lavoratori Asu, B&b, dipendenti regionali: tutte le ultime norme approvate dall'Ars - La Sicilia |
+| 10 | 0.05173822 | varesenews.it | 2026-06-17 | "L'Ecosistema del Valore": l'impatto economico e sociale di Acinque per lo sviluppo del territorio |
 
 Campione deterministico, seed base 42:
 
 | Rank | Peso | Confidenza | Dominio | Data | Titolo |
 |---|---|---|---|---|---|
-| 1 | 0.01627895 | 0.38499979 | ansa.it | 2026-03-15 | Bimbo di 2 anni disperso in un naufragio al largo di Lampedusa - Notizie - Ansa.it |
-| 2 | 0.01450434 | 0.31733820 | ansa.it | 2026-03-09 | Mattarella: 'Per le donne tanta strada da fare, manca ancora l'equilibrio' - Notizie - Ansa.it |
-| 3 | 0.01766572 | 0.60723457 | giornaledibrescia.it | 2026-05-06 | Terre di storia e pietre parlanti: tesori da scoprire tra Gardone e Sarezzo \| Giornale di Brescia |
-| 4 | 0.01435957 | 0.51717224 | lagazzettadelmezzogiorno.it | 2026-06-18 | Tg Lavoro & Welfare - 18/6/2026 - Gazzetta del Mezzogiorno |
-| 5 | 0.02192203 | 0.49886722 | nove.firenze.it | 2026-03-02 | Ramadan a scuola: la crociata del leghista Mossuto • Nove da Firenze |
+| 1 | 0.01442459 | 0.37708258 | gazzettadelsud.it | 2026-02-17 | Cardiochirurgia pediatrica di Taormina, l'affondo di De Luca: "In commissione approvato un pastrocchio" - Gazzetta del Sud |
+| 2 | 0.03197236 | 0.80633284 | bresciaoggi.it | 2026-01-13 | A Brescia arriveranno 24 nuovi poliziotti, il sindacato: «Ma ancora non bastano» \| Bresciaoggi |
+| 3 | 0.02379013 | 0.40375400 | giornaledibrescia.it | 2026-06-20 | Scontro sul futuro bilancio dell’Ue, l’Italia guida il fronte della coesione \| Giornale di Brescia |
+| 4 | 0.01798411 | 0.36579619 | ilmattino.it | 2026-04-28 | Elezioni ad Avellino, la battaglia sui programmi dallo stadio al salario minimo |
+| 5 | 0.02354256 | 0.54136290 | ilrestodelcarlino.it | 2026-01-16 | Rifiuti abbandonati: ecco come premiare chi è virtuoso |
 
 ### Topic 10
 
-- Articoli: 2726 (2.829%).
-- Termini registrati: agenzia vista, agenzia, vista, jakhnagiev, alexander jakhnagiev, vista alexander, alexander, fonte agenzia, fonte, adv, meloni, vista roma
+- Articoli: 9955 (11.277%).
+- Termini registrati: iran, tajani, trump, esteri, guerra, uniti, usa, ministro, israele, ministro esteri, paesi, europa
 - Interpretazione semantica: **da validare da una persona**.
 
 Domini prevalenti:
 
 | Rank | Dominio | Articoli | % topic |
 |---|---|---|---|
-| 1 | agi.it | 906 | 33.236% |
-| 2 | ilmessaggero.it | 775 | 28.430% |
-| 3 | affaritaliani.it | 410 | 15.040% |
-| 4 | ilmattino.it | 379 | 13.903% |
-| 5 | ilgazzettino.it | 71 | 2.605% |
-| 6 | italpress.com | 58 | 2.128% |
-| 7 | askanews.it | 50 | 1.834% |
-| 8 | repubblica.it | 19 | 0.697% |
-| 9 | laverita.info | 13 | 0.477% |
-| 10 | lastampa.it | 9 | 0.330% |
+| 1 | ansa.it | 1317 | 13.230% |
+| 2 | iltempo.it | 774 | 7.775% |
+| 3 | ilgiornale.it | 683 | 6.861% |
+| 4 | adnkronos.com | 476 | 4.782% |
+| 5 | ilmessaggero.it | 453 | 4.550% |
+| 6 | lastampa.it | 429 | 4.309% |
+| 7 | laverita.info | 373 | 3.747% |
+| 8 | italpress.com | 339 | 3.405% |
+| 9 | ilfattoquotidiano.it | 335 | 3.365% |
+| 10 | ilsole24ore.com | 319 | 3.204% |
 
 Distribuzione mensile:
 
 | Mese | Articoli |
 |---|---|
-| 2026-01 | 145 |
-| 2026-02 | 234 |
-| 2026-03 | 487 |
-| 2026-04 | 665 |
-| 2026-05 | 472 |
-| 2026-06 | 586 |
-| 2026-07 | 137 |
+| 2026-01 | 1332 |
+| 2026-02 | 1187 |
+| 2026-03 | 2083 |
+| 2026-04 | 1738 |
+| 2026-05 | 1608 |
+| 2026-06 | 1504 |
+| 2026-07 | 503 |
 
 Record con peso più alto:
 
 | Rank | Peso | Dominio | Data | Titolo |
 |---|---|---|---|---|
-| 1 | 0.14886824 | ilmessaggero.it | 2026-04-30 | Salvini: Sono sempre d’accordo con la Presidente del Consiglio |
-| 2 | 0.14750515 | ilmessaggero.it | 2026-06-11 | Meloni esce dal Senato e saluta il direttore di Agenzia Vista Alexander Jakhnagiev a fine seduta |
-| 3 | 0.14597846 | ilmessaggero.it | 2026-05-08 | Rubio arriva a Palazzo Chigi per incontrare Meloni |
-| 4 | 0.13989345 | ilmessaggero.it | 2026-04-10 | Meloni in Senato: Non faremo misure demagogiche che devastano conti Stato come hanno fatto altri |
-| 5 | 0.13687071 | ilmessaggero.it | 2026-03-23 | Il Ministro Tajani vota per il referendum sulla giustizia a Fiuggi |
-| 6 | 0.13262252 | ilmessaggero.it | 2026-04-15 | L'abbraccio tra Meloni e Zelensky all'arrivo del Presidente ucraino a Palazzo Chigi |
-| 7 | 0.13258107 | ilmessaggero.it | 2026-03-23 | Meloni, il selfie con le sostenitrici dopo aver votato |
-| 8 | 0.13130043 | ilmessaggero.it | 2026-03-14 | Il dietro la tenda dell'intervista con Conte del direttore di Agenzia Vista Alexander Jakhnagiev |
-| 9 | 0.13085146 | ilmessaggero.it | 2026-04-28 | Meloni: Su Patto di Stabilità non va esclusa deroga generale |
-| 10 | 0.13058020 | ilmessaggero.it | 2026-05-08 | Meloni incontra il Segretario Usa Marco Rubio a Palazzo Chigi |
+| 1 | 0.08392033 | ilgiornale.it | 2026-03-10 | Allarme degli 007 Usa: "Teheran vuole minare Hormuz". Trump: "Le rimuova o conseguenze mai viste". Italia, Germania e Inghilterra al lavoro per proteggere le navi - il Giornale |
+| 2 | 0.08294643 | lastampa.it | 2026-04-08 | Guerra Iran, le news dopo lâattacco di Usa Israele. La diretta - La Stampa |
+| 3 | 0.08282926 | repubblica.it | 2026-04-09 | Guerra in Iran, le news del 9 aprile. Idf: “Evacuare Beirut sud”. Hormuz ancora chiuso - la Repubblica |
+| 4 | 0.08254604 | ilsole24ore.com | 2026-03-15 | Iran, «Amministrazione Trump pronta ad annunciare coalizione per Hormuz». Berlino: «Non parteciperemo» - Il Sole 24 ORE |
+| 5 | 0.08238322 | repubblica.it | 2026-03-19 | Guerra in Iran, le news del 19 marzo - la Repubblica |
+| 6 | 0.08220454 | ilsole24ore.com | 2026-03-04 | Teheran spara contro Turchia, scudo della Nato. Media Usa: iniziata un’offensiva di terra di migliaia di curdi  - Il Sole 24 ORE |
+| 7 | 0.08132371 | ilsole24ore.com | 2026-04-08 | Guerra in Iran, ultime notizie - Iran blocca Hormuz dopo raid Israele in Libano. Macron: tregua deve includerlo - Il Sole 24 ORE |
+| 8 | 0.08129876 | ilsole24ore.com | 2026-03-02 | Colpita ambasciata Usa a Riyadh. Israele riprende ad attaccare Teheran. Usa: «Hormuz è aperto» - Il Sole 24 ORE |
+| 9 | 0.08078433 | ilgiornale.it | 2026-04-02 | Razzo sulla base italiana Unifil in Libano. Sale a 40 il numero di Paesi nella coalizione per Hormuz. Hegseth caccia il capo di Stato maggiore dell'Esercito Usa - il Giornale |
+| 10 | 0.08071469 | lastampa.it | 2026-03-03 | Guerra Iran, le news dopo lâattacco di Usa Israele. La diretta - La Stampa |
 
 Campione deterministico, seed base 42:
 
 | Rank | Peso | Confidenza | Dominio | Data | Titolo |
 |---|---|---|---|---|---|
-| 1 | 0.06854742 | 0.77706438 | agi.it | 2026-06-03 | Via libera Ue su flessibilitÃ , Meloni: Risultato importante, pronti 14 miliardi contro caro energia |
-| 2 | 0.02405523 | 0.53361452 | ilmattino.it | 2026-02-21 | Trapianto fallito al Monaldi, morto il piccolo Domenico. Meloni: «L'Italia si stringe nel dolore». Manfredi: «Grande tragedia» |
-| 3 | 0.01113674 | 0.32445227 | ilmattino.it | 2026-04-09 | Meloni al Senato: Conto su di voi colleghi senatori, alla Camera solo insulti |
-| 4 | 0.07873342 | 0.79759432 | ilmessaggero.it | 2026-03-11 | Crisi Iran, Meloni: Rimpatriati 25 mila italiani, completare messa in sicurezza connazionali |
-| 5 | 0.08457209 | 0.93239309 | ilmessaggero.it | 2026-06-15 | Premier giapponese Takaichi: Spero che Ponte di Messina diventi simbolo cooperazione Italia-Giappone |
+| 1 | 0.00720419 | 0.40058646 | askanews.it | 2026-05-04 | Paesi Asia-Pacifico contro quasi monopolio Cina terre rare |
+| 2 | 0.01524886 | 0.33596519 | ilmanifesto.it | 2026-05-16 | Nuovi colonialismi, i partiti comunisti contro l’allargamento a est di Macron \| il manifesto |
+| 3 | 0.04550529 | 0.61849803 | ansa.it | 2026-03-06 | Meloni e gli europei, 'diplomazia e coordinamento militare' - Notizie - Ansa.it |
+| 4 | 0.02866451 | 0.69974883 | gazzettadiparma.it | 2026-04-21 | Tajani, 'meglio sanzioni a coloni violenti che stop a intesa Ue-Israele' - Gazzetta di Parma |
+| 5 | 0.01451043 | 0.49329630 | repubblica.it | 2026-02-23 | Dazi, Foti: “Stop allarmismi, Parigi vuole il bazooka ma è stupido usarlo” - la Repubblica |
 
 ### Topic 11
 
-- Articoli: 8222 (8.534%).
-- Termini registrati: ansa, riproduzione riservata, riproduzione, riservata, gazzetta di, di parma, parma, ansa it, copyright ansa, riservata copyright, gazzetta, copyright
+- Articoli: 792 (0.897%).
+- Termini registrati: ansa, ansa it, it, cookie, notizie ansa, it abbonati, abbonamento, notizie, abbonati, evidenza, leggere, informazione
 - Interpretazione semantica: **da validare da una persona**.
 
 Domini prevalenti:
 
 | Rank | Dominio | Articoli | % topic |
 |---|---|---|---|
-| 1 | ansa.it | 6134 | 74.605% |
-| 2 | gazzettadiparma.it | 1011 | 12.296% |
-| 3 | ladige.it | 549 | 6.677% |
-| 4 | lagazzettadelmezzogiorno.it | 252 | 3.065% |
-| 5 | giornaledibrescia.it | 54 | 0.657% |
-| 6 | askanews.it | 35 | 0.426% |
-| 7 | ilmessaggero.it | 35 | 0.426% |
-| 8 | leggo.it | 31 | 0.377% |
-| 9 | unionesarda.it | 21 | 0.255% |
-| 10 | avvenire.it | 12 | 0.146% |
+| 1 | ansa.it | 730 | 92.172% |
+| 2 | lagazzettadelmezzogiorno.it | 32 | 4.040% |
+| 3 | ladige.it | 9 | 1.136% |
+| 4 | lanazione.it | 5 | 0.631% |
+| 5 | ilrestodelcarlino.it | 4 | 0.505% |
+| 6 | ilgiorno.it | 3 | 0.379% |
+| 7 | gazzettadiparma.it | 2 | 0.253% |
+| 8 | ilsecoloxix.it | 2 | 0.253% |
+| 9 | lasicilia.it | 2 | 0.253% |
+| 10 | ilfattoquotidiano.it | 1 | 0.126% |
 
 Distribuzione mensile:
 
 | Mese | Articoli |
 |---|---|
-| 2026-01 | 888 |
-| 2026-02 | 1161 |
-| 2026-03 | 1236 |
-| 2026-04 | 1525 |
-| 2026-05 | 1329 |
-| 2026-06 | 1626 |
-| 2026-07 | 457 |
+| 2026-01 | 107 |
+| 2026-02 | 130 |
+| 2026-03 | 110 |
+| 2026-04 | 139 |
+| 2026-05 | 119 |
+| 2026-06 | 152 |
+| 2026-07 | 35 |
 
 Record con peso più alto:
 
 | Rank | Peso | Dominio | Data | Titolo |
 |---|---|---|---|---|
-| 1 | 0.13792581 | gazzettadiparma.it | 2026-06-17 | Tajani, 'venerdì riapre la nostra ambasciata a Teheran' - Gazzetta di Parma |
-| 2 | 0.13439188 | gazzettadiparma.it | 2026-04-11 | Meloni mercoledì 15 aprile riceve Zelensky a Roma - Gazzetta di Parma |
-| 3 | 0.13240159 | gazzettadiparma.it | 2026-04-28 | Meloni, entro la settimana sarà varato il Piano casa - Gazzetta di Parma |
-| 4 | 0.12559356 | gazzettadiparma.it | 2026-06-30 | Conte, progetto governo progressista, chiamiamola alleanza per la Costituzione - Gazzetta di Parma |
-| 5 | 0.12530832 | gazzettadiparma.it | 2026-04-08 | Tajani, 'ho dato indicazione di convocare l'ambasciatore d'Israele' - Gazzetta di Parma |
-| 6 | 0.12528718 | gazzettadiparma.it | 2026-04-21 | Messaggio di Mattarella a Meloni, indignato per parole Solovyov - Gazzetta di Parma |
-| 7 | 0.12516010 | gazzettadiparma.it | 2026-07-07 | Incontro tra Tajani e Rubio ad Ankara - Gazzetta di Parma |
-| 8 | 0.12342814 | gazzettadiparma.it | 2026-04-28 | Meloni, mi fido del ministro Nordio - Gazzetta di Parma |
-| 9 | 0.12328244 | gazzettadiparma.it | 2026-04-02 | Vertice a Palazzo Chigi sul Documento di finanza pubblica - Gazzetta di Parma |
-| 10 | 0.12253568 | gazzettadiparma.it | 2026-07-09 | Meloni al lavoro a Chigi, riunione con vice e ministri sulla sicurezza - Gazzetta di Parma |
+| 1 | 0.31830337 | ansa.it | 2026-03-31 | Futuro Nazionale, Vannacci incontra la stampa - Primopiano - Ansa.it |
+| 2 | 0.30915006 | ansa.it | 2026-04-13 | Tajani è atterrato a Beirut - Primopiano - Ansa.it |
+| 3 | 0.30858170 | ansa.it | 2026-03-31 | Camera, in aula il decreto bollette, le dichiarazioni di voto - Primopiano - Ansa.it |
+| 4 | 0.30688812 | ansa.it | 2026-02-15 | Ucciso migrante da un agente a Verona, il video-choc sui social di Ilaria Cucchi - Italia - Ansa.it |
+| 5 | 0.30628844 | ansa.it | 2026-04-23 | Roma, cerimonia alla Farnesina per le targhe dei Giusti - Primopiano - Ansa.it |
+| 6 | 0.30604790 | ansa.it | 2026-02-21 | Tajani a Forlì incontra Roberto Donadoni - Primopiano - Ansa.it |
+| 7 | 0.30317295 | ansa.it | 2026-04-11 | Il vicepremier Matteo Salvini a un gazebo della Lega a Milano - Primopiano - Ansa.it |
+| 8 | 0.30184081 | ansa.it | 2026-04-21 | La premier Meloni in visita al Salone del Mobile - People - Ansa.it |
+| 9 | 0.30019467 | ansa.it | 2026-06-04 | Il ministro Matteo Salvini interviene agli Stati generali dell'abitare - People - Ansa.it |
+| 10 | 0.29988685 | ansa.it | 2026-03-23 | Referendum, conferenza stampa del M5s dopo la vittoria del No - Primopiano - Ansa.it |
 
 Campione deterministico, seed base 42:
 
 | Rank | Peso | Confidenza | Dominio | Data | Titolo |
 |---|---|---|---|---|---|
-| 1 | 0.04745465 | 0.67247299 | ansa.it | 2026-04-24 | Meloni, '800 milioni per ristrutturare sede Consiglio Ue spesa insostenibile' - Altre news - Ansa.it |
-| 2 | 0.03230410 | 0.64182759 | ansa.it | 2026-01-28 | Salini (Fi), 'difesa comune europea pilastro dell'agenda politica dell'Unione' - La voce degli Eurodeputati - Ansa.it |
-| 3 | 0.02347923 | 0.49469723 | ansa.it | 2026-01-27 | Garibaldi nuovo consigliere regionale per la Lega, subentra a Piana - Notizie - Ansa.it |
-| 4 | 0.02642653 | 0.62700158 | ansa.it | 2026-05-21 | In Umbria non ci sono persone in quarantena o casi sospetti per l'Hantavirus - Notizie - Ansa.it |
-| 5 | 0.03168328 | 0.65883831 | ansa.it | 2026-03-28 | 'Conservatoire de la Vallée d'Aoste', approvata la norma di attuazione - Notizie - Ansa.it |
+| 1 | 0.01052589 | 0.22013991 | ansa.it | 2026-05-08 | A Roma l'evento “Luci d’Europa”. Attesa la Presidente Metsola - Altre news - Ansa.it |
+| 2 | 0.01031866 | 0.40237778 | ansa.it | 2026-06-26 | Inselvini (FdI), 'la droga è schiavitù e morte, tolleranza zero' - La voce degli Eurodeputati - Ansa.it |
+| 3 | 0.00736803 | 0.32746655 | ansa.it | 2026-05-14 | In Fvg riconfermate anche nel 2026 le Bandiere blu a Grado e Lignano - Notizie - Ansa.it |
+| 4 | 0.01322335 | 0.30921038 | ansa.it | 2026-05-21 | Salvini, 'il ponte sullo Stretto unirà il Paese nel nome della velocità' - Notizie - Ansa.it |
+| 5 | 0.01544587 | 0.40415879 | ansa.it | 2026-05-20 | Dl lavoro: 189 emendamenti inammissibili, resta proposta Lega-Fi salva-imprenditori - Notizie - Ansa.it |
 
 ## Interpretazioni e limiti
 
@@ -759,7 +1090,7 @@ Campione deterministico, seed base 42:
 ## Avvisi automatici
 
 - Il metadata sorgente contiene un percorso input assoluto; il percorso è oscurato negli output.
-- Topic con dominio dominante >= 50.0%: [0, 2, 3, 4, 5, 6, 7, 11]
+- Topic con dominio dominante >= 50.0%: [1, 2, 5, 7, 11]
 
 ## Output
 

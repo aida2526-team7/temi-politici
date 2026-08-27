@@ -1,28 +1,28 @@
 {
   "exact_excerpt": {
-    "records_in_duplicate_groups": 11459,
-    "duplicate_groups": 2772,
-    "largest_group": 3095
+    "records_in_duplicate_groups": 3328,
+    "duplicate_groups": 1372,
+    "largest_group": 253
   },
   "exact_title_excerpt": {
-    "records_in_duplicate_groups": 4565,
-    "duplicate_groups": 1823,
-    "largest_group": 535
+    "records_in_duplicate_groups": 1300,
+    "duplicate_groups": 620,
+    "largest_group": 4
   },
   "near_duplicate_proxy": {
     "prefix_length": 300,
-    "records_in_duplicate_groups": 13642,
-    "duplicate_groups": 3573,
-    "largest_group": 3095,
+    "records_in_duplicate_groups": 5679,
+    "duplicate_groups": 2324,
+    "largest_group": 253,
     "definition": "same normalized prefix of the review excerpt"
   },
   "anomalies": {
-    "rows": 96345,
+    "rows": 88279,
     "duplicate_url_records": 0,
-    "largest_exact_excerpt_group": 3095,
+    "largest_exact_excerpt_group": 253,
     "largest_exact_excerpt_topic_distribution": {
-      "0": 3095
+      "2": 253
     },
-    "non_latin_title_language_it_records": 40
+    "non_latin_title_language_it_records": 7
   }
 }
