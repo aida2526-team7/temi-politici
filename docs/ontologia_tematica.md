@@ -1,13 +1,16 @@
-# Ontologia tematica — v1.0, congelata
+# Ontologia tematica — v2.0, congelata
 
-**Stato: congelata il 2026-08-20.** È il contratto fra i tre layer. Da qui in
+**Stato: congelata il 2026-08-27.** È il contratto fra i tre layer. Da qui in
 avanti le trasformazioni si scrivono contro questa versione; cambiarla richiede
-una v1.1 e la rilettura di ciò che ne dipende.
+una nuova versione e la rilettura di ciò che ne dipende.
 
-Le quattro decisioni aperte nella bozza v0 sono state prese e sono registrate
-nella sezione *Decisioni*, con la conseguenza che ognuna comporta. Sono state
-prese da un membro del gruppo per sbloccare il lavoro a valle: restano aperte
-alla revisione del gruppo, non allo stallo.
+La v2.0 porta i macrotemi da 13 a **15** e aggiunge il primo sottotema. La
+v1.0 (2026-08-20) resta nella storia Git; il diario delle versioni è in fondo.
+
+Le cinque decisioni aperte sono state prese e sono registrate nella sezione
+*Decisioni*, con la conseguenza che ognuna comporta. Sono state prese da un
+membro del gruppo per sbloccare il lavoro a valle: restano aperte alla revisione
+del gruppo, non allo stallo.
 
 ## Perché esiste
 
@@ -37,10 +40,11 @@ italiano su sette mesi: molte non compaiono mai e altre si distinguono per una
 sfumatura di posizione (*pro* vs *contro* la stessa policy) che un topic model non
 vede — l'NMF riconosce di *cosa* si parla, non *come*.
 
-Questa versione tiene i 7 domini MARPOR e li apre in 13 macrotemi, accorpando le
-coppie pro/contro. 13 sta nell'intervallo 10-15 fissato dal piano.
+Questa versione tiene i 7 domini MARPOR e li apre in 15 macrotemi, accorpando le
+coppie pro/contro. 15 è il limite superiore dell'intervallo 10-15 fissato dal
+piano: non c'è spazio per un sedicesimo senza rivedere il piano.
 
-## I 13 macrotemi
+## I 15 macrotemi
 
 Il numero è l'identificativo stabile: è ciò che finisce nei config e nelle
 tabelle, e non cambia quando cambia l'etichetta.
@@ -60,6 +64,18 @@ tabelle, e non cambia quando cambia l'etichetta.
 | 11 | Sicurezza e criminalità | 6 | 605 | Ordine pubblico, criminalità organizzata, reati, forze dell'ordine |
 | 12 | Diritti civili e società | 6/7 | 603/604, 705-706 | Famiglia, diritti LGBT+, fine vita, parità, libertà individuali |
 | 13 | Infrastrutture e territorio | 4/5 | 411, 703 | Trasporti, opere pubbliche, PNRR, aree interne, agricoltura |
+| 14 | Cultura e patrimonio | 5 | 502 | Beni culturali, musei, biblioteche, teatro, cinema, editoria, spettacolo |
+| 15 | Sport | 5 | 502 (quota) | Impianti, federazioni, pratica sportiva, grandi eventi |
+
+### Sottotemi
+
+Un livello sotto i macrotemi. Non hanno identificativo proprio nella tassonomia
+piatta: si scrivono `macrotema.sottotema` e si possono sempre riaccorpare al
+padre. Aggiungerne uno non tocca i numeri di sopra.
+
+| # | Sottotema | Padre | Cosa ci sta dentro |
+|---|---|---|---|
+| 9.1 | Animali e fauna | 9 — Ambiente ed energia | Benessere e tutela degli animali, fauna selvatica, randagismo, attività venatoria |
 
 ### Categorie di servizio, fuori tassonomia
 
@@ -70,7 +86,10 @@ Non sono temi politici e restano separate, altrimenti inquinano ogni conteggio:
   `src/pulizia_corpus.py` prima del modello; la categoria resta per i residui.
 - **`politica non tematica`** — cronaca politica senza policy: nomine,
   dichiarazioni di posizionamento, sondaggi, retroscena. È politica, non è un tema.
-- **`non politico`** — cronaca, sport, spettacolo finiti nel corpus per omonimia.
+- **`non politico`** — cronaca nera, risultati sportivi, gossip finiti nel corpus
+  per omonimia. La riga di confine con i temi 14 e 15 è la policy: il finanziamento
+  di un teatro è 14, la recensione dello spettacolo no; la legge sugli impianti
+  sportivi è 15, la cronaca della partita no.
 - **`dubbio`** — le evidenze non bastano.
 
 ## Come si applica ai tre layer
@@ -80,11 +99,11 @@ Le tre superfici non sono uguali e la mappatura non è la stessa operazione.
 
 | Layer | Cosa contiene | Unità di misura | Come si assegna il tema |
 |---|---|---|---|
-| 1 — cosa dicono | Programmi elettorali (60 documenti, 2018 e 2022) | **Paragrafo** (decisione 3) | Un tema per paragrafo; il programma esce come distribuzione sui 13 temi, non come etichetta |
+| 1 — cosa dicono | Programmi elettorali (60 documenti, 2018 e 2022) | **Paragrafo** (decisione 3) | Un tema per paragrafo; il programma esce come distribuzione sui 15 temi, non come etichetta |
 | 2 — cosa fanno | Progetti di legge Camera (6.865, leg. 18-19) | Atto (titolo, mediana 161 caratteri) | Un DDL ha un oggetto: etichetta singola |
 | 3 — come se ne parla | Articoli di stampa (96.345 record) | Articolo (mediana ~2.800 caratteri) | Etichetta dominante più distribuzione |
 
-**Questa tabella è il contenuto vero del contratto.** Le 13 categorie sono la
+**Questa tabella è il contenuto vero del contratto.** Le 15 categorie sono la
 parte facile; la parte che rompe le pipeline è che "assegnare un tema" vuol dire
 tre cose diverse nei tre layer, e finché non è scritto ognuno assume la propria.
 
@@ -100,8 +119,9 @@ la distanza fra due distribuzioni, non fra due numeri.
 
 ## Decisioni
 
-Prese il 2026-08-20. Ognuna porta una conseguenza che va dichiarata nei limiti
-del lavoro, ed è scritta qui perché non venga persa.
+Le prime quattro sono del 2026-08-20, la quinta del 2026-08-27. Ognuna porta una
+conseguenza che va dichiarata nei limiti del lavoro, ed è scritta qui perché non
+venga persa.
 
 ### 1. La sanità è un macrotema separato dal welfare
 
@@ -173,6 +193,46 @@ partito (`32xxx_2022xx`: nessuna occorrenza).
 Fonti: <https://manifesto-project.wzb.eu/datasets> ·
 <https://manifesto-project.wzb.eu/down/data/2025a/codebooks/release_notes_MPDS2025a.pdf>
 
+### 5. Cultura e sport diventano macrotemi, gli animali un sottotema
+
+Presa il 2026-08-27. È la decisione che porta la v2.0.
+
+**Decisione: cultura → 14, sport → 15, animali → sottotema 9.1.**
+
+Motivo: la prima mappatura dei tre layer (`reports/ontologia_mapping/`) non aveva
+una casella per nessuna delle tre materie, e le aveva parcheggiate nel 12 e nel
+13. Misurate sul testo, non sono residuali — quota di unità che nominano la
+materia:
+
+| Materia | DDL Camera | Paragrafi di programma |
+|---|---|---|
+| Cultura | 3,58% | 7,55% |
+| Animali | 2,78% | 2,83% |
+| Sport | 1,86% | 1,53% |
+
+Il termine di paragone sono i macrotemi già in tassonomia: *Unione europea* vale
+l'1,59% dei DDL, *Immigrazione e cittadinanza* l'1,68%, *Welfare e pensioni* il
+2,46%. Tutte e tre le materie stanno sopra il più piccolo dei 13, e gli animali
+sopra l'immigrazione. Tenerle spalmate su 12 e 13 gonfiava quei due e nascondeva
+tre temi veri.
+
+Cultura e sport salgono a macrotema perché in MARPOR hanno un codice proprio, la
+502, e reggono da soli. Gli animali restano sottotema perché MARPOR li tiene
+sotto la 501 ambientale: promuoverli romperebbe l'aggancio allo standard, che è
+la ragione per cui le categorie vengono da MARPOR e non da noi.
+
+**Conseguenze da dichiarare.**
+
+- La v1.0 è stata in vigore sette giorni e l'unica cosa scritta contro di essa era
+  `src/mappa_ontologia.py`. Il costo della rilettura è quello, e la finestra per
+  farlo a costo quasi nullo è questa.
+- MARPOR mette cultura e sport nella stessa categoria 502. Separandoli, il
+  confronto con MARPOR su questo punto **non è diretto**: per una validazione
+  esterna i temi 14 e 15 vanno ri-accorpati prima del confronto, come già vale per
+  6 e 7 sul welfare.
+- 15 è il tetto dell'intervallo fissato dal piano. Un sedicesimo macrotema
+  richiede prima di rivedere il piano.
+
 ## Cosa questa tassonomia non fa
 
 - Non misura **posizione**: dice di cosa si parla, non se a favore o contro.
@@ -180,13 +240,27 @@ Fonti: <https://manifesto-project.wzb.eu/datasets> ·
 - Non misura **consenso**. Il volume di copertura di un tema non è sostegno.
 - Non misura **sentiment**, che il piano ha già declassato a modulo accessorio.
 - Non è un'ontologia formale (nessun OWL, nessuna gerarchia inferenziale): è una
-  tassonomia piatta a 13 voci più 4 categorie di servizio.
+  tassonomia a 15 voci, più un livello di sottotemi e 4 categorie di servizio.
 
 ## Come si cambia
 
-I 13 identificativi sono stabili. Aggiungere un sottotema — per esempio spaccare
-il 10 nelle due letture MARPOR — non rompe niente e non richiede una v2: si
-aggiunge un livello sotto, i numeri restano.
+Gli identificativi già assegnati sono stabili: 1-13 non si sono mossi passando
+alla v2.0, e non si muoveranno più.
 
-Cambiare l'insieme dei 13, cioè accorpare, togliere o rinumerare, è una v2, e
-obbliga a rileggere tutto ciò che è stato mappato con la v1.
+Aggiungere un **sottotema** — per esempio spaccare il 10 nelle due letture MARPOR
+— non rompe niente e non richiede un cambio di versione maggiore: si aggiunge un
+livello sotto, i numeri restano.
+
+Aggiungere un **macrotema** in coda, come hanno fatto il 14 e il 15, non
+rinumera niente ma cambia il denominatore di ogni quota già calcolata: chiede una
+versione maggiore e la riesecuzione delle mappature, non la loro riscrittura.
+
+Accorpare, togliere o rinumerare è la cosa cara, e obbliga a rileggere tutto ciò
+che è stato mappato con la versione precedente.
+
+## Diario delle versioni
+
+| Versione | Data | Cosa cambia |
+|---|---|---|
+| v1.0 | 2026-08-20 | Prima versione congelata: 13 macrotemi da MARPOR, decisioni 1-4 |
+| v2.0 | 2026-08-27 | Aggiunti i macrotemi 14 (Cultura e patrimonio) e 15 (Sport); aggiunto il sottotema 9.1 (Animali e fauna); decisione 5 |
