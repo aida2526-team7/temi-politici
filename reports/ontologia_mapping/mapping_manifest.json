@@ -1,5 +1,5 @@
 {
-  "generato_utc": "2026-08-27T11:17:33.001854+00:00",
+  "generato_utc": "2026-08-27T15:32:10.786387+00:00",
   "ontologia": "docs/ontologia_tematica.md v2.0 (congelata 2026-08-27)",
   "metodo": "lessicale deterministico, src/mappa_ontologia.py",
   "min_chars_paragrafo": 200,
@@ -27,23 +27,23 @@
     }
   ],
   "copertura_pct_assegnati": {
-    "layer1": 83.66,
+    "layer1": 84.89,
     "layer2": 72.61,
     "layer3": 71.5
   },
   "politica_non_tematica_pct": {
-    "layer1": 0.55,
+    "layer1": 0.46,
     "layer2": 0.52,
     "layer3": 10.35
   },
   "divergenza_variazione_totale_pp": {
-    "layer1_vs_layer2": 20.17,
+    "layer1_vs_layer2": 20.62,
     "layer2_vs_layer3": 25.8,
-    "layer1_vs_layer3": 32.07
+    "layer1_vs_layer3": 32.45
   },
   "sottotemi": {
     "9.1": {
-      "layer1_su_padre_pct": 18.98,
+      "layer1_su_padre_pct": 17.97,
       "layer2_su_padre_pct": 41.34
     }
   },

@@ -1,0 +1,62 @@
+{
+  "descrizione": "Programmi elettorali 2022 presi dai siti di partito (via Wayback dove il file non è più online). Integrano il layer 1 dove il deposito al Viminale è troppo corto per stimare una distribuzione su 15 temi.",
+  "output_jsonl": "data/raw/programmi_integrazione.jsonl",
+  "consultazione": "politiche2022",
+  "user_agent": "AIDA-temi-politici/1.0 (ricerca universitaria; integrazione layer 1)",
+  "timeout": 120,
+  "tentativi": 5,
+  "pause": 1.0,
+  "selezione": "Curata a mano dai 157 programmi trovati da scripts/run_programmi_discovery.py. Una regola automatica non basta: la discovery restituisce anche programmi europei 2024, regionali, comunali e congressuali, che non sono la stessa unità di misura del programma elettorale nazionale 2022.",
+  "programmi": [
+    {
+      "partito_id": "fdi",
+      "partito_lista": "FRATELLI D'ITALIA CON GIORGIA MELONI",
+      "gruppo_camera": "FRATELLI D'ITALIA",
+      "url": "https://web.archive.org/web/20220906234822id_/https://www.fratelli-italia.it/wp-content/uploads/2022/08/Brochure_programma_FdI_qr_def.pdf",
+      "url_originale": "https://www.fratelli-italia.it/wp-content/uploads/2022/08/Brochure_programma_FdI_qr_def.pdf",
+      "fonte": "wayback",
+      "seendate": "2022-09-06",
+      "nota": "L'URL sul sito risponde ma il file non si scarica, e la cattura del 21 settembre non si serve. Presa quella del 6 settembre 2022, 15,7 MB: è il PDF pieno del programma, con l'indice."
+    },
+    {
+      "partito_id": "lega",
+      "partito_lista": "LEGA PER SALVINI PREMIER",
+      "gruppo_camera": "LEGA - SALVINI PREMIER",
+      "url": "https://web.archive.org/web/20221220190128id_/https://static.legaonline.it/files/Programma_Lega_2022.pdf",
+      "url_originale": "https://static.legaonline.it/files/Programma_Lega_2022.pdf",
+      "fonte": "wayback",
+      "seendate": "2022-12-20",
+      "nota": "Prima cattura utile 2022-08-15, a campagna in corso; presa l'ultima del 2022, stesso file."
+    },
+    {
+      "partito_id": "m5s",
+      "partito_lista": "MOVIMENTO 5 STELLE",
+      "gruppo_camera": "MOVIMENTO 5 STELLE",
+      "url": "https://web.archive.org/web/20230108170728id_/https://www.movimento5stelle.eu/wp-content/uploads/2022/09/Programma-M5S-completo-2022-09-12.pdf",
+      "url_originale": "https://www.movimento5stelle.eu/wp-content/uploads/2022/09/Programma-M5S-completo-2022-09-12.pdf",
+      "fonte": "wayback",
+      "seendate": "2023-01-08",
+      "nota": "Il nome del file porta la data 2022-09-12, dieci giorni prima del voto: è la versione completa."
+    },
+    {
+      "partito_id": "fi",
+      "partito_lista": "FORZA ITALIA",
+      "gruppo_camera": "FORZA ITALIA - BERLUSCONI PRESIDENTE",
+      "url": "https://web.archive.org/web/20231023124008id_/http://www.forzaitalia.it/speciali/Programma_Elettorale_Forza_Italia.pdf",
+      "url_originale": "http://www.forzaitalia.it/speciali/Programma_Elettorale_Forza_Italia.pdf",
+      "fonte": "wayback",
+      "seendate": "2023-10-23",
+      "nota": "Escluso di proposito PER_L_ITALIA_Accordo_quadro: è il programma di coalizione del centrodestra, non di Forza Italia."
+    },
+    {
+      "partito_id": "pd",
+      "partito_lista": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA",
+      "gruppo_camera": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA",
+      "url": "https://web.archive.org/web/20240516144548id_/https://partitodemocratico.it/wp-content/uploads/2022/08/AGGIORNAMENTO-PROGRAMMA_INSIEMEPERUNITALIADEMOCRATICAEPROGRESSISTA_250822-1.pdf",
+      "url_originale": "https://partitodemocratico.it/wp-content/uploads/2022/08/AGGIORNAMENTO-PROGRAMMA_INSIEMEPERUNITALIADEMOCRATICAEPROGRESSISTA_250822-1.pdf",
+      "fonte": "wayback",
+      "seendate": "2022-08-25",
+      "nota": "CONTROLLO, non integrazione. Il PD ha già un deposito al Viminale da 172 paragrafi: serve a confrontare le due distribuzioni e misurare se 'programma dal sito' e 'deposito al Viminale' sono la stessa unità."
+    }
+  ]
+}

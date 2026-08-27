@@ -179,6 +179,28 @@ fa politica.
 
 Risultati, divergenze fra layer e limiti in `reports/ontologia_mapping/mappatura.md`.
 
+### Integrazione del layer 1 — i programmi dai siti di partito
+
+Il deposito al portale del Viminale è pesato al contrario rispetto a ciò che serve:
+i partiti con più attività legislativa hanno depositato i programmi più corti. Lega
+938 progetti di legge contro 14 paragrafi di programma, M5S 936 contro 13. Il testo
+depositato è integro — è corto perché è quello che hanno scelto di depositare.
+
+```bash
+python scripts/run_programmi_discovery.py --partito fdi --partito lega
+python scripts/run_programmi_integrazione.py
+```
+
+La discovery cerca sui siti di partito e su Wayback; l'integrazione scarica i cinque
+programmi 2022 scelti a mano in `config/programmi_integrazione.json`. La selezione è
+curata perché una regola automatica raccoglie anche programmi europei, regionali e
+congressuali, che non sono la stessa unità di misura.
+
+Recupero: da 14 a 988 paragrafi per la Lega, da 13 a 976 per il M5S, da 24 a 145 per
+FdI. Il PD è incluso come **controllo** — ha già un deposito ampio, quindi la
+distanza fra le sue due distribuzioni misura quanto le due fonti divergano davvero:
+**6,4 pp**, contro valori di H1 fra 23 e 31.
+
 ## Ambiente e dipendenze
 
 Da una shell aperta nella root del repository:
@@ -374,9 +396,11 @@ stessi topic della macchina che ha il file intero.
 - calibrazione umana: **sbloccata**. Era sospesa in attesa di un checkpoint Git
   condivisibile; il campione del corpus pulito pesa 3,2 MB ed è versionato. Resta
   da ripuntare il protocollo R1/R2 dai topic NMF ai 15 macrotemi;
-- Milestone 3: ontologia v2.0 congelata e tre layer mappati su di essa
-  (`reports/ontologia_mapping/`). Il lessico non è ancora validato contro codifica
-  umana, e l'indice di coerenza programmatica H1 non è calcolato.
+- Milestone 3: ontologia v2.0 congelata, tre layer mappati su di essa e **H1
+  calcolato** su quattro partiti (`reports/ontologia_mapping/`). Il lessico non è
+  ancora validato contro codifica umana;
+- presentazione e dataviz: strutture in `docs/presentazione_struttura.md` e
+  `docs/dataviz_struttura.md`, da riempire.
 
 ## Compliance
 
