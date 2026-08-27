@@ -123,6 +123,23 @@ largo, e il più solido: poggia sul topic NMF meglio definito del corpus.
 
 ---
 
+### 12-bis. La preoccupazione numero uno degli italiani è il tema su cui i partiti promettono meno
+
+*Sicurezza e criminalità*: **prima** per l'opinione pubblica (Ipsos, 37%),
+**ultima** delle quattro voci confrontabili nei programmi. Ma **seconda** nei
+progetti di legge.
+
+Sulla criminalità i partiti non promettono, legiferano. Si aggancia alla slide 11:
+lo stesso tema che si legifera il triplo di quanto si prometta è quello che gli
+italiani dicono di temere di più.
+
+→ **Grafico 7** (ranghi a confronto).
+
+Da dire subito, non in risposta a una domanda: sono 4 macrotemi su 15 e un mese
+solo. Il numero che regge è l'inversione, quattro posizioni su quattro.
+
+---
+
 ## Parte 4 — Quanto la politica parla di sé — 2 slide
 
 La parte più citabile. Tenerla vicino alla fine.

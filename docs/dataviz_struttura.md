@@ -144,6 +144,34 @@ perché su scala log una distanza visiva non è una distanza numerica.
 
 ---
 
+## Grafico 7 — Opinione pubblica contro i tre layer
+
+**Cosa dimostra.** Che il tema più temuto dagli italiani è quello su cui i partiti
+promettono meno.
+
+**Forma.** **Bump chart** su quattro colonne — opinione, programmi, DDL, stampa —
+con quattro linee, una per macrotema, che collegano le posizioni di rango. È la
+forma giusta perché il dato *è* un rango: quattro posizioni, e la linea della
+sicurezza attraversa il grafico dall'alto in basso e risale.
+
+Non barre: i valori Ipsos e le quote dei layer non stanno sulla stessa scala, e
+metterli nella stessa unità di lunghezza sarebbe un errore, non una
+semplificazione.
+
+**Colore.** Accento su *Sicurezza e criminalità*, grigio sulle altre tre. La sua
+linea è il grafico; le altre servono a far vedere che è l'unica a fare quel
+percorso.
+
+**Asse y invertito** — rango 1 in alto — e etichettato «1° … 4°», non «1 … 4».
+
+**Dati.** `reports/ontologia_mapping/intersezione_sondaggi.csv`.
+
+**Didascalia obbligatoria:** 4 macrotemi su 15, un mese solo (giugno 2026). Questo
+grafico è il più fragile della pagina e va accompagnato dal suo limite, non
+lasciato a reggersi da solo.
+
+---
+
 ## Scelte tecniche da fare insieme
 
 **Lo stack.** Quarto + Altair è quello naturale qui: il repo è Python, gli output

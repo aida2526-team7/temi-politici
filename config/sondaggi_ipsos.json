@@ -4,6 +4,6 @@
   "output_csv": "data/processed/sondaggi_salienza_temi.csv",
   "timeout": 40,
   "pause": 0.8,
-  "dal": 2026,
+  "dal": 2018,
   "al": 2026
 }

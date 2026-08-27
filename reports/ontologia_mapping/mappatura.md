@@ -211,6 +211,67 @@ giusta: dove entrambe le fonti hanno testo a sufficienza raccontano quasi la ste
 distribuzione, e il margine che l'integrazione introduce è dell'ordine di 6 punti,
 circa un quarto del valore di H1 che si vuole misurare.
 
+## L'intersezione con i sondaggi
+
+I temi che preoccupano gli italiani sono gli stessi su cui i partiti promettono,
+legiferano e la stampa scrive?
+
+**Si confrontano ranghi, non livelli.** I valori Ipsos sono la percentuale di
+intervistati che cita un tema fra le proprie preoccupazioni principali: ognuno è
+indipendente dagli altri e la somma supera il 100% — 162% nel giugno 2026. Non
+sono una distribuzione e non stanno sulla stessa scala delle quote dei tre layer.
+Il rango sopravvive alla differenza.
+
+Giugno 2026, il mese con più rilevazioni:
+
+| Macrotema | Ipsos | Opinione | Programmi | DDL | Stampa |
+|---|---|---|---|---|---|
+| Sicurezza e criminalità | 37% | **1** | **4** | 2 | 2 |
+| Sanità | 35% | 2 | 3 | 4 | 3 |
+| Lavoro e imprese | 34% | 3 | **1** | 1 | 1 |
+| Economia e finanza pubblica | 30% | 4 | 2 | 3 | 4 |
+
+**La preoccupazione numero uno degli italiani è il tema su cui i partiti
+promettono meno.** Sicurezza e criminalità è prima per l'opinione pubblica e
+ultima delle quattro nei programmi elettorali — un'inversione completa.
+
+Nei progetti di legge però risale al secondo posto. Combinato con lo scarto già
+misurato — la sicurezza si legifera il triplo di quanto si prometta — il quadro è
+coerente: sulla criminalità i partiti **non promettono ma legiferano**, ed è ciò
+che gli italiani dicono di temere di più.
+
+Specularmente, *Lavoro e imprese* è primo in tutti e tre i nostri layer ma solo
+terzo fra le preoccupazioni.
+
+Scarto di rango rispetto all'opinione pubblica, somma degli scostamenti assoluti:
+
+| Layer | Scarto |
+|---|---|
+| Stampa | **4** |
+| Progetti di legge | 6 |
+| Programmi | **8** |
+
+Su queste quattro voci la stampa è più vicina alle preoccupazioni degli italiani
+di quanto lo siano i programmi dei partiti.
+
+### Quanto vale questo confronto
+
+Poco, e va detto prima che lo si citi.
+
+- Ipsos espone solo i temi in testa: dei 15 macrotemi ne copre **4**.
+- Il confronto è su **un mese**. La serie ha 7 mesi ma è sparsa, e solo `tasse`
+  ha più di tre rilevazioni.
+- Con quattro voci lo scarto di rango è una statistica grossolana: l'ordine
+  fra 4 e 6 non è distinguibile dal caso.
+- `inflazione` e `tasse` cadono entrambe nel macrotema 4 e non si sommano — sono
+  due domande allo stesso intervistato. Si tiene la più alta.
+
+Il numero solido è l'inversione della sicurezza, perché è di quattro posizioni su
+quattro possibili e regge indipendentemente da come si trattano le altre voci.
+
+Dati in [`intersezione_sondaggi.csv`](intersezione_sondaggi.csv), rigenerabili con
+`python scripts/run_intersezione_sondaggi.py`.
+
 ## Metodo
 
 Mappatura **lessicale deterministica**, `src/mappa_ontologia.py`: 350 pattern sui

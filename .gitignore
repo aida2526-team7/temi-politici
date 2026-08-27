@@ -52,3 +52,8 @@ data/raw/finanziamenti_partiti.*
 
 # Discovery dai siti di partito: rigenerabile con run_programmi_discovery.py
 data/raw/programmi_urls.jsonl
+
+# Derivato dai dati Ipsos: segue la stessa regola della sorgente, resta fuori da
+# Git finche' non c'e' la revisione di compliance. Si rigenera con
+# scripts/run_intersezione_sondaggi.py.
+reports/ontologia_mapping/intersezione_sondaggi.csv
