@@ -138,9 +138,23 @@ nell'opinione pubblica, da correlare a valle con i temi della stampa.
 accumula in un CSV tidy (`data, istituto, tema, valore, …`), deduplicando per
 mese e tema.
 
-L'approccio è **prospettico**: la pagina espone solo il mese corrente e lo storico
-non è recuperabile, quindi il dataset si costruisce nel tempo eseguendo l'ingest
-ogni mese. È un dataset che cresce in avanti, non una serie retrospettiva.
+L'approccio resta **prospettico** — il dataset si costruisce eseguendo l'ingest ogni
+mese — ma una parte di storico **è** recuperabile, contro quanto scritto al primo
+tentativo. La ricerca su Wayback era limitata al 2026: allargata al 2018-2026
+restituisce 6 mesi in più, dal gennaio 2024, presi da catture in cui il contenuto
+stava ancora nell'HTML.
+
+```bash
+python scripts/run_sondaggi_ipsos.py --storico
+```
+
+Dataset attuale: 17 rilevazioni su 7 mesi. Resta sparso — solo `tasse` ha più di
+tre rilevazioni — e Ipsos espone solo i temi in testa, non tutti.
+
+**Da sistemare:** l'ingest della pagina live non estrae più nulla («struttura
+cambiata?»). Finché non è risolto il dataset cresce solo via Wayback, con il
+ritardo che comporta.
+
 Dettagli e limiti in `docs/data_provenance.md`.
 
 ### Mappatura sull'ontologia — i tre layer sui 15 macrotemi
@@ -178,6 +192,23 @@ una scelta di inquadramento del racconto, non un riflesso di come si comporta ch
 fa politica.
 
 Risultati, divergenze fra layer e limiti in `reports/ontologia_mapping/mappatura.md`.
+
+### Intersezione con i sondaggi
+
+```bash
+python scripts/run_intersezione_sondaggi.py
+```
+
+Incrocia la salienza dei temi nell'opinione pubblica con i tre layer. **Si
+confrontano ranghi, non livelli**: i valori Ipsos sono percentuali di menzione
+indipendenti e sommano a più di 100, quindi non stanno sulla stessa scala delle
+quote dei layer.
+
+Risultato principale: *Sicurezza e criminalità* è la prima preoccupazione degli
+italiani e l'ultima delle quattro voci confrontabili nei programmi elettorali —
+ma la seconda nei progetti di legge. Sulla criminalità i partiti non promettono
+ma legiferano. Copre 4 macrotemi su 15 e un mese solo: i limiti sono in
+`reports/ontologia_mapping/mappatura.md`.
 
 ### Integrazione del layer 1 — i programmi dai siti di partito
 
