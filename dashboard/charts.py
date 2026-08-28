@@ -368,7 +368,10 @@ def radar(df: pd.DataFrame, partiti: list[str], layer: str,
                  alt.Tooltip("quota:Q", title="Quota nel partito", format=".2f")])
 
     return t.tema(alt.layer(sfondo, assi, etichette, valori, linee, vertici)
-                  .properties(width=520, height=520))
+                  .properties(width=520, height=520, title=alt.Title(
+                      layer, subtitle="quota del tema dentro l'attivita' del partito",
+                      anchor="start", fontSize=15, subtitleFontSize=12,
+                      subtitleColor=t.MUTO)))
 
 
 def radar_layer(df: pd.DataFrame, partito: str, raggio_max: float | None = None):
@@ -412,4 +415,7 @@ def radar_layer(df: pd.DataFrame, partito: str, raggio_max: float | None = None)
                  alt.Tooltip("quota:Q", title="Quota", format=".2f")])
 
     return t.tema(alt.layer(sfondo, assi, etichette, valori, linee, vertici)
-                  .properties(width=520, height=520))
+                  .properties(width=520, height=520, title=alt.Title(
+                      partito, subtitle="quota del tema dentro ciascun layer",
+                      anchor="start", fontSize=15, subtitleFontSize=12,
+                      subtitleColor=t.MUTO)))
