@@ -193,6 +193,49 @@ fa politica.
 
 Risultati, divergenze fra layer e limiti in `reports/ontologia_mapping/mappatura.md`.
 
+### Sondaggi — Intenzioni di voto (registro ufficiale)
+
+Serve per una domanda che i temi da soli non chiudono: quando un partito viene
+nominato più spesso in relazione a un tema, le sue intenzioni di voto si muovono?
+
+Fonte: <https://www.sondaggipoliticoelettorali.it>, il registro della Presidenza
+del Consiglio dove per legge ogni sondaggio pubblicato va depositato. Stessa
+scelta fatta per gli altri layer — fonte ufficiale, non aggregatori.
+
+```bash
+python scripts/run_sondaggi_intenzioni.py
+```
+
+Il sito è un'applicazione ASP.NET WebForms: niente API, serve una sessione e ogni
+passo è un postback. Due dettagli che costano ore se non si sanno: il campo
+nascosto `_generation` va rimandato indietro o il postback rimbalza sulla prima
+scheda, e il registro chiude la connessione se lo si incalza — una richiesta alla
+volta, con pausa.
+
+**Due filtri, non uno.** Il campo *Titolo* del registro è testo libero scritto dal
+sondaggista: un sondaggio intitolato «intenzioni di voto» può contenere qualsiasi
+domanda. Il titolo serve a ridurre le richieste al sito; la selezione vera si fa
+sul **testo della domanda**, e ogni istituto la formula a modo suo:
+
+- NOTO — «Se domani si dovesse votare per le elezioni politiche, lei quale lista voterebbe?»
+- Ipsos Doxa — «Se si votasse oggi, per quale lista voterebbe alla Camera?»
+- SWG — «Se dovesse votare oggi alle elezioni nazionali, a quale dei seguenti partiti darebbe il suo voto?»
+
+**La normalizzazione.** Le percentuali depositate non sommano a 100 e non sommano
+allo stesso numero fra istituti: SWG deposita valori che sommano a **81,5%**
+perché tiene dentro gli indecisi, NOTO a **95,5%**. Una serie costruita sui valori
+grezzi confronterebbe basi diverse. Le quote vengono rinormalizzate a 100 sui soli
+partiti riconosciuti; il valore grezzo e la base restano nel CSV, perché senza la
+base la quota normalizzata non è giudicabile.
+
+Gli aggregati di coalizione («TOTALE CENTRODESTRA») e le voci di non risposta
+restano fuori dalla base: contarli insieme ai partiti raddoppierebbe metà del campo.
+
+**Prima di correlare, guardare la varianza.** Il margine d'errore dichiarato sta
+attorno a ±2,6 punti su campioni da 1.400, e fuori campagna elettorale i movimenti
+mensili sono spesso più piccoli. Se la serie è piatta dentro l'errore non c'è
+niente da correlare, e saperlo costa un grafico invece di una settimana.
+
 ### Intersezione con i sondaggi
 
 ```bash

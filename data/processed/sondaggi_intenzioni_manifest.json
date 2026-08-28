@@ -1,0 +1,12 @@
+{
+  "generato_utc": "2026-08-27T21:36:01.122453+00:00",
+  "fonte": "https://www.sondaggipoliticoelettorali.it",
+  "filtro_titolo": "intenzioni di voto",
+  "periodo": [
+    "01/01/2026",
+    "27/08/2026"
+  ],
+  "righe": 344,
+  "rilevazioni": 35,
+  "normalizzazione": "Quote rinormalizzate a 100 sui soli partiti riconosciuti. Il valore grezzo e la base restano nel CSV: senza la base la quota normalizzata non e' giudicabile."
+}

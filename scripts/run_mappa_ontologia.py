@@ -201,13 +201,19 @@ def _scorri_layer3() -> tuple[str, object]:
     return "campione", CAMPIONE_IN
 
 
-def mappa_layer3() -> tuple[Counter, Counter, list[dict], str]:
-    """Restituisce (quote, conteggi grezzi, tabella per topic, modalità)."""
+def mappa_layer3() -> tuple[Counter, Counter, list[dict], str, dict]:
+    """Restituisce (quote, conteggi grezzi, tabella per topic, modalità, marcatori)."""
     import csv
     modalita, sorgente = _scorri_layer3()
     per_topic: defaultdict[int, Counter] = defaultdict(Counter)
     boiler_per_topic: defaultdict[int, int] = defaultdict(int)
     grezzi: Counter = Counter()
+    # I marcatori trasversali convivono col macrotema: si contano a parte, per
+    # tema e nel tempo. Dove si posa un modo di parlare e' la domanda che un
+    # marcatore pone, e a cui un macrotema non risponderebbe.
+    marc_per_tema: defaultdict[str, Counter] = defaultdict(Counter)
+    marc_per_mese: defaultdict[str, Counter] = defaultdict(Counter)
+    marc_totale: Counter = Counter()
 
     with sorgente.open(encoding="utf-8-sig") as handle:
         for riga in csv.DictReader(handle):
@@ -220,6 +226,10 @@ def mappa_layer3() -> tuple[Counter, Counter, list[dict], str]:
                 tema, _ = mo.classifica(testo)
             per_topic[topic][tema] += 1
             grezzi[tema] += 1
+            for nome in mo.marcatori(testo):
+                marc_totale[nome] += 1
+                marc_per_tema[nome][mo.etichetta(tema)] += 1
+                marc_per_mese[nome][(riga.get("seendate") or "")[:7]] += 1
 
     totale = sum(grezzi.values())
     prevalenze = prevalenze_topic()
@@ -249,7 +259,13 @@ def mappa_layer3() -> tuple[Counter, Counter, list[dict], str]:
         })
     dettaglio = "tutti gli articoli" if modalita == "completo" else "campione ripesato"
     print(f"Layer 3: {totale} articoli, {dettaglio}, {len(per_topic)} topic")
-    return quote_finali, grezzi, tabella, modalita
+    marcatori = {
+        "totale": dict(marc_totale),
+        "per_tema": {k: dict(v) for k, v in marc_per_tema.items()},
+        "per_mese": {k: dict(v) for k, v in marc_per_mese.items()},
+        "articoli": totale,
+    }
+    return quote_finali, grezzi, tabella, modalita, marcatori
 
 
 # --------------------------------------------------------------------------- #
@@ -320,6 +336,42 @@ def indice_h1(righe_l1: list[dict], per_gruppo: list[dict],
     return sorted(righe, key=lambda r: r["h1_variazione_totale_pp"])
 
 
+def aggiorna_numeri(path: Path, valori: dict[str, str]) -> list[str]:
+    """Riscrive nel report i numeri marcati, e dice quali marcatori mancano.
+
+    Le tabelle di `mappatura.md` si rigenerano dai CSV, la prosa no: finora i
+    numeri nel testo li ho aggiornati a mano, e al primo giro di dati qualcuno
+    avrebbe letto una cifra vecchia in mezzo a tabelle nuove.
+
+    Un numero nel testo si marca cosi':
+
+        la copertura e' <!--n:copertura_l3-->71,6%<!--/n-->
+
+    Il markdown resta leggibile, il valore si ricalcola a ogni esecuzione. Un
+    marcatore senza valore corrispondente viene segnalato invece di essere
+    lasciato indietro in silenzio.
+    """
+    if not path.exists():
+        return []
+    testo = path.read_text(encoding="utf-8")
+    visti = set()
+
+    def sostituisci(trovato: re.Match) -> str:
+        nome = trovato.group(1)
+        visti.add(nome)
+        if nome not in valori:
+            return trovato.group(0)
+        return f"<!--n:{nome}-->{valori[nome]}<!--/n-->"
+
+    testo = re.sub(r"<!--n:([\w.]+)-->.*?<!--/n-->", sostituisci, testo, flags=re.S)
+    path.write_text(testo, encoding="utf-8")
+    return sorted(visti - set(valori))
+
+
+def _pct(valore: float, decimali: int = 2) -> str:
+    return f"{valore:.{decimali}f}".replace(".", ",") + "%"
+
+
 def scrivi_csv(path: Path, righe: list[dict], colonne: list[str] | None = None) -> None:
     import csv
     if not righe:
@@ -356,7 +408,7 @@ def main() -> int:
 
     c1, per_programma, sotto1 = mappa_layer1()
     c2, per_gruppo, sotto2 = mappa_layer2()
-    r3, grezzi3, per_topic, modalita3 = mappa_layer3()
+    r3, grezzi3, per_topic, modalita3, marcatori3 = mappa_layer3()
 
     q1, q2, q3 = quote(c1), quote(c2), quote(r3)
     confronto = tabella_confronto(q1, q2, q3)
@@ -375,6 +427,27 @@ def main() -> int:
     scrivi_csv(OUT_DIR / "layer1_controllo_fonti.csv", controllo,
                ["partito_lista", "paragrafi_viminale", "paragrafi_integrazione",
                 "divergenza_fra_fonti_pp"])
+    righe_marcatori = []
+    for nome, per_tema in marcatori3["per_tema"].items():
+        totale_marcatore = marcatori3["totale"][nome]
+        for tema, quanti in sorted(per_tema.items(), key=lambda kv: -kv[1]):
+            righe_marcatori.append({
+                "marcatore": nome,
+                "macrotema": tema,
+                "articoli": quanti,
+                "quota_del_marcatore_pct": round(100.0 * quanti / totale_marcatore, 2),
+            })
+    scrivi_csv(OUT_DIR / "marcatori_per_tema.csv", righe_marcatori,
+               ["marcatore", "macrotema", "articoli", "quota_del_marcatore_pct"])
+    righe_mesi = [
+        {"marcatore": nome, "mese": mese, "articoli": quanti,
+         "su_mille_articoli": round(1000.0 * quanti / marcatori3["articoli"], 2)}
+        for nome, per_mese in marcatori3["per_mese"].items()
+        for mese, quanti in sorted(per_mese.items())
+    ]
+    scrivi_csv(OUT_DIR / "marcatori_per_mese.csv", righe_mesi,
+               ["marcatore", "mese", "articoli", "su_mille_articoli"])
+
     h1 = indice_h1(per_programma, per_gruppo)
     scrivi_csv(OUT_DIR / "indice_h1.csv", h1,
                ["partito_lista", "gruppo_camera", "fonte_programma", "paragrafi",
@@ -433,6 +506,11 @@ def main() -> int:
         },
         "divergenza_variazione_totale_pp": divergenze,
         "sottotemi": sottotemi,
+        "marcatori_trasversali": {
+            nome: {"articoli": quanti,
+                   "quota_corpus_pct": round(100.0 * quanti / marcatori3["articoli"], 3)}
+            for nome, quanti in marcatori3["totale"].items()
+        },
         "avvertenza": (
             "Le quote sono confrontabili fra layer solo come quote: le tre unità di "
             "misura (paragrafo, atto, articolo) hanno dimensioni di ordini di "

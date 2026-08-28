@@ -1,5 +1,5 @@
 {
-  "generato_utc": "2026-08-27T15:32:10.786387+00:00",
+  "generato_utc": "2026-08-28T00:54:05.765457+00:00",
   "ontologia": "docs/ontologia_tematica.md v2.0 (congelata 2026-08-27)",
   "metodo": "lessicale deterministico, src/mappa_ontologia.py",
   "min_chars_paragrafo": 200,
@@ -12,39 +12,45 @@
     },
     {
       "path": "data/raw/camera_ddl.jsonl",
-      "sha256": "2dcffc4c1f30e1ea846b67947c11eb18e2f07cfd5d71e27088180e5cbc7957bd",
-      "byte": 4719523
+      "sha256": "3cedb8af0ae006eb3f36847c99f89731d18010e87b532cdd7a6ea4d210d89d70",
+      "byte": 4722953
     },
     {
       "path": "data/processed/news_topic_review.csv",
-      "sha256": "c332c64a29cdb3968ebf7bff7ae2bfd539a3045ab11a64923be894a34293e4ca",
-      "byte": 92276804
+      "sha256": "954a700e259613b2615e6168f9252b239c07f139c80afe0d6eee585010095ba1",
+      "byte": 110800130
     },
     {
       "path": "reports/topic_audit/topic_distribution.csv",
-      "sha256": "f770cb99e8e64143e77196e1c6fdaf10ce9bd570e47521a7715644dfb24389cc",
-      "byte": 2139
+      "sha256": "02ea618760a8de8cc541c27f971eed4f9fefe646dc8b298feb5a48f9b51cc43a",
+      "byte": 2310
     }
   ],
   "copertura_pct_assegnati": {
-    "layer1": 84.89,
-    "layer2": 72.61,
-    "layer3": 71.5
+    "layer1": 85.05,
+    "layer2": 72.69,
+    "layer3": 71.56
   },
   "politica_non_tematica_pct": {
     "layer1": 0.46,
     "layer2": 0.52,
-    "layer3": 10.35
+    "layer3": 10.03
   },
   "divergenza_variazione_totale_pp": {
-    "layer1_vs_layer2": 20.62,
-    "layer2_vs_layer3": 25.8,
-    "layer1_vs_layer3": 32.45
+    "layer1_vs_layer2": 20.65,
+    "layer2_vs_layer3": 23.84,
+    "layer1_vs_layer3": 31.69
   },
   "sottotemi": {
     "9.1": {
-      "layer1_su_padre_pct": 17.97,
-      "layer2_su_padre_pct": 41.34
+      "layer1_su_padre_pct": 17.24,
+      "layer2_su_padre_pct": 40.71
+    }
+  },
+  "marcatori_trasversali": {
+    "woke": {
+      "articoli": 191,
+      "quota_corpus_pct": 0.178
     }
   },
   "avvertenza": "Le quote sono confrontabili fra layer solo come quote: le tre unità di misura (paragrafo, atto, articolo) hanno dimensioni di ordini di grandezza diversi. Il lessico non è validato contro codifica umana."

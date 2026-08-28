@@ -1,0 +1,12 @@
+{
+  "descrizione": "Intenzioni di voto dal registro ufficiale della Presidenza del Consiglio. Il filtro sul titolo riduce le richieste al sito; la selezione vera si fa sul testo della domanda, perché il titolo è testo libero del sondaggista.",
+  "url": "https://www.sondaggipoliticoelettorali.it",
+  "user_agent": "AIDA-temi-politici/1.0 (ricerca universitaria; ingest intenzioni di voto)",
+  "titolo": "intenzioni di voto",
+  "data_da": "01/01/2026",
+  "data_a": "27/08/2026",
+  "output_csv": "data/processed/sondaggi_intenzioni_voto.csv",
+  "timeout": 90,
+  "pause": 2.5,
+  "nota_finestra": "data_a va tenuta al giorno corrente: fermarla a una data tonda butta via le rilevazioni piu' recenti, che sono quelle che servono."
+}

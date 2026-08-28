@@ -1,6 +1,6 @@
 # Ricognizione layer 2 — progetti di legge della Camera
 
-Eseguito: 2026-08-19T20:05:31+0200
+Eseguito: 2026-08-27T23:31:02+0200
 Comando: `python scripts/run_camera_spike.py`
 Endpoint: <https://dati.camera.it/sparql> (SPARQL pubblico, nessuno scraping)
 
@@ -8,8 +8,8 @@ Endpoint: <https://dati.camera.it/sparql> (SPARQL pubblico, nessuno scraping)
 
 | legislatura | atti | righe SPARQL | richieste | secondi |
 | --- | --- | --- | --- | --- |
-| 18 | 3,757 | 10,392 | 11 | 11.4 |
-| 19 | 3,108 | 7,384 | 8 | 8.4 |
+| 18 | 3,757 | 10,392 | 11 | 10.9 |
+| 19 | 3,108 | 7,384 | 8 | 7.3 |
 
 ## Cosa esce
 
@@ -35,20 +35,20 @@ Endpoint: <https://dati.camera.it/sparql> (SPARQL pubblico, nessuno scraping)
 | gruppo | atti |
 | --- | --- |
 | (assente) | 1,041 |
-| LEGA - SALVINI PREMIER | 938 |
-| MOVIMENTO 5 STELLE | 936 |
-| FRATELLI D'ITALIA | 832 |
-| MISTO | 728 |
+| MOVIMENTO 5 STELLE | 938 |
+| LEGA - SALVINI PREMIER | 936 |
+| FRATELLI D'ITALIA | 839 |
+| MISTO | 664 |
 | PARTITO DEMOCRATICO | 585 |
-| PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA | 492 |
+| PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA | 484 |
 | FORZA ITALIA - BERLUSCONI PRESIDENTE | 482 |
 | FORZA ITALIA - BERLUSCONI PRESIDENTE - PPE | 274 |
-| ALLEANZA VERDI E SINISTRA | 119 |
 | INSIEME PER IL FUTURO | 112 |
 | ITALIA VIVA | 106 |
-| AZIONE - ITALIA VIVA - RENEW EUROPE | 76 |
-| CORAGGIO ITALIA | 49 |
-| LIBERI E UGUALI | 49 |
+| AZIONE - ITALIA VIVA - RENEW EUROPE | 94 |
+| ALLEANZA VERDI E SINISTRA | 75 |
+| NOI MODERATI | 56 |
+| NOI MODERATI (NOI CON L'ITALIA, CORAGGIO ITALIA, UDC, ITALIA AL CENTRO)-MAIE | 53 |
 
 ## Limiti
 

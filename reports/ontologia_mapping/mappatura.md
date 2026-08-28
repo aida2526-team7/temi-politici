@@ -3,13 +3,12 @@
 Generato da `scripts/run_mappa_ontologia.py`. Hash degli input in
 `mapping_manifest.json`.
 
-Il layer 3 è mappato sul **corpus completo**, 88.279 articoli, dal run NMF del
-2026-08-27 — il primo eseguito dopo `src/pulizia_corpus.py`. Nessun ripeso: ogni
-articolo vale uno.
+Il layer 3 è mappato sul **corpus completo**, <!--n:articoli_l3-->107.021<!--/n--> articoli, dal run NMF del
+2026-08-28 sul corpus esteso a tutto agosto. Nessun ripeso: ogni articolo vale uno.
 
 ## Quanto la politica parla di sé
 
-**Layer 1: 0,46%. Layer 2: 0,52%. Layer 3: 10,35%.**
+**Layer 1: <!--n:pnt_l1-->0,46%<!--/n-->. Layer 2: <!--n:pnt_l2-->0,52%<!--/n-->. Layer 3: <!--n:pnt_l3-->10,03%<!--/n-->.**
 
 È la quota di ciascun corpus che finisce in `politica non tematica`: nomine,
 rimpasti, sondaggi, candidature, retroscena, chi sale e chi scende. Politica come
@@ -34,33 +33,80 @@ In letteratura la distinzione fra *game frame* e *issue frame* è standard. La
 citazione precisa va verificata prima di usarla in un documento accademico: qui
 non è stata controllata.
 
+## Il marcatore woke: agosto 2026
+
+Un **marcatore trasversale** (ontologia v2.1) convive col macrotema invece di
+sostituirlo: dice come un testo inquadra il tema, non di che tema parla.
+
+Volume nel corpus, normalizzato su mille articoli perché il corpus cresce:
+
+| Mese | Articoli | Su mille |
+|---|---|---|
+| gennaio | 13 | 0,12 |
+| febbraio | 22 | 0,21 |
+| marzo | 7 | 0,07 |
+| aprile | 3 | 0,03 |
+| maggio | 8 | 0,07 |
+| giugno | 6 | 0,06 |
+| luglio | 11 | 0,10 |
+| **agosto** | **121** | **1,13** |
+
+Undici volte la linea di base dei sette mesi precedenti, e agosto è troncato al
+27. Nel corpus di ieri, che si fermava all'11 luglio, questa storia non esisteva:
+è interamente dentro le sei settimane aggiunte.
+
+**Dove si posa il frame**, come quota dei <!--n:marcatore_woke-->191<!--/n--> articoli che lo portano:
+
+| Macrotema | Articoli | Quota |
+|---|---|---|
+| Cultura e patrimonio | 36 | 18,9% |
+| non assegnato | 35 | 18,3% |
+| Immigrazione e cittadinanza | 23 | 12,0% |
+| Politica estera e difesa | 18 | 9,4% |
+| Diritti civili e società | 16 | 8,4% |
+| politica non tematica | 14 | 7,3% |
+| Istruzione e ricerca | 13 | 6,8% |
+
+**Questa tabella è la giustificazione della scelta di disegno.** Solo il 7,3%
+cade in `politica non tematica`: archiviare lì l'intero frame avrebbe buttato via
+il fatto che si attacca soprattutto a cultura, immigrazione, diritti e scuola. E
+il 18,9% su *Cultura* non lo renderebbe un tema culturale: il margine mediano di
+questi articoli resta basso, perché ognuno tocca quattro o cinque lessici.
+
+**Limite, da ripetere ogni volta che il numero viene citato.** Il marcatore rileva
+la presenza del frame, non la posizione di chi lo usa. Chi accusa il woke e chi lo
+difende finiscono nello stesso conteggio, e i titoli del corpus mostrano entrambi.
+
+Dati in [`marcatori_per_mese.csv`](marcatori_per_mese.csv) e
+[`marcatori_per_tema.csv`](marcatori_per_tema.csv).
+
 ## Le tre distribuzioni
 
 Quote entro il corpus di ciascun layer, come impone l'ontologia.
 
 | # | Macrotema | L1 programmi | L2 DDL | L3 stampa |
 |---|---|---|---|---|
-| 1 | Politica estera e difesa | 5,49% | 3,12% | **14,50%** |
-| 2 | Unione europea | 3,17% | 1,59% | 4,05% |
-| 3 | Istituzioni e assetto dello Stato | 5,76% | 9,57% | 11,01% |
-| 4 | Economia e finanza pubblica | 9,61% | 7,84% | 2,96% |
-| 5 | Lavoro e imprese | **18,58%** | 9,15% | 8,19% |
-| 6 | Welfare e pensioni | 3,22% | 2,48% | 0,75% |
-| 7 | Sanità | 5,19% | 7,43% | 4,25% |
-| 8 | Istruzione e ricerca | 6,75% | 4,97% | 3,30% |
-| 9 | Ambiente ed energia | 10,72% | 5,64% | 2,98% |
-| 10 | Immigrazione e cittadinanza | 1,87% | 1,65% | 1,87% |
-| 11 | Sicurezza e criminalità | 2,94% | **7,91%** | 4,40% |
-| 12 | Diritti civili e società | 2,67% | 2,77% | 2,15% |
-| 13 | Infrastrutture e territorio | 5,74% | 4,38% | 4,83% |
-| 14 | Cultura e patrimonio | 2,61% | 3,18% | 3,87% |
-| 15 | Sport | 0,57% | 0,96% | 2,38% |
-| — | politica non tematica | 0,46% | 0,52% | 10,35% |
-| — | non assegnato | 14,65% | 26,86% | 14,87% |
-| — | boilerplate | 0,00% | 0,00% | 3,27% |
+| 1 | Politica estera e difesa | 5,47% | 3,12% | **13,34%** |
+| 2 | Unione europea | 3,11% | 1,59% | 3,70% |
+| 3 | Istituzioni e assetto dello Stato | 5,76% | 9,57% | 10,64% |
+| 4 | Economia e finanza pubblica | 9,52% | 7,84% | 2,94% |
+| 5 | Lavoro e imprese | **18,54%** | 9,15% | 7,99% |
+| 6 | Welfare e pensioni | 3,22% | 2,48% | 0,78% |
+| 7 | Sanità | 5,17% | 7,43% | 4,24% |
+| 8 | Istruzione e ricerca | 6,75% | 4,97% | 3,09% |
+| 9 | Ambiente ed energia | 11,18% | 5,72% | 4,16% |
+| 10 | Immigrazione e cittadinanza | 1,87% | 1,65% | 2,29% |
+| 11 | Sicurezza e criminalità | 2,94% | **7,91%** | 5,13% |
+| 12 | Diritti civili e società | 2,67% | 2,77% | 2,12% |
+| 13 | Infrastrutture e territorio | 5,66% | 4,37% | 4,95% |
+| 14 | Cultura e patrimonio | 2,61% | 3,18% | 3,84% |
+| 15 | Sport | 0,57% | 0,96% | 2,35% |
+| — | politica non tematica | 0,46% | 0,52% | 10,03% |
+| — | non assegnato | 14,50% | 26,79% | 15,14% |
+| — | boilerplate | 0,00% | 0,00% | 3,28% |
 
-Sottotema 9.1 *Animali e fauna*, come quota del proprio padre: **41,3% del tema 9
-nel layer 2**, 18,0% nel layer 1. Quasi metà dei progetti di legge che finiscono
+Sottotema 9.1 *Animali e fauna*, come quota del proprio padre: **<!--n:sotto_9_1_l2-->40,7%<!--/n--> del tema 9
+nel layer 2**, <!--n:sotto_9_1_l1-->17,2%<!--/n--> nel layer 1. Quasi metà dei progetti di legge che finiscono
 in *Ambiente ed energia* alla Camera parla di randagismo, maltrattamento o fauna
 selvatica, non di energia o clima. Se il numero regge alla validazione umana,
 vuol dire che il tema 9 nel layer 2 sta misurando due cose.
@@ -71,13 +117,13 @@ Distanza in variazione totale, sui soli 15 macrotemi:
 
 | Coppia | Divergenza |
 |---|---|
-| L1 programmi ↔ L2 DDL | 20,6 pp |
-| L2 DDL ↔ L3 stampa | 25,8 pp |
-| L1 programmi ↔ L3 stampa | 32,5 pp |
+| L1 programmi ↔ L2 DDL | <!--n:div_l1_l2-->20,7 pp<!--/n--> |
+| L2 DDL ↔ L3 stampa | <!--n:div_l2_l3-->23,8 pp<!--/n--> |
+| L1 programmi ↔ L3 stampa | <!--n:div_l1_l3-->31,7 pp<!--/n--> |
 
 **Il lavoro si promette il doppio di quanto si legiferi.** *Lavoro e imprese* è il
-18,6% dei paragrafi di programma e il 9,2% dei progetti di legge: +9,4 pp. È il
-tema più grande del layer 1 e il secondo del layer 2. Nella stampa vale l'8,2%,
+18,5% dei paragrafi di programma e il 9,2% dei progetti di legge: +9,4 pp. È il
+tema più grande del layer 1 e il secondo del layer 2. Nella stampa vale l'8,0%,
 quasi come nei DDL: lo scarto è fra ciò che i partiti promettono e tutto il resto.
 
 **La sicurezza si legifera il triplo di quanto si prometta.** *Sicurezza e
@@ -85,12 +131,12 @@ criminalità* è il 2,9% dei programmi e il 7,9% dei DDL: −5,0 pp, lo scarto
 invertito più largo. Il segno opposto rispetto al lavoro rende improbabile un
 artefatto del lessico, che sui due temi ha grana simile.
 
-**La stampa e la Camera guardano due paesi diversi in politica estera.** 14,5%
-degli articoli contro il 3,1% dei DDL: **−11,4 pp**, lo scarto singolo più largo
-del confronto. È anche il più solido: il topic 10 è il topic NMF meglio definito
-del corpus pulito, con il 68,0% dei suoi articoli su questo macrotema.
+**La stampa e la Camera guardano due paesi diversi in politica estera.** 13,3%
+degli articoli contro il 3,1% dei DDL: **−10,2 pp**, lo scarto singolo più largo
+del confronto. È anche il più solido: il topic 3, il 18,4% del corpus, è il topic
+NMF meglio definito e ha il 49,8% dei suoi articoli su questo macrotema.
 
-**L'economia va nella direzione opposta.** 7,8% dei DDL contro il 3,0% degli
+**L'economia va nella direzione opposta.** 7,8% dei DDL contro il 2,9% degli
 articoli: +4,9 pp. La Camera legifera su bilancio, tributi e concorrenza molto più
 di quanto la stampa ne scriva.
 
@@ -130,18 +176,18 @@ non è un peggioramento, è la stessa massa contata meglio.
 
 | Topic | Prevalenza | Etichetta dominante | Quota | Boilerplate |
 |---|---|---|---|---|
-| 0 | 19,70% | non assegnato | 22,0% | 0,4% |
-| 1 | 1,01% | boilerplate | 45,0% | 45,0% |
-| 2 | 0,33% | boilerplate | 87,5% | 87,5% |
-| 3 | 12,37% | Politica estera e difesa | 21,9% | 0,5% |
-| 4 | 16,46% | **politica non tematica** | 39,5% | 0,2% |
-| 5 | 0,31% | Istituzioni e assetto dello Stato | 23,3% | 1,1% |
-| 6 | 2,53% | boilerplate | 74,8% | 74,8% |
-| 7 | 0,18% | boilerplate | 65,0% | 65,0% |
-| 8 | 11,26% | **Istituzioni e assetto dello Stato** | 49,5% | 0,3% |
-| 9 | 23,68% | Lavoro e imprese | 16,9% | 0,3% |
-| 10 | 11,28% | **Politica estera e difesa** | 68,0% | 0,7% |
-| 11 | 0,90% | boilerplate | 16,8% | 16,8% |
+| 0 | 20,57% | Lavoro e imprese | 17,1% | 0,4% |
+| 1 | 0,83% | boilerplate | 45,0% | 45,0% |
+| 2 | 0,31% | boilerplate | 89,3% | 89,3% |
+| 3 | 18,36% | **Politica estera e difesa** | 49,8% | 0,6% |
+| 4 | 16,64% | **politica non tematica** | 37,4% | 0,3% |
+| 5 | 2,73% | boilerplate | 73,3% | 73,3% |
+| 6 | 0,31% | Istituzioni e assetto dello Stato | 21,6% | 0,9% |
+| 7 | 26,39% | non assegnato | 21,3% | 0,4% |
+| 8 | 0,16% | boilerplate | 61,6% | 61,6% |
+| 9 | 12,08% | **Istituzioni e assetto dello Stato** | 43,0% | 0,3% |
+| 10 | 0,70% | Ambiente ed energia | 21,0% | 0,0% |
+| 11 | 0,91% | non assegnato | 16,9% | 15,3% |
 
 Tre topic corrispondono a una categoria con margine largo. Il **10** è la politica
 estera (`iran, tajani, trump, esteri, guerra, israele`), l'**8** è l'assetto
@@ -150,11 +196,27 @@ costituzione`), il **4** è la politica come processo (`sindaco, centrodestra,
 candidato, coalizione, elezioni, lista`) — il topic elettorale, riconosciuto per
 quello che è.
 
-Restano fuori il topic 0 (19,7%), cronaca generalista finita nel corpus (`vita,
-storia, milano, persone, mondo, famiglia, piazza`), e il topic 9 (23,68%), il più
-grande di tutti e il più diffuso: `euro, regionale, regione, risorse, territorio,
-imprese, lavoro` non è un tema, è il lessico dell'amministrazione che attraversa
-tutti i temi.
+Restano fuori il topic 7 (26,4%), cronaca generalista (`vita, persone, storia,
+milano, famiglia`), e il topic 0 (20,6%), il lessico dell'amministrazione — `euro,
+regionale, territorio, risorse, imprese` — che attraversa tutti i temi senza
+esserne uno.
+
+### Perché non si etichetta un topic dai suoi termini
+
+Il topic 10 (754 articoli) ha come termini caratteristici `risorse sconto,
+carburanti finiscono, proroga gasolio`: sembra un topic sul caro carburanti. Non
+lo è. **539 dei suoi 754 articoli vengono da `varesenews.it`**, e il primo che si
+apre parla di atti vandalici a Mustonate. È un artefatto di dominio — l'audit lo
+segnala fra i topic con dominio dominante sopra il 50% — che tiene insieme cronaca
+locale con dentro anche i pezzi sulle accise.
+
+Non è boilerplate: i titoli distinti sono 748 su 754. È peggio, perché sembra
+interpretabile. I termini caratteristici dell'NMF descrivevano una minoranza della
+massa del topic, e chi avesse assegnato un macrotema leggendoli avrebbe etichettato
+«energia» 754 articoli di cronaca varesina.
+
+È il caso più chiaro del perché la mappatura si fa col lessico sul testo di ogni
+articolo e non passando dai topic.
 
 ## H1 — coerenza fra ciò che si promette e ciò che si legifera
 
@@ -164,18 +226,18 @@ programma di un partito e quella dei suoi progetti di legge. Variazione totale s
 
 | Partito | Paragrafi | Atti | H1 |
 |---|---|---|---|
-| Partito Democratico | 221 | 358 | **23,4** |
-| Lega | 988 | 681 | **24,3** |
-| Movimento 5 Stelle | 976 | 709 | **24,8** |
+| Partito Democratico | 221 | 354 | **23,6** |
+| Lega | 988 | 683 | **24,8** |
+| Movimento 5 Stelle | 976 | 711 | **24,8** |
 | Forza Italia | 82 | 358 | 25,1 |
-| Fratelli d'Italia | 145 | 593 | **30,6** |
+| Fratelli d'Italia | 145 | 599 | **30,3** |
 
 Quattro valori su cinque reggono la soglia di 100 unità su entrambi i lati. Forza
 Italia resta sotto, con 82 paragrafi: il valore c'è ma è marcato inaffidabile in
 [`indice_h1.csv`](indice_h1.csv).
 
-I quattro affidabili stanno in una forcella stretta, 23,4-30,6. **Fratelli
-d'Italia è il meno coerente dei quattro**, con 7 punti di distacco dal PD. Va
+I quattro affidabili stanno in una forcella stretta, 23,6-30,3. **Fratelli
+d'Italia è il meno coerente dei quattro**, con quasi 7 punti di distacco dal PD. Va
 letto con prudenza: FdI ha anche il programma più corto fra i recuperati (145
 paragrafi contro i 988 della Lega), e la coda della distribuzione è quella che
 soffre di più con pochi paragrafi.
@@ -198,8 +260,8 @@ distribuzioni si misura:
 | **Partito Democratico** | **172** | **221** | **6,4 pp** |
 | Fratelli d'Italia | 24 | 145 | 19,8 pp |
 | Forza Italia | 19 | 82 | 27,3 pp |
-| Movimento 5 Stelle | 13 | 976 | 33,1 pp |
-| Lega | 14 | 988 | 37,9 pp |
+| Movimento 5 Stelle | 13 | 976 | 36,3 pp |
+| Lega | 14 | 988 | 37,3 pp |
 
 Solo il PD ha numeri sufficienti da entrambe le parti, ed è l'unica riga che
 misura davvero la differenza fra le due unità: **6,4 pp**, contro valori di H1 fra
@@ -294,7 +356,7 @@ discutono una per una.
 
 Le tre unità di misura seguono il contratto: paragrafo per il layer 1 (soglia 200
 caratteri, 5.243 paragrafi da 60 programmi, di cui 5 presi dai siti di partito), atto per il layer 2 (6.865 titoli),
-articolo per il layer 3 (88.279).
+articolo per il layer 3 (<!--n:articoli_l3-->107.021<!--/n-->).
 
 Con il corpus completo in locale lo script classifica tutti gli articoli. Senza —
 cioè per chiunque cloni il repository, visto che i 92 MB stanno in `.gitignore` —
@@ -308,9 +370,9 @@ servizio non contano come copertura, e il denominatore le include.
 
 | Layer | Copertura |
 |---|---|
-| L1 programmi | 84,9% |
-| L2 DDL | 72,6% |
-| L3 stampa | 71,5% |
+| L1 programmi | <!--n:copertura_l1-->85,1%<!--/n--> |
+| L2 DDL | <!--n:copertura_l2-->72,7%<!--/n--> |
+| L3 stampa | <!--n:copertura_l3-->71,6%<!--/n--> |
 
 Il 27% di titoli non assegnati del layer 2 è in buona parte struttura legislativa
 senza oggetto tematico nel titolo — «Modifica all'articolo 16 della legge 27

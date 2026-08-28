@@ -110,6 +110,10 @@ def parse_args():
     parser.add_argument("--max-df", type=float, default=0.85, help="document frequency massima TF-IDF")
     parser.add_argument("--min-text-chars", type=int, default=300, help="lunghezza minima del testo pulito")
     parser.add_argument("--random-state", type=int, default=42, help="seed riproducibile")
+    parser.add_argument("--solo-pulizia", action="store_true",
+                        help=("scrive il corpus pulito e si ferma: niente TF-IDF, "
+                              "niente NMF. Serve quando il corpus e' cresciuto e "
+                              "servono solo gli articoli nuovi puliti"))
     parser.add_argument("--senza-pulizia", action="store_true",
                         help="salta la rimozione di boilerplate e duplicati "
                              "(serve solo a riprodurre il primo giro, non a lavorare)")
@@ -241,6 +245,19 @@ def main():
         raise ValueError("--n-topics deve essere almeno 2")
     corpus, report_pulizia = load_corpus(args.input, args.min_text_chars,
                                          pulizia=not args.senza_pulizia)
+
+    # Pulizia e fattorizzazione stanno nello stesso script per ragioni storiche, ma
+    # non e' detto che servano insieme. La mappatura sui macrotemi legge la tabella
+    # per articolo e non usa i topic: quando il corpus cresce serve solo il testo
+    # pulito, e l'NMF su centomila articoli costa un'ora e mezza di calcolo buttata.
+    if args.solo_pulizia:
+        args.output_dir.mkdir(parents=True, exist_ok=True)
+        percorso = args.output_dir / "corpus_pulito.jsonl"
+        corpus.to_json(percorso, orient="records", lines=True, force_ascii=False)
+        print(f"Corpus pulito: {len(corpus):,} articoli -> {percorso}")
+        print("Nessun modello calcolato (--solo-pulizia).")
+        return
+
     model, weights, features, shape, n_topics, effective_min_df = build_topics(
         corpus, args.n_topics, args.min_df, args.max_df, args.random_state
     )

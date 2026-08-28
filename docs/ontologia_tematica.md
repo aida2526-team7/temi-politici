@@ -1,11 +1,12 @@
-# Ontologia tematica — v2.0, congelata
+# Ontologia tematica — v2.1, congelata
 
-**Stato: congelata il 2026-08-27.** È il contratto fra i tre layer. Da qui in
+**Stato: congelata il 2026-08-28.** È il contratto fra i tre layer. Da qui in
 avanti le trasformazioni si scrivono contro questa versione; cambiarla richiede
 una nuova versione e la rilettura di ciò che ne dipende.
 
-La v2.0 porta i macrotemi da 13 a **15** e aggiunge il primo sottotema. La
-v1.0 (2026-08-20) resta nella storia Git; il diario delle versioni è in fondo.
+La v2.0 ha portato i macrotemi da 13 a **15** e aggiunto il primo sottotema; la
+v2.1 aggiunge i **marcatori trasversali**, che non toccano i 15. Le versioni
+precedenti restano nella storia Git; il diario è in fondo.
 
 Le cinque decisioni aperte sono state prese e sono registrate nella sezione
 *Decisioni*, con la conseguenza che ognuna comporta. Sono state prese da un
@@ -76,6 +77,36 @@ padre. Aggiungerne uno non tocca i numeri di sopra.
 | # | Sottotema | Padre | Cosa ci sta dentro |
 |---|---|---|---|
 | 9.1 | Animali e fauna | 9 — Ambiente ed energia | Benessere e tutela degli animali, fauna selvatica, randagismo, attività venatoria |
+
+### Marcatori trasversali
+
+Non sono macrotemi e non competono con loro: **convivono**. Un macrotema dice di
+*che cosa* parla un documento, un marcatore dice *come* lo inquadra. Lo stesso
+articolo può essere «Immigrazione e cittadinanza» e portare il marcatore `woke`.
+
+Restano fuori dai conteggi per macrotema: aggiungerne uno aggiunge una domanda —
+«dove si posa questo modo di parlare?» — non una categoria.
+
+| Marcatore | Cosa segna |
+|---|---|
+| `woke` | Il frame «woke sì / woke no»: politicamente corretto, cancel culture, ideologia gender. Non una policy, un modo di inquadrare diritti, immigrazione, scuola e linguaggio |
+
+**Perché non è un macrotema, misurato.** Sui 202 articoli del corpus che portano il
+frame woke il tema vincente ha **margine mediano 0,40** — il testo pesca da quattro
+o cinque lessici e nessuno domina, mentre un macrotema vero sta sopra 0,8. E si
+sparpagliano su otto temi: Cultura 52, politica non tematica 31, Immigrazione 29,
+Diritti civili 20. Incastrarli in una casella sola butterebbe via l'informazione
+interessante, cioè a quali temi il frame si attacca.
+
+**Perché non è `politica non tematica`.** Quella categoria è assenza di policy —
+nomine, sondaggi, retroscena. Il woke è il contrario: è policy inquadrata in un
+certo modo. Solo 31 articoli su 202 cadono in `politica non tematica` per contenuto
+proprio, e quel 15% è un risultato da misurare, non una decisione da prendere prima.
+
+**Limite.** Il marcatore rileva la presenza del frame, non la posizione di chi lo
+usa: chi accusa e chi difende finiscono insieme. Coerente con il resto della
+tassonomia, che non misura posizione, e da dichiarare ogni volta che il numero
+viene citato.
 
 ### Categorie di servizio, fuori tassonomia
 
@@ -267,3 +298,4 @@ che è stato mappato con la versione precedente.
 |---|---|---|
 | v1.0 | 2026-08-20 | Prima versione congelata: 13 macrotemi da MARPOR, decisioni 1-4 |
 | v2.0 | 2026-08-27 | Aggiunti i macrotemi 14 (Cultura e patrimonio) e 15 (Sport); aggiunto il sottotema 9.1 (Animali e fauna); decisione 5 |
+| v2.1 | 2026-08-28 | Aggiunto il livello dei **marcatori trasversali**, e il primo marcatore (`woke`). I 15 macrotemi non si toccano: un marcatore convive con il tema invece di sostituirlo |

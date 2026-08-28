@@ -167,6 +167,34 @@ class TestPoliticaNonTematica(unittest.TestCase):
         self.assertEqual(mo.punteggio_processo("liste di attesa negli ospedali"), 0)
 
 
+class TestMarcatoriTrasversali(unittest.TestCase):
+    """Un marcatore convive col macrotema, non lo sostituisce (ontologia v2.1)."""
+
+    def test_il_marcatore_non_cambia_il_macrotema(self):
+        testo = "Il politicamente corretto nella scuola e la cancel culture negli atenei"
+        tema, _ = mo.classifica(testo)
+        self.assertEqual(tema, 8)
+        self.assertIn("woke", mo.marcatori(testo))
+
+    def test_riconosce_le_forme_del_frame(self):
+        for testo in ("l'ideologia woke", "i wokisti", "il politicamente corretto",
+                      "la cancel culture", "posizioni anti woke"):
+            with self.subTest(testo=testo):
+                self.assertIn("woke", mo.marcatori(testo))
+
+    def test_un_testo_senza_frame_non_prende_marcatori(self):
+        self.assertEqual(mo.marcatori("Riduzione delle liste di attesa"), {})
+
+    def test_conta_le_occorrenze(self):
+        testo = "woke e ancora woke, con un po' di cancel culture"
+        self.assertEqual(mo.marcatori(testo)["woke"], 3)
+
+    def test_ogni_marcatore_ha_un_lessico(self):
+        self.assertTrue(mo.MARCATORI)
+        for nome, pattern in mo.MARCATORI.items():
+            self.assertTrue(pattern, f"marcatore {nome} senza pattern")
+
+
 class TestBoilerplate(unittest.TestCase):
     def test_riconosce_le_formule_editoriali(self):
         self.assertGreater(mo.quota_boilerplate("Riproduzione riservata © Copyright ANSA"), 0)
