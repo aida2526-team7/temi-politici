@@ -1,21 +1,21 @@
 {
-  "run_at_utc": "2026-08-27T08:17:38.863748+00:00",
+  "run_at_utc": "2026-08-27T23:52:35.641006+00:00",
   "python_version": "3.14.5",
   "pandas_version": "3.0.3",
   "scikit_learn_version": "1.9.0",
   "inputs": [
     {
       "path": "data/processed/news_topic_review.csv",
-      "size_bytes": 92276804,
-      "sha256": "c332c64a29cdb3968ebf7bff7ae2bfd539a3045ab11a64923be894a34293e4ca"
+      "size_bytes": 110800130,
+      "sha256": "954a700e259613b2615e6168f9252b239c07f139c80afe0d6eee585010095ba1"
     },
     {
       "path": "data/processed/topic_model_metadata.json",
-      "size_bytes": 10590,
-      "sha256": "f78f3f4c88f24df336bb343c536048220c0413f723243109af7d4acda350757d"
+      "size_bytes": 10509,
+      "sha256": "a609d9ff8f8ccc9e1ff7ba8ca7a2d56cf998b837a1c6a6573ba5009c7855b9bc"
     }
   ],
-  "review_rows": 88279,
+  "review_rows": 107021,
   "review_columns": [
     "url",
     "domain",
@@ -61,28 +61,28 @@
   "outputs": [
     {
       "path": "reports/topic_audit/topic_distribution.csv",
-      "size_bytes": 2139,
-      "sha256": "f770cb99e8e64143e77196e1c6fdaf10ce9bd570e47521a7715644dfb24389cc"
+      "size_bytes": 2310,
+      "sha256": "02ea618760a8de8cc541c27f971eed4f9fefe646dc8b298feb5a48f9b51cc43a"
     },
     {
       "path": "reports/topic_audit/confidence_summary.csv",
-      "size_bytes": 3833,
-      "sha256": "3b0fcc76e3fa835c846f25b6707b52f35a480c9bbb5c7af04c97a7bf585f150d"
+      "size_bytes": 3789,
+      "sha256": "2d25a1b3c6876d63470f2b4c97ff44dbf51920087e659d1ffa0833ed990c9288"
     },
     {
       "path": "reports/topic_audit/domain_summary.csv",
-      "size_bytes": 5173,
-      "sha256": "8ad1b995fdd53e4f5260493406ae24de4694d136259eb1f3b5c2088a242f6453"
+      "size_bytes": 5232,
+      "sha256": "3052401f4c1f4e9000865ec95761271a4c34fe7094ccc60194aef4995177800f"
     },
     {
       "path": "reports/topic_audit/duplicate_summary.json",
-      "size_bytes": 727,
-      "sha256": "f4a2746ba1d8ad5617ddf0d4a16f4525c9a67586864b57f2ae29f4db461836bd"
+      "size_bytes": 729,
+      "sha256": "21c004fa4c0724f89dbf0565c4b64774ec6cb4521e30059ab291e9671ecb090d"
     },
     {
       "path": "reports/topic_audit/audit_report.md",
-      "size_bytes": 51683,
-      "sha256": "687192aa21807cff498c115333d99baf9b04b602b01632171a22415381c9e862"
+      "size_bytes": 52101,
+      "sha256": "552af7c1af7c51c0d31f5074401c114f58674ac97d63a9e48eed882e2b8d14af"
     },
     {
       "path": "reports/topic_audit/run_manifest.json",
@@ -93,7 +93,7 @@
   ],
   "warnings": [
     "Il metadata sorgente contiene un percorso input assoluto; il percorso è oscurato negli output.",
-    "Topic con dominio dominante >= 50.0%: [1, 2, 5, 7, 11]",
+    "Topic con dominio dominante >= 50.0%: [1, 2, 6, 8, 10, 11]",
     "Il manifest non incorpora il proprio hash SHA-256."
   ]
 }

@@ -135,6 +135,15 @@ LESSICO: dict[int, tuple[str, ...]] = {
         r"idrocarbur\w*", r"\bmetano\b", r"biodiversit\w*", r"aree? protett\w*",
         r"parchi nazionali", r"dissesto idrogeologic\w*", r"economia circolare",
         r"decarbonizzazione", r"\bbonifica\b", r"\blaguna\b",
+        # Prezzi dell'energia: l'ontologia li mette esplicitamente nel 9. Mancavano,
+        # e il caro carburanti dell'estate 2026 usciva `non assegnato` - un tema su
+        # cui il governo e' intervenuto, quindi politico a pieno titolo.
+        # `accise` resta nel 4: il taglio delle accise e' una misura fiscale, e a
+        # parita' di punteggio vince il tema col numero piu' basso. Un articolo sul
+        # prezzo alla pompa senza l'angolo fiscale resta qui.
+        r"carburant\w*", r"\bbenzina\b", r"\bgasolio\b", r"\bdiesel\b",
+        r"\bbollett\w*", r"caro energia", r"caro bollette", r"caro carburant\w*",
+        r"rincar\w* energetic\w*", r"prezzo del gas", r"pompa di benzina",
         # sottotema 9.1 — vedi SOTTOTEMI: pescano nel 9 e nel figlio insieme
         r"\banimal\w*", r"\bfauna\b", r"randag\w*", r"\bcanil\w*", r"\bveterinar\w*",
         r"venatori\w*", r"attivita venatoria", r"esercizio della caccia",
@@ -201,6 +210,55 @@ LESSICO_SOTTOTEMI: dict[str, tuple[str, ...]] = {
         r"benessere animal\w*", r"maltrattament\w* di animal\w*",
     ),
 }
+
+# --------------------------------------------------------------------------- #
+# Marcatori trasversali
+#
+# Non sono macrotemi e non competono con loro: **convivono**. Un macrotema dice di
+# che cosa parla un articolo, un marcatore dice come lo inquadra. Lo stesso pezzo
+# puo' essere «Immigrazione e cittadinanza» e portare il marcatore `woke`.
+#
+# La prova che servono e' misurata, non argomentata. Sui 202 articoli del corpus
+# che contengono il frame woke, il tema vincente ha **margine mediano 0,40**: il
+# testo pesca da quattro o cinque lessici e nessuno domina. Un macrotema vero sta
+# sopra 0,8. E si sparpagliano su otto temi diversi - Cultura 52, politica non
+# tematica 31, Immigrazione 29, Diritti civili 20 - quindi incastrarli in uno solo
+# butterebbe via l'informazione interessante, cioe' a quali temi il frame si
+# attacca.
+#
+# Chi aggiunge un marcatore aggiunge una domanda, non una categoria: «dove si posa
+# questo modo di parlare?». Restano fuori dai conteggi per macrotema.
+MARCATORI: dict[str, tuple[str, ...]] = {
+    # Il dibattito «woke si / woke no» esploso in Italia nell'agosto 2026. Non e'
+    # una policy: e' una cornice con cui si parla di diritti, immigrazione,
+    # scuola e linguaggio, e con cui i partiti si posizionano l'uno contro l'altro.
+    "woke": (
+        r"\bwok(?:e|ismo|ista|isti|ismi)\b", r"politicamente corrett\w*",
+        r"cancel culture", r"\bpolitical correctness\b", r"anti\s?woke",
+        r"dittatura del pensiero unico", r"ideologia gender",
+    ),
+}
+
+_COMPILATI_MARCATORI: dict[str, list[re.Pattern[str]]] = {
+    nome: [re.compile(p) for p in pattern] for nome, pattern in MARCATORI.items()
+}
+
+
+def marcatori(testo: str, min_occorrenze: int = 1) -> dict[str, int]:
+    """I marcatori trasversali presenti nel testo, con quante volte compaiono.
+
+    Si chiama accanto a `classifica`, mai al posto suo: il risultato non toglie
+    niente al macrotema, lo qualifica. Un articolo senza marcatori restituisce un
+    dizionario vuoto, che e' il caso normale.
+    """
+    norm = normalizza(testo)
+    trovati = {}
+    for nome, regex in _COMPILATI_MARCATORI.items():
+        quante = sum(len(rx.findall(norm)) for rx in regex)
+        if quante >= min_occorrenze:
+            trovati[nome] = quante
+    return trovati
+
 
 # Politica come processo invece che come policy: nomine, candidature, sondaggi,
 # retroscena, chi sale e chi scende. L'ontologia la tiene fuori tassonomia — è
