@@ -54,6 +54,18 @@ def fetch_response(url, retries=1, timeout=12):
         try:
             r = session.get(url, timeout=timeout)
             if r.status_code == 200:
+                # requests falls back to ISO-8859-1 for text/* whenever the server
+                # omits the charset (RFC 2616). On Italian pages that turns "più"
+                # into "piÃ¹" and "è" into "Ã¨": 1.3% of the corpus carries it.
+                # It is not cosmetic — the macrotema lexicon strips diacritics to
+                # match "sanità" and "sanita", and "sanitÃ " matches neither — and
+                # only a fifth of it is repairable after the fact, because the
+                # extraction drops the C1 continuation bytes and the information
+                # is gone. Fixing it here is the only complete fix.
+                # apparent_encoding sniffs the bytes instead of guessing.
+                if r.encoding and r.encoding.lower() in ("iso-8859-1", "latin-1"):
+                    if "charset" not in r.headers.get("Content-Type", "").lower():
+                        r.encoding = r.apparent_encoding or "utf-8"
                 return r
         except requests.RequestException:
             pass

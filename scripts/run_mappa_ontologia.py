@@ -336,6 +336,42 @@ def indice_h1(righe_l1: list[dict], per_gruppo: list[dict],
     return sorted(righe, key=lambda r: r["h1_variazione_totale_pp"])
 
 
+def aggiorna_numeri(path: Path, valori: dict[str, str]) -> list[str]:
+    """Riscrive nel report i numeri marcati, e dice quali marcatori mancano.
+
+    Le tabelle di `mappatura.md` si rigenerano dai CSV, la prosa no: finora i
+    numeri nel testo li ho aggiornati a mano, e al primo giro di dati qualcuno
+    avrebbe letto una cifra vecchia in mezzo a tabelle nuove.
+
+    Un numero nel testo si marca cosi':
+
+        la copertura e' <!--n:copertura_l3-->71,6%<!--/n-->
+
+    Il markdown resta leggibile, il valore si ricalcola a ogni esecuzione. Un
+    marcatore senza valore corrispondente viene segnalato invece di essere
+    lasciato indietro in silenzio.
+    """
+    if not path.exists():
+        return []
+    testo = path.read_text(encoding="utf-8")
+    visti = set()
+
+    def sostituisci(trovato: re.Match) -> str:
+        nome = trovato.group(1)
+        visti.add(nome)
+        if nome not in valori:
+            return trovato.group(0)
+        return f"<!--n:{nome}-->{valori[nome]}<!--/n-->"
+
+    testo = re.sub(r"<!--n:([\w.]+)-->.*?<!--/n-->", sostituisci, testo, flags=re.S)
+    path.write_text(testo, encoding="utf-8")
+    return sorted(visti - set(valori))
+
+
+def _pct(valore: float, decimali: int = 2) -> str:
+    return f"{valore:.{decimali}f}".replace(".", ",") + "%"
+
+
 def scrivi_csv(path: Path, righe: list[dict], colonne: list[str] | None = None) -> None:
     import csv
     if not righe:

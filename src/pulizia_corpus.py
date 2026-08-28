@@ -71,6 +71,42 @@ MIN_DOC_CORPUS = 200
 MIN_CARATTERI_RIGA = 3
 
 
+# Firme di UTF-8 letto come ISO-8859-1: "piu'" diventa "piÃ¹", "e'" diventa "Ã¨".
+# Ne bastano poche per riconoscere il caso senza falsi positivi - "Ã" seguita da
+# un carattere della fascia alta non compare in italiano corretto.
+_MOJIBAKE = re.compile(r"Ã[\x80-\xbf]|â€[\x80-\x9f]|Â[\xa0-\xbf]")
+
+
+def ripara_codifica(testo: str) -> str:
+    """Rimette a posto il testo salvato con la codifica sbagliata.
+
+    `requests` ripiega su ISO-8859-1 per i `text/*` quando il server non dichiara
+    il charset (RFC 2616), e su pagine italiane il risultato e' "piÃ¹" al posto di
+    "piu'".
+
+    Non e' cosmetico: il lessico dei macrotemi toglie i diacritici per far
+    combaciare "sanita'" e "sanita", e "sanitÃ " non combacia con nessuno dei due.
+
+    Misurato su 25.000 articoli: l'1,3% porta il difetto, ma solo lo 0,27% e'
+    **riparabile**. Nell'altro 1,00% l'estrazione ha perso i byte di continuazione
+    - "L'inno" e' salvato come "Linno" con una sola "a" circonflessa - e
+    l'informazione non c'e' piu'. Per quelli non si puo' fare niente a valle: il
+    fix vero e' in `harvester.fetch_response`, che impedisce il problema a monte.
+
+    La riparazione e' l'inverso esatto dell'errore - ricodifica in latin-1 e
+    ridecodifica in UTF-8 - e si applica solo se il testo porta le firme del
+    problema. Se il giro non riesce, si tiene l'originale: meglio un testo brutto
+    di un testo perso.
+    """
+    if not testo or not _MOJIBAKE.search(testo):
+        return testo
+    try:
+        riparato = testo.encode("latin-1").decode("utf-8")
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        return testo
+    return riparato if not _MOJIBAKE.search(riparato) else testo
+
+
 def normalizza_riga(riga: str) -> str:
     """Forma confrontabile di una riga: minuscole, senza accenti, spazi singoli.
 
@@ -219,6 +255,18 @@ def pulisci(records, quota=QUOTA_TEMPLATE, quota_globale=QUOTA_TEMPLATE_GLOBALE,
     `min_chars` e' applicato DOPO la pulizia: un documento che era fatto solo di
     template resta senza niente, ed e' esattamente cio' che va tolto.
     """
+    # PRIMA di tutto il resto: se il testo e' mal codificato, anche il
+    # riconoscimento dei template lavora su stringhe sbagliate e non le raggruppa.
+    riparati = 0
+    for record in records:
+        for campo in ("title", "text"):
+            originale = record.get(campo) or ""
+            corretto = ripara_codifica(originale)
+            if corretto != originale:
+                record[campo] = corretto
+                riparati += 1
+        record["chars"] = len(record.get("text") or "")
+
     per_dominio, globali, diagnostica = righe_template(
         records, quota=quota, quota_globale=quota_globale, min_doc=min_doc)
 
@@ -236,6 +284,7 @@ def pulisci(records, quota=QUOTA_TEMPLATE, quota_globale=QUOTA_TEMPLATE_GLOBALE,
 
     report = {
         **diagnostica,
+        "campi_codifica_riparati": riparati,
         "righe_template_rimosse": righe_tolte_totali,
         "scartati_senza_testo": len(svuotati),
         "scartati_duplicati": len(duplicati),

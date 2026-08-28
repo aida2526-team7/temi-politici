@@ -3,12 +3,12 @@
 Generato da `scripts/run_mappa_ontologia.py`. Hash degli input in
 `mapping_manifest.json`.
 
-Il layer 3 è mappato sul **corpus completo**, 107.021 articoli, dal run NMF del
+Il layer 3 è mappato sul **corpus completo**, <!--n:articoli_l3-->107.021<!--/n--> articoli, dal run NMF del
 2026-08-28 sul corpus esteso a tutto agosto. Nessun ripeso: ogni articolo vale uno.
 
 ## Quanto la politica parla di sé
 
-**Layer 1: 0,46%. Layer 2: 0,52%. Layer 3: 10,03%.**
+**Layer 1: <!--n:pnt_l1-->0,46%<!--/n-->. Layer 2: <!--n:pnt_l2-->0,52%<!--/n-->. Layer 3: <!--n:pnt_l3-->10,03%<!--/n-->.**
 
 È la quota di ciascun corpus che finisce in `politica non tematica`: nomine,
 rimpasti, sondaggi, candidature, retroscena, chi sale e chi scende. Politica come
@@ -55,7 +55,7 @@ Undici volte la linea di base dei sette mesi precedenti, e agosto è troncato al
 27. Nel corpus di ieri, che si fermava all'11 luglio, questa storia non esisteva:
 è interamente dentro le sei settimane aggiunte.
 
-**Dove si posa il frame**, come quota dei 191 articoli che lo portano:
+**Dove si posa il frame**, come quota dei <!--n:marcatore_woke-->191<!--/n--> articoli che lo portano:
 
 | Macrotema | Articoli | Quota |
 |---|---|---|
@@ -105,8 +105,8 @@ Quote entro il corpus di ciascun layer, come impone l'ontologia.
 | — | non assegnato | 14,50% | 26,79% | 15,14% |
 | — | boilerplate | 0,00% | 0,00% | 3,28% |
 
-Sottotema 9.1 *Animali e fauna*, come quota del proprio padre: **40,7% del tema 9
-nel layer 2**, 17,2% nel layer 1. Quasi metà dei progetti di legge che finiscono
+Sottotema 9.1 *Animali e fauna*, come quota del proprio padre: **<!--n:sotto_9_1_l2-->40,7%<!--/n--> del tema 9
+nel layer 2**, <!--n:sotto_9_1_l1-->17,2%<!--/n--> nel layer 1. Quasi metà dei progetti di legge che finiscono
 in *Ambiente ed energia* alla Camera parla di randagismo, maltrattamento o fauna
 selvatica, non di energia o clima. Se il numero regge alla validazione umana,
 vuol dire che il tema 9 nel layer 2 sta misurando due cose.
@@ -117,9 +117,9 @@ Distanza in variazione totale, sui soli 15 macrotemi:
 
 | Coppia | Divergenza |
 |---|---|
-| L1 programmi ↔ L2 DDL | 20,7 pp |
-| L2 DDL ↔ L3 stampa | 23,8 pp |
-| L1 programmi ↔ L3 stampa | 31,7 pp |
+| L1 programmi ↔ L2 DDL | <!--n:div_l1_l2-->20,7 pp<!--/n--> |
+| L2 DDL ↔ L3 stampa | <!--n:div_l2_l3-->23,8 pp<!--/n--> |
+| L1 programmi ↔ L3 stampa | <!--n:div_l1_l3-->31,7 pp<!--/n--> |
 
 **Il lavoro si promette il doppio di quanto si legiferi.** *Lavoro e imprese* è il
 18,5% dei paragrafi di programma e il 9,2% dei progetti di legge: +9,4 pp. È il
@@ -356,7 +356,7 @@ discutono una per una.
 
 Le tre unità di misura seguono il contratto: paragrafo per il layer 1 (soglia 200
 caratteri, 5.243 paragrafi da 60 programmi, di cui 5 presi dai siti di partito), atto per il layer 2 (6.865 titoli),
-articolo per il layer 3 (107.021).
+articolo per il layer 3 (<!--n:articoli_l3-->107.021<!--/n-->).
 
 Con il corpus completo in locale lo script classifica tutti gli articoli. Senza —
 cioè per chiunque cloni il repository, visto che i 92 MB stanno in `.gitignore` —
@@ -370,9 +370,9 @@ servizio non contano come copertura, e il denominatore le include.
 
 | Layer | Copertura |
 |---|---|
-| L1 programmi | 85,1% |
-| L2 DDL | 72,7% |
-| L3 stampa | 71,6% |
+| L1 programmi | <!--n:copertura_l1-->85,1%<!--/n--> |
+| L2 DDL | <!--n:copertura_l2-->72,7%<!--/n--> |
+| L3 stampa | <!--n:copertura_l3-->71,6%<!--/n--> |
 
 Il 27% di titoli non assegnati del layer 2 è in buona parte struttura legislativa
 senza oggetto tematico nel titolo — «Modifica all'articolo 16 della legge 27

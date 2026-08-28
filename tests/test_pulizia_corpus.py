@@ -185,3 +185,39 @@ class PipelineTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestRiparaCodifica(unittest.TestCase):
+    """UTF-8 letto come ISO-8859-1: "piu'" salvato come "piÃ¹".
+
+    Succede quando il server non dichiara il charset e `requests` ripiega su
+    latin-1. Non e' cosmetico: il lessico dei macrotemi toglie i diacritici per
+    far combaciare "sanita'" e "sanita", e la forma corrotta non combacia con
+    nessuna delle due.
+    """
+
+    def test_ripara_le_vocali_accentate(self):
+        self.assertEqual(pc.ripara_codifica("PiÃ¹"), "Più")
+        self.assertEqual(pc.ripara_codifica("Ã¨"), "è")
+        self.assertEqual(pc.ripara_codifica("sanitÃ "), "sanità")
+
+    def test_non_tocca_il_testo_gia_corretto(self):
+        buono = "Più sanità, è giusto così"
+        self.assertEqual(pc.ripara_codifica(buono), buono)
+
+    def test_regge_il_vuoto(self):
+        self.assertEqual(pc.ripara_codifica(""), "")
+
+    def test_lascia_stare_quello_che_non_sa_riparare(self):
+        """I byte di continuazione persi non si recuperano: meglio il testo brutto."""
+        perso = "Lâinno nazionale"
+        self.assertEqual(pc.ripara_codifica(perso), perso)
+
+    def test_pulisci_ripara_e_lo_dichiara_nel_report(self):
+        records = [
+            {"domain": "x.it", "title": "SanitÃ ", "text": "PiÃ¹ " + "a " * 200},
+            {"domain": "x.it", "title": "Pulito", "text": "Testo normale " * 40},
+        ]
+        _, report = pc.pulisci(records, min_chars=10)
+        self.assertGreaterEqual(report["campi_codifica_riparati"], 1)
+        self.assertIn("Sanità", [r["title"] for r in records])

@@ -1,0 +1,22 @@
+{
+  "generato_utc": "2026-08-28T00:37:30.216678+00:00",
+  "sorgente": "data/processed/news_topic_review.csv",
+  "articoli_nel_corpus": 107021,
+  "seed": 42,
+  "composizione": {
+    "stratificato": 60,
+    "casuale": 20,
+    "non_assegnato": 20
+  },
+  "righe_calibrazione": 10,
+  "colonne_viste_dal_revisore": [
+    "id_riga",
+    "fase",
+    "data",
+    "dominio",
+    "titolo",
+    "estratto",
+    "url"
+  ],
+  "cecita": "I file dei revisori non contengono l'esito del lessico ne' lo strato di campionamento, e le righe sono mescolate: lo strato da solo rivelerebbe la risposta."
+}
