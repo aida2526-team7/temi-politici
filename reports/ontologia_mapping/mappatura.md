@@ -117,7 +117,7 @@ Distanza in variazione totale, sui soli 15 macrotemi:
 
 | Coppia | Divergenza |
 |---|---|
-| L1 programmi ↔ L2 DDL | <!--n:div_l1_l2-->20,7 pp<!--/n--> |
+| L1 programmi ↔ L2 DDL | <!--n:div_l1_l2-->20,6 pp<!--/n--> |
 | L2 DDL ↔ L3 stampa | <!--n:div_l2_l3-->23,8 pp<!--/n--> |
 | L1 programmi ↔ L3 stampa | <!--n:div_l1_l3-->31,7 pp<!--/n--> |
 

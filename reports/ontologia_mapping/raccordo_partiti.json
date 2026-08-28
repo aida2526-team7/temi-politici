@@ -1,0 +1,42 @@
+{
+  "FdI / Meloni": {
+    "lista": "FRATELLI D'ITALIA CON GIORGIA MELONI",
+    "gruppo": "FRATELLI D'ITALIA"
+  },
+  "PD / Schlein": {
+    "lista": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA",
+    "gruppo": "PARTITO DEMOCRATICO - ITALIA DEMOCRATICA E PROGRESSISTA"
+  },
+  "Lega / Salvini": {
+    "lista": "LEGA PER SALVINI PREMIER",
+    "gruppo": "LEGA - SALVINI PREMIER"
+  },
+  "M5S / Conte": {
+    "lista": "MOVIMENTO 5 STELLE",
+    "gruppo": "MOVIMENTO 5 STELLE"
+  },
+  "Forza Italia / Tajani": {
+    "lista": "FORZA ITALIA",
+    "gruppo": "FORZA ITALIA - BERLUSCONI PRESIDENTE"
+  },
+  "AVS / Fratoianni-Bonelli": {
+    "lista": "ALLEANZA VERDI E SINISTRA",
+    "gruppo": "ALLEANZA VERDI E SINISTRA"
+  },
+  "Azione / Calenda": {
+    "lista": "AZIONE - ITALIA VIVA - CALENDA",
+    "gruppo": "AZIONE - ITALIA VIVA - RENEW EUROPE"
+  },
+  "Italia Viva / Renzi": {
+    "lista": null,
+    "gruppo": "ITALIA VIVA"
+  },
+  "+Europa": {
+    "lista": "+EUROPA",
+    "gruppo": null
+  },
+  "Futuro Nazionale / Vannacci": {
+    "lista": null,
+    "gruppo": null
+  }
+}
