@@ -1,0 +1,13 @@
+topic_id,prevalenza_corpus_pct,articoli,macrotema_dominante,quota_dominante_pct,boilerplate_pct,non_assegnato_pct
+0,20.57,22016,Lavoro e imprese,17.1,0.4,11.9
+1,0.83,892,boilerplate,45.0,45.0,0.1
+2,0.31,335,boilerplate,89.3,89.3,8.7
+3,18.36,19646,Politica estera e difesa,49.8,0.6,10.0
+4,16.64,17803,politica non tematica,37.4,0.3,18.2
+5,2.73,2920,boilerplate,73.3,73.3,5.4
+6,0.31,334,Istituzioni e assetto dello Stato,21.6,0.9,14.1
+7,26.39,28247,non assegnato,21.3,0.4,21.3
+8,0.16,172,boilerplate,61.6,61.6,20.3
+9,12.08,12928,Istituzioni e assetto dello Stato,43.0,0.3,13.6
+10,0.7,754,Ambiente ed energia,21.0,0.0,20.6
+11,0.91,974,non assegnato,16.9,15.3,16.9

@@ -1,0 +1,391 @@
+partito,layer,id,macrotema,quota
+FdI / Meloni,Programmi,1,Politica estera e difesa,7.14
+FdI / Meloni,Programmi,2,Unione europea,7.14
+FdI / Meloni,Programmi,3,Istituzioni e assetto dello Stato,21.43
+FdI / Meloni,Programmi,4,Economia e finanza pubblica,14.29
+FdI / Meloni,Programmi,5,Lavoro e imprese,7.14
+FdI / Meloni,Programmi,6,Welfare e pensioni,7.14
+FdI / Meloni,Programmi,7,Sanità,0.0
+FdI / Meloni,Programmi,8,Istruzione e ricerca,7.14
+FdI / Meloni,Programmi,9,Ambiente ed energia,7.14
+FdI / Meloni,Programmi,10,Immigrazione e cittadinanza,7.14
+FdI / Meloni,Programmi,11,Sicurezza e criminalità,0.0
+FdI / Meloni,Programmi,12,Diritti civili e società,14.29
+FdI / Meloni,Programmi,13,Infrastrutture e territorio,0.0
+FdI / Meloni,Programmi,14,Cultura e patrimonio,0.0
+FdI / Meloni,Programmi,15,Sport,0.0
+FdI / Meloni,Progetti di legge,1,Politica estera e difesa,5.18
+FdI / Meloni,Progetti di legge,2,Unione europea,2.0
+FdI / Meloni,Progetti di legge,3,Istituzioni e assetto dello Stato,14.19
+FdI / Meloni,Progetti di legge,4,Economia e finanza pubblica,9.18
+FdI / Meloni,Progetti di legge,5,Lavoro e imprese,10.35
+FdI / Meloni,Progetti di legge,6,Welfare e pensioni,4.17
+FdI / Meloni,Progetti di legge,7,Sanità,7.35
+FdI / Meloni,Progetti di legge,8,Istruzione e ricerca,6.34
+FdI / Meloni,Progetti di legge,9,Ambiente ed energia,5.34
+FdI / Meloni,Progetti di legge,10,Immigrazione e cittadinanza,2.0
+FdI / Meloni,Progetti di legge,11,Sicurezza e criminalità,18.7
+FdI / Meloni,Progetti di legge,12,Diritti civili e società,3.17
+FdI / Meloni,Progetti di legge,13,Infrastrutture e territorio,5.18
+FdI / Meloni,Progetti di legge,14,Cultura e patrimonio,5.01
+FdI / Meloni,Progetti di legge,15,Sport,1.84
+FdI / Meloni,Stampa,1,Politica estera e difesa,24.84
+FdI / Meloni,Stampa,2,Unione europea,8.08
+FdI / Meloni,Stampa,3,Istituzioni e assetto dello Stato,17.13
+FdI / Meloni,Stampa,4,Economia e finanza pubblica,4.04
+FdI / Meloni,Stampa,5,Lavoro e imprese,9.67
+FdI / Meloni,Stampa,6,Welfare e pensioni,0.45
+FdI / Meloni,Stampa,7,Sanità,3.71
+FdI / Meloni,Stampa,8,Istruzione e ricerca,3.17
+FdI / Meloni,Stampa,9,Ambiente ed energia,6.12
+FdI / Meloni,Stampa,10,Immigrazione e cittadinanza,4.15
+FdI / Meloni,Stampa,11,Sicurezza e criminalità,6.36
+FdI / Meloni,Stampa,12,Diritti civili e società,2.42
+FdI / Meloni,Stampa,13,Infrastrutture e territorio,5.0
+FdI / Meloni,Stampa,14,Cultura e patrimonio,2.96
+FdI / Meloni,Stampa,15,Sport,1.9
+PD / Schlein,Programmi,1,Politica estera e difesa,6.13
+PD / Schlein,Programmi,2,Unione europea,4.08
+PD / Schlein,Programmi,3,Istituzioni e assetto dello Stato,4.59
+PD / Schlein,Programmi,4,Economia e finanza pubblica,6.63
+PD / Schlein,Programmi,5,Lavoro e imprese,25.01
+PD / Schlein,Programmi,6,Welfare e pensioni,3.06
+PD / Schlein,Programmi,7,Sanità,6.63
+PD / Schlein,Programmi,8,Istruzione e ricerca,6.63
+PD / Schlein,Programmi,9,Ambiente ed energia,12.76
+PD / Schlein,Programmi,10,Immigrazione e cittadinanza,3.06
+PD / Schlein,Programmi,11,Sicurezza e criminalità,4.59
+PD / Schlein,Programmi,12,Diritti civili e società,4.08
+PD / Schlein,Programmi,13,Infrastrutture e territorio,7.14
+PD / Schlein,Programmi,14,Cultura e patrimonio,4.59
+PD / Schlein,Programmi,15,Sport,1.02
+PD / Schlein,Progetti di legge,1,Politica estera e difesa,2.82
+PD / Schlein,Progetti di legge,2,Unione europea,1.13
+PD / Schlein,Progetti di legge,3,Istituzioni e assetto dello Stato,6.78
+PD / Schlein,Progetti di legge,4,Economia e finanza pubblica,7.34
+PD / Schlein,Progetti di legge,5,Lavoro e imprese,16.95
+PD / Schlein,Progetti di legge,6,Welfare e pensioni,6.21
+PD / Schlein,Progetti di legge,7,Sanità,18.64
+PD / Schlein,Progetti di legge,8,Istruzione e ricerca,7.34
+PD / Schlein,Progetti di legge,9,Ambiente ed energia,4.8
+PD / Schlein,Progetti di legge,10,Immigrazione e cittadinanza,3.39
+PD / Schlein,Progetti di legge,11,Sicurezza e criminalità,7.63
+PD / Schlein,Progetti di legge,12,Diritti civili e società,4.52
+PD / Schlein,Progetti di legge,13,Infrastrutture e territorio,6.5
+PD / Schlein,Progetti di legge,14,Cultura e patrimonio,3.95
+PD / Schlein,Progetti di legge,15,Sport,1.98
+PD / Schlein,Stampa,1,Politica estera e difesa,12.96
+PD / Schlein,Stampa,2,Unione europea,5.29
+PD / Schlein,Stampa,3,Istituzioni e assetto dello Stato,23.07
+PD / Schlein,Stampa,4,Economia e finanza pubblica,4.21
+PD / Schlein,Stampa,5,Lavoro e imprese,12.22
+PD / Schlein,Stampa,6,Welfare e pensioni,1.48
+PD / Schlein,Stampa,7,Sanità,8.4
+PD / Schlein,Stampa,8,Istruzione e ricerca,4.09
+PD / Schlein,Stampa,9,Ambiente ed energia,5.25
+PD / Schlein,Stampa,10,Immigrazione e cittadinanza,2.94
+PD / Schlein,Stampa,11,Sicurezza e criminalità,5.46
+PD / Schlein,Stampa,12,Diritti civili e società,2.71
+PD / Schlein,Stampa,13,Infrastrutture e territorio,6.6
+PD / Schlein,Stampa,14,Cultura e patrimonio,3.54
+PD / Schlein,Stampa,15,Sport,1.77
+Lega / Salvini,Programmi,1,Politica estera e difesa,5.15
+Lega / Salvini,Programmi,2,Unione europea,4.36
+Lega / Salvini,Programmi,3,Istituzioni e assetto dello Stato,3.9
+Lega / Salvini,Programmi,4,Economia e finanza pubblica,11.82
+Lega / Salvini,Programmi,5,Lavoro e imprese,17.66
+Lega / Salvini,Programmi,6,Welfare e pensioni,2.75
+Lega / Salvini,Programmi,7,Sanità,6.54
+Lega / Salvini,Programmi,8,Istruzione e ricerca,6.2
+Lega / Salvini,Programmi,9,Ambiente ed energia,17.42
+Lega / Salvini,Programmi,10,Immigrazione e cittadinanza,2.29
+Lega / Salvini,Programmi,11,Sicurezza e criminalità,4.36
+Lega / Salvini,Programmi,12,Diritti civili e società,2.75
+Lega / Salvini,Programmi,13,Infrastrutture e territorio,11.24
+Lega / Salvini,Programmi,14,Cultura e patrimonio,2.75
+Lega / Salvini,Programmi,15,Sport,0.8
+Lega / Salvini,Progetti di legge,1,Politica estera e difesa,4.98
+Lega / Salvini,Progetti di legge,2,Unione europea,0.59
+Lega / Salvini,Progetti di legge,3,Istituzioni e assetto dello Stato,11.71
+Lega / Salvini,Progetti di legge,4,Economia e finanza pubblica,16.54
+Lega / Salvini,Progetti di legge,5,Lavoro e imprese,10.69
+Lega / Salvini,Progetti di legge,6,Welfare e pensioni,2.78
+Lega / Salvini,Progetti di legge,7,Sanità,8.35
+Lega / Salvini,Progetti di legge,8,Istruzione e ricerca,6.59
+Lega / Salvini,Progetti di legge,9,Ambiente ed energia,8.35
+Lega / Salvini,Progetti di legge,10,Immigrazione e cittadinanza,2.78
+Lega / Salvini,Progetti di legge,11,Sicurezza e criminalità,10.98
+Lega / Salvini,Progetti di legge,12,Diritti civili e società,3.37
+Lega / Salvini,Progetti di legge,13,Infrastrutture e territorio,6.44
+Lega / Salvini,Progetti di legge,14,Cultura e patrimonio,4.69
+Lega / Salvini,Progetti di legge,15,Sport,1.17
+Lega / Salvini,Stampa,1,Politica estera e difesa,11.3
+Lega / Salvini,Stampa,2,Unione europea,5.15
+Lega / Salvini,Stampa,3,Istituzioni e assetto dello Stato,13.27
+Lega / Salvini,Stampa,4,Economia e finanza pubblica,4.47
+Lega / Salvini,Stampa,5,Lavoro e imprese,9.78
+Lega / Salvini,Stampa,6,Welfare e pensioni,1.36
+Lega / Salvini,Stampa,7,Sanità,5.24
+Lega / Salvini,Stampa,8,Istruzione e ricerca,3.67
+Lega / Salvini,Stampa,9,Ambiente ed energia,6.74
+Lega / Salvini,Stampa,10,Immigrazione e cittadinanza,3.33
+Lega / Salvini,Stampa,11,Sicurezza e criminalità,8.32
+Lega / Salvini,Stampa,12,Diritti civili e società,3.81
+Lega / Salvini,Stampa,13,Infrastrutture e territorio,15.15
+Lega / Salvini,Stampa,14,Cultura e patrimonio,4.71
+Lega / Salvini,Stampa,15,Sport,3.7
+M5S / Conte,Programmi,1,Politica estera e difesa,0.0
+M5S / Conte,Programmi,2,Unione europea,0.0
+M5S / Conte,Programmi,3,Istituzioni e assetto dello Stato,0.0
+M5S / Conte,Programmi,4,Economia e finanza pubblica,20.0
+M5S / Conte,Programmi,5,Lavoro e imprese,20.0
+M5S / Conte,Programmi,6,Welfare e pensioni,0.0
+M5S / Conte,Programmi,7,Sanità,0.0
+M5S / Conte,Programmi,8,Istruzione e ricerca,0.0
+M5S / Conte,Programmi,9,Ambiente ed energia,20.0
+M5S / Conte,Programmi,10,Immigrazione e cittadinanza,10.0
+M5S / Conte,Programmi,11,Sicurezza e criminalità,10.0
+M5S / Conte,Programmi,12,Diritti civili e società,10.0
+M5S / Conte,Programmi,13,Infrastrutture e territorio,0.0
+M5S / Conte,Programmi,14,Cultura e patrimonio,10.0
+M5S / Conte,Programmi,15,Sport,0.0
+M5S / Conte,Progetti di legge,1,Politica estera e difesa,3.09
+M5S / Conte,Progetti di legge,2,Unione europea,0.98
+M5S / Conte,Progetti di legge,3,Istituzioni e assetto dello Stato,13.78
+M5S / Conte,Progetti di legge,4,Economia e finanza pubblica,8.72
+M5S / Conte,Progetti di legge,5,Lavoro e imprese,14.77
+M5S / Conte,Progetti di legge,6,Welfare e pensioni,3.52
+M5S / Conte,Progetti di legge,7,Sanità,13.92
+M5S / Conte,Progetti di legge,8,Istruzione e ricerca,7.88
+M5S / Conte,Progetti di legge,9,Ambiente ed energia,10.13
+M5S / Conte,Progetti di legge,10,Immigrazione e cittadinanza,1.55
+M5S / Conte,Progetti di legge,11,Sicurezza e criminalità,8.3
+M5S / Conte,Progetti di legge,12,Diritti civili e società,3.8
+M5S / Conte,Progetti di legge,13,Infrastrutture e territorio,5.2
+M5S / Conte,Progetti di legge,14,Cultura e patrimonio,3.94
+M5S / Conte,Progetti di legge,15,Sport,0.42
+M5S / Conte,Stampa,1,Politica estera e difesa,22.77
+M5S / Conte,Stampa,2,Unione europea,6.47
+M5S / Conte,Stampa,3,Istituzioni e assetto dello Stato,22.56
+M5S / Conte,Stampa,4,Economia e finanza pubblica,4.11
+M5S / Conte,Stampa,5,Lavoro e imprese,10.85
+M5S / Conte,Stampa,6,Welfare e pensioni,0.98
+M5S / Conte,Stampa,7,Sanità,7.3
+M5S / Conte,Stampa,8,Istruzione e ricerca,2.06
+M5S / Conte,Stampa,9,Ambiente ed energia,5.63
+M5S / Conte,Stampa,10,Immigrazione e cittadinanza,1.58
+M5S / Conte,Stampa,11,Sicurezza e criminalità,5.78
+M5S / Conte,Stampa,12,Diritti civili e società,2.09
+M5S / Conte,Stampa,13,Infrastrutture e territorio,3.84
+M5S / Conte,Stampa,14,Cultura e patrimonio,2.83
+M5S / Conte,Stampa,15,Sport,1.16
+Forza Italia / Tajani,Programmi,1,Politica estera e difesa,3.23
+Forza Italia / Tajani,Programmi,2,Unione europea,0.0
+Forza Italia / Tajani,Programmi,3,Istituzioni e assetto dello Stato,4.84
+Forza Italia / Tajani,Programmi,4,Economia e finanza pubblica,17.73
+Forza Italia / Tajani,Programmi,5,Lavoro e imprese,14.52
+Forza Italia / Tajani,Programmi,6,Welfare e pensioni,3.23
+Forza Italia / Tajani,Programmi,7,Sanità,16.13
+Forza Italia / Tajani,Programmi,8,Istruzione e ricerca,6.45
+Forza Italia / Tajani,Programmi,9,Ambiente ed energia,9.68
+Forza Italia / Tajani,Programmi,10,Immigrazione e cittadinanza,0.0
+Forza Italia / Tajani,Programmi,11,Sicurezza e criminalità,6.45
+Forza Italia / Tajani,Programmi,12,Diritti civili e società,0.0
+Forza Italia / Tajani,Programmi,13,Infrastrutture e territorio,9.68
+Forza Italia / Tajani,Programmi,14,Cultura e patrimonio,4.84
+Forza Italia / Tajani,Programmi,15,Sport,3.23
+Forza Italia / Tajani,Progetti di legge,1,Politica estera e difesa,3.91
+Forza Italia / Tajani,Progetti di legge,2,Unione europea,0.0
+Forza Italia / Tajani,Progetti di legge,3,Istituzioni e assetto dello Stato,14.53
+Forza Italia / Tajani,Progetti di legge,4,Economia e finanza pubblica,8.38
+Forza Italia / Tajani,Progetti di legge,5,Lavoro e imprese,12.85
+Forza Italia / Tajani,Progetti di legge,6,Welfare e pensioni,3.63
+Forza Italia / Tajani,Progetti di legge,7,Sanità,10.34
+Forza Italia / Tajani,Progetti di legge,8,Istruzione e ricerca,6.98
+Forza Italia / Tajani,Progetti di legge,9,Ambiente ed energia,11.73
+Forza Italia / Tajani,Progetti di legge,10,Immigrazione e cittadinanza,2.23
+Forza Italia / Tajani,Progetti di legge,11,Sicurezza e criminalità,11.45
+Forza Italia / Tajani,Progetti di legge,12,Diritti civili e società,4.47
+Forza Italia / Tajani,Progetti di legge,13,Infrastrutture e territorio,5.31
+Forza Italia / Tajani,Progetti di legge,14,Cultura e patrimonio,3.35
+Forza Italia / Tajani,Progetti di legge,15,Sport,0.84
+Forza Italia / Tajani,Stampa,1,Politica estera e difesa,43.59
+Forza Italia / Tajani,Stampa,2,Unione europea,5.05
+Forza Italia / Tajani,Stampa,3,Istituzioni e assetto dello Stato,13.96
+Forza Italia / Tajani,Stampa,4,Economia e finanza pubblica,3.32
+Forza Italia / Tajani,Stampa,5,Lavoro e imprese,8.29
+Forza Italia / Tajani,Stampa,6,Welfare e pensioni,0.48
+Forza Italia / Tajani,Stampa,7,Sanità,3.26
+Forza Italia / Tajani,Stampa,8,Istruzione e ricerca,2.18
+Forza Italia / Tajani,Stampa,9,Ambiente ed energia,3.56
+Forza Italia / Tajani,Stampa,10,Immigrazione e cittadinanza,2.16
+Forza Italia / Tajani,Stampa,11,Sicurezza e criminalità,4.46
+Forza Italia / Tajani,Stampa,12,Diritti civili e società,2.4
+Forza Italia / Tajani,Stampa,13,Infrastrutture e territorio,3.76
+Forza Italia / Tajani,Stampa,14,Cultura e patrimonio,2.07
+Forza Italia / Tajani,Stampa,15,Sport,1.46
+AVS / Fratoianni-Bonelli,Programmi,1,Politica estera e difesa,5.09
+AVS / Fratoianni-Bonelli,Programmi,2,Unione europea,1.27
+AVS / Fratoianni-Bonelli,Programmi,3,Istituzioni e assetto dello Stato,5.09
+AVS / Fratoianni-Bonelli,Programmi,4,Economia e finanza pubblica,7.65
+AVS / Fratoianni-Bonelli,Programmi,5,Lavoro e imprese,15.28
+AVS / Fratoianni-Bonelli,Programmi,6,Welfare e pensioni,2.55
+AVS / Fratoianni-Bonelli,Programmi,7,Sanità,8.28
+AVS / Fratoianni-Bonelli,Programmi,8,Istruzione e ricerca,15.28
+AVS / Fratoianni-Bonelli,Programmi,9,Ambiente ed energia,21.66
+AVS / Fratoianni-Bonelli,Programmi,10,Immigrazione e cittadinanza,5.09
+AVS / Fratoianni-Bonelli,Programmi,11,Sicurezza e criminalità,4.46
+AVS / Fratoianni-Bonelli,Programmi,12,Diritti civili e società,0.64
+AVS / Fratoianni-Bonelli,Programmi,13,Infrastrutture e territorio,5.73
+AVS / Fratoianni-Bonelli,Programmi,14,Cultura e patrimonio,1.92
+AVS / Fratoianni-Bonelli,Programmi,15,Sport,0.0
+AVS / Fratoianni-Bonelli,Progetti di legge,1,Politica estera e difesa,1.72
+AVS / Fratoianni-Bonelli,Progetti di legge,2,Unione europea,0.0
+AVS / Fratoianni-Bonelli,Progetti di legge,3,Istituzioni e assetto dello Stato,10.34
+AVS / Fratoianni-Bonelli,Progetti di legge,4,Economia e finanza pubblica,1.72
+AVS / Fratoianni-Bonelli,Progetti di legge,5,Lavoro e imprese,10.34
+AVS / Fratoianni-Bonelli,Progetti di legge,6,Welfare e pensioni,0.0
+AVS / Fratoianni-Bonelli,Progetti di legge,7,Sanità,18.97
+AVS / Fratoianni-Bonelli,Progetti di legge,8,Istruzione e ricerca,6.9
+AVS / Fratoianni-Bonelli,Progetti di legge,9,Ambiente ed energia,22.41
+AVS / Fratoianni-Bonelli,Progetti di legge,10,Immigrazione e cittadinanza,1.72
+AVS / Fratoianni-Bonelli,Progetti di legge,11,Sicurezza e criminalità,13.79
+AVS / Fratoianni-Bonelli,Progetti di legge,12,Diritti civili e società,5.17
+AVS / Fratoianni-Bonelli,Progetti di legge,13,Infrastrutture e territorio,3.45
+AVS / Fratoianni-Bonelli,Progetti di legge,14,Cultura e patrimonio,0.0
+AVS / Fratoianni-Bonelli,Progetti di legge,15,Sport,3.45
+AVS / Fratoianni-Bonelli,Stampa,1,Politica estera e difesa,19.16
+AVS / Fratoianni-Bonelli,Stampa,2,Unione europea,5.11
+AVS / Fratoianni-Bonelli,Stampa,3,Istituzioni e assetto dello Stato,19.24
+AVS / Fratoianni-Bonelli,Stampa,4,Economia e finanza pubblica,2.96
+AVS / Fratoianni-Bonelli,Stampa,5,Lavoro e imprese,11.94
+AVS / Fratoianni-Bonelli,Stampa,6,Welfare e pensioni,1.42
+AVS / Fratoianni-Bonelli,Stampa,7,Sanità,5.07
+AVS / Fratoianni-Bonelli,Stampa,8,Istruzione e ricerca,3.44
+AVS / Fratoianni-Bonelli,Stampa,9,Ambiente ed energia,7.73
+AVS / Fratoianni-Bonelli,Stampa,10,Immigrazione e cittadinanza,2.92
+AVS / Fratoianni-Bonelli,Stampa,11,Sicurezza e criminalità,8.33
+AVS / Fratoianni-Bonelli,Stampa,12,Diritti civili e società,2.45
+AVS / Fratoianni-Bonelli,Stampa,13,Infrastrutture e territorio,4.64
+AVS / Fratoianni-Bonelli,Stampa,14,Cultura e patrimonio,4.3
+AVS / Fratoianni-Bonelli,Stampa,15,Sport,1.29
+Azione / Calenda,Programmi,1,Politica estera e difesa,5.56
+Azione / Calenda,Programmi,2,Unione europea,1.19
+Azione / Calenda,Programmi,3,Istituzioni e assetto dello Stato,5.95
+Azione / Calenda,Programmi,4,Economia e finanza pubblica,10.71
+Azione / Calenda,Programmi,5,Lavoro e imprese,26.6
+Azione / Calenda,Programmi,6,Welfare e pensioni,6.74
+Azione / Calenda,Programmi,7,Sanità,4.76
+Azione / Calenda,Programmi,8,Istruzione e ricerca,10.71
+Azione / Calenda,Programmi,9,Ambiente ed energia,6.74
+Azione / Calenda,Programmi,10,Immigrazione e cittadinanza,2.38
+Azione / Calenda,Programmi,11,Sicurezza e criminalità,1.98
+Azione / Calenda,Programmi,12,Diritti civili e società,3.97
+Azione / Calenda,Programmi,13,Infrastrutture e territorio,7.54
+Azione / Calenda,Programmi,14,Cultura e patrimonio,3.18
+Azione / Calenda,Programmi,15,Sport,1.98
+Azione / Calenda,Progetti di legge,1,Politica estera e difesa,1.47
+Azione / Calenda,Progetti di legge,2,Unione europea,5.88
+Azione / Calenda,Progetti di legge,3,Istituzioni e assetto dello Stato,20.59
+Azione / Calenda,Progetti di legge,4,Economia e finanza pubblica,16.18
+Azione / Calenda,Progetti di legge,5,Lavoro e imprese,11.76
+Azione / Calenda,Progetti di legge,6,Welfare e pensioni,0.0
+Azione / Calenda,Progetti di legge,7,Sanità,13.24
+Azione / Calenda,Progetti di legge,8,Istruzione e ricerca,2.94
+Azione / Calenda,Progetti di legge,9,Ambiente ed energia,4.41
+Azione / Calenda,Progetti di legge,10,Immigrazione e cittadinanza,5.88
+Azione / Calenda,Progetti di legge,11,Sicurezza e criminalità,5.88
+Azione / Calenda,Progetti di legge,12,Diritti civili e società,8.82
+Azione / Calenda,Progetti di legge,13,Infrastrutture e territorio,1.47
+Azione / Calenda,Progetti di legge,14,Cultura e patrimonio,1.47
+Azione / Calenda,Progetti di legge,15,Sport,0.0
+Azione / Calenda,Stampa,1,Politica estera e difesa,37.04
+Azione / Calenda,Stampa,2,Unione europea,5.56
+Azione / Calenda,Stampa,3,Istituzioni e assetto dello Stato,14.29
+Azione / Calenda,Stampa,4,Economia e finanza pubblica,4.23
+Azione / Calenda,Stampa,5,Lavoro e imprese,10.85
+Azione / Calenda,Stampa,6,Welfare e pensioni,0.26
+Azione / Calenda,Stampa,7,Sanità,1.85
+Azione / Calenda,Stampa,8,Istruzione e ricerca,5.29
+Azione / Calenda,Stampa,9,Ambiente ed energia,2.65
+Azione / Calenda,Stampa,10,Immigrazione e cittadinanza,1.06
+Azione / Calenda,Stampa,11,Sicurezza e criminalità,2.12
+Azione / Calenda,Stampa,12,Diritti civili e società,2.91
+Azione / Calenda,Stampa,13,Infrastrutture e territorio,1.59
+Azione / Calenda,Stampa,14,Cultura e patrimonio,9.26
+Azione / Calenda,Stampa,15,Sport,1.06
+Italia Viva / Renzi,Progetti di legge,1,Politica estera e difesa,2.44
+Italia Viva / Renzi,Progetti di legge,2,Unione europea,4.88
+Italia Viva / Renzi,Progetti di legge,3,Istituzioni e assetto dello Stato,12.2
+Italia Viva / Renzi,Progetti di legge,4,Economia e finanza pubblica,21.95
+Italia Viva / Renzi,Progetti di legge,5,Lavoro e imprese,14.63
+Italia Viva / Renzi,Progetti di legge,6,Welfare e pensioni,1.22
+Italia Viva / Renzi,Progetti di legge,7,Sanità,10.98
+Italia Viva / Renzi,Progetti di legge,8,Istruzione e ricerca,4.88
+Italia Viva / Renzi,Progetti di legge,9,Ambiente ed energia,3.66
+Italia Viva / Renzi,Progetti di legge,10,Immigrazione e cittadinanza,1.22
+Italia Viva / Renzi,Progetti di legge,11,Sicurezza e criminalità,6.1
+Italia Viva / Renzi,Progetti di legge,12,Diritti civili e società,7.32
+Italia Viva / Renzi,Progetti di legge,13,Infrastrutture e territorio,7.32
+Italia Viva / Renzi,Progetti di legge,14,Cultura e patrimonio,1.22
+Italia Viva / Renzi,Progetti di legge,15,Sport,0.0
+Italia Viva / Renzi,Stampa,1,Politica estera e difesa,19.14
+Italia Viva / Renzi,Stampa,2,Unione europea,2.64
+Italia Viva / Renzi,Stampa,3,Istituzioni e assetto dello Stato,23.32
+Italia Viva / Renzi,Stampa,4,Economia e finanza pubblica,6.82
+Italia Viva / Renzi,Stampa,5,Lavoro e imprese,9.57
+Italia Viva / Renzi,Stampa,6,Welfare e pensioni,0.99
+Italia Viva / Renzi,Stampa,7,Sanità,5.28
+Italia Viva / Renzi,Stampa,8,Istruzione e ricerca,2.64
+Italia Viva / Renzi,Stampa,9,Ambiente ed energia,3.96
+Italia Viva / Renzi,Stampa,10,Immigrazione e cittadinanza,1.65
+Italia Viva / Renzi,Stampa,11,Sicurezza e criminalità,3.52
+Italia Viva / Renzi,Stampa,12,Diritti civili e società,4.95
+Italia Viva / Renzi,Stampa,13,Infrastrutture e territorio,4.84
+Italia Viva / Renzi,Stampa,14,Cultura e patrimonio,6.6
+Italia Viva / Renzi,Stampa,15,Sport,4.07
++Europa,Programmi,1,Politica estera e difesa,8.52
++Europa,Programmi,2,Unione europea,6.21
++Europa,Programmi,3,Istituzioni e assetto dello Stato,6.97
++Europa,Programmi,4,Economia e finanza pubblica,12.4
++Europa,Programmi,5,Lavoro e imprese,20.16
++Europa,Programmi,6,Welfare e pensioni,3.88
++Europa,Programmi,7,Sanità,11.63
++Europa,Programmi,8,Istruzione e ricerca,8.52
++Europa,Programmi,9,Ambiente ed energia,8.52
++Europa,Programmi,10,Immigrazione e cittadinanza,1.55
++Europa,Programmi,11,Sicurezza e criminalità,1.55
++Europa,Programmi,12,Diritti civili e società,6.21
++Europa,Programmi,13,Infrastrutture e territorio,3.1
++Europa,Programmi,14,Cultura e patrimonio,0.78
++Europa,Programmi,15,Sport,0.0
++Europa,Stampa,1,Politica estera e difesa,28.24
++Europa,Stampa,2,Unione europea,10.59
++Europa,Stampa,3,Istituzioni e assetto dello Stato,32.94
++Europa,Stampa,4,Economia e finanza pubblica,2.35
++Europa,Stampa,5,Lavoro e imprese,3.53
++Europa,Stampa,6,Welfare e pensioni,0.0
++Europa,Stampa,7,Sanità,0.0
++Europa,Stampa,8,Istruzione e ricerca,0.0
++Europa,Stampa,9,Ambiente ed energia,2.35
++Europa,Stampa,10,Immigrazione e cittadinanza,4.71
++Europa,Stampa,11,Sicurezza e criminalità,4.71
++Europa,Stampa,12,Diritti civili e società,3.53
++Europa,Stampa,13,Infrastrutture e territorio,2.35
++Europa,Stampa,14,Cultura e patrimonio,4.71
++Europa,Stampa,15,Sport,0.0
+Futuro Nazionale / Vannacci,Stampa,1,Politica estera e difesa,22.14
+Futuro Nazionale / Vannacci,Stampa,2,Unione europea,6.33
+Futuro Nazionale / Vannacci,Stampa,3,Istituzioni e assetto dello Stato,16.43
+Futuro Nazionale / Vannacci,Stampa,4,Economia e finanza pubblica,3.35
+Futuro Nazionale / Vannacci,Stampa,5,Lavoro e imprese,8.2
+Futuro Nazionale / Vannacci,Stampa,6,Welfare e pensioni,1.28
+Futuro Nazionale / Vannacci,Stampa,7,Sanità,1.82
+Futuro Nazionale / Vannacci,Stampa,8,Istruzione e ricerca,3.64
+Futuro Nazionale / Vannacci,Stampa,9,Ambiente ed energia,3.81
+Futuro Nazionale / Vannacci,Stampa,10,Immigrazione e cittadinanza,5.13
+Futuro Nazionale / Vannacci,Stampa,11,Sicurezza e criminalità,12.33
+Futuro Nazionale / Vannacci,Stampa,12,Diritti civili e società,4.88
+Futuro Nazionale / Vannacci,Stampa,13,Infrastrutture e territorio,3.64
+Futuro Nazionale / Vannacci,Stampa,14,Cultura e patrimonio,5.22
+Futuro Nazionale / Vannacci,Stampa,15,Sport,1.78

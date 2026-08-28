@@ -1,0 +1,104 @@
+/*-- scss:defaults --*/
+
+// Carta, mai bianco puro: un bianco pieno dietro a grafici trasparenti
+// abbaglia e schiaccia il grigio delle barre di contesto.
+$body-bg: #f9f9f7;
+$body-color: #2b2a28;
+$link-color: #256abf;
+$font-family-sans-serif: system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-size-root: 17px;
+$headings-font-weight: 600;
+
+/*-- scss:rules --*/
+
+$inchiostro: #52514e;
+$muto: #898781;
+$griglia: #e6e4dd;
+$accento: #1a1a19;
+
+.page-columns { max-width: 62rem; }
+
+main {
+  line-height: 1.62;
+  h2 {
+    margin-top: 3.4rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid $griglia;
+    font-size: 1.42rem;
+    letter-spacing: -0.01em;
+  }
+}
+
+// L'apertura: occhiello, proposizione, frase-risultato. Sopra la piega non c'è
+// nessun grafico — il primo apre la sezione che lo dimostra.
+.kicker {
+  font-size: 0.78rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: $muto;
+  margin-bottom: 0.5rem;
+}
+
+.proposition {
+  font-size: 1.12rem;
+  color: $inchiostro;
+  max-width: 40rem;
+  margin-bottom: 1.6rem;
+}
+
+.lead {
+  font-size: 1.72rem;
+  line-height: 1.32;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: $accento;
+  max-width: 42rem;
+  margin-bottom: 1rem;
+}
+
+.dateline {
+  margin: 1.8rem 0 0.5rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid $griglia;
+  border-bottom: 1px solid $griglia;
+  font-size: 0.85rem;
+  color: $muto;
+}
+
+.fonte {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid $griglia;
+  font-size: 0.85rem;
+  color: $muto;
+}
+
+// Tabelle: la gemella di ogni grafico. Numeri a destra e allineati, perché
+// servono a leggere un valore esatto, non a fare scena.
+.tabella-dati {
+  font-size: 0.87rem;
+  border-collapse: collapse;
+  width: 100%;
+  th, td { padding: 0.34rem 0.7rem; border-bottom: 1px solid $griglia; }
+  th { text-align: left; color: $inchiostro; font-weight: 600; }
+  td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+}
+
+.scarica a {
+  font-size: 0.82rem;
+  color: $muto;
+  text-decoration: none;
+  border-bottom: 1px dotted $muto;
+}
+
+// Il tabset Grafico | Tabella: presente su ogni grafico, non è un ripiego.
+.panel-tabset {
+  margin: 1.2rem 0 2rem;
+  .nav-tabs { border-bottom: 1px solid $griglia; }
+  .nav-link { font-size: 0.86rem; color: $muto; border: none; }
+  .nav-link.active { color: $accento; border-bottom: 2px solid $accento; background: none; }
+}
+
+// Le tabelle larghe scorrono da sole: la pagina non deve mai scorrere in
+// orizzontale.
+.cell-output-display { overflow-x: auto; }
