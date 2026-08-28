@@ -1,0 +1,31 @@
+{
+  "generato_utc": "2026-08-28T09:48:50.042198+00:00",
+  "ontologia": "docs/ontologia_tematica.md v2.0 (congelata 2026-08-27)",
+  "copertura": {
+    "layer1": 85.05,
+    "layer2": 72.69,
+    "layer3": 71.56
+  },
+  "politica_non_tematica": {
+    "layer1": 0.46,
+    "layer2": 0.52,
+    "layer3": 10.03
+  },
+  "divergenze": {
+    "layer1_vs_layer2": 20.65,
+    "layer2_vs_layer3": 23.84,
+    "layer1_vs_layer3": 31.69
+  },
+  "marcatori": {
+    "woke": {
+      "articoli": 191,
+      "quota_corpus_pct": 0.178
+    }
+  },
+  "sottotemi": {
+    "9.1": {
+      "layer1_su_padre_pct": 17.24,
+      "layer2_su_padre_pct": 40.71
+    }
+  }
+}

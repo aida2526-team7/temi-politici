@@ -1,0 +1,10 @@
+_site/
+.quarto/
+*.quarto_ipynb*
+
+/.quarto/
+**/*.quarto_ipynb
+
+# HTML autosufficiente da girare ai colleghi: si rigenera con
+# `quarto render index.qmd`, non serve versionarne 2,4 MB.
+dashboard-temi-politici.html

@@ -1,0 +1,6 @@
+project:
+  type: website
+  output-dir: _site
+  title: "Temi politici · tre layer, una tassonomia"
+
+lang: it

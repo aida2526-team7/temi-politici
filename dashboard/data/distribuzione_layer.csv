@@ -1,0 +1,19 @@
+id,macrotema,layer1_programmi_pct,layer2_ddl_pct,layer3_stampa_pct,scarto_l1_l2,scarto_l2_l3
+1,Politica estera e difesa,5.47,3.12,13.34,2.36,-10.22
+2,Unione europea,3.11,1.59,3.7,1.52,-2.11
+3,Istituzioni e assetto dello Stato,5.76,9.57,10.64,-3.81,-1.07
+4,Economia e finanza pubblica,9.52,7.84,2.94,1.68,4.89
+5,Lavoro e imprese,18.54,9.15,7.99,9.39,1.16
+6,Welfare e pensioni,3.22,2.48,0.78,0.75,1.7
+7,Sanità,5.17,7.43,4.24,-2.26,3.19
+8,Istruzione e ricerca,6.75,4.97,3.09,1.78,1.88
+9,Ambiente ed energia,11.18,5.72,4.16,5.45,1.56
+10,Immigrazione e cittadinanza,1.87,1.65,2.29,0.22,-0.65
+11,Sicurezza e criminalità,2.94,7.91,5.13,-4.97,2.78
+12,Diritti civili e società,2.67,2.77,2.12,-0.1,0.64
+13,Infrastrutture e territorio,5.66,4.37,4.95,1.29,-0.58
+14,Cultura e patrimonio,2.61,3.18,3.84,-0.56,-0.67
+15,Sport,0.57,0.96,2.35,-0.39,-1.38
+,politica non tematica,0.46,0.52,10.03,-0.07,-9.5
+,non assegnato,14.5,26.79,15.14,-12.29,11.65
+,boilerplate,0.0,0.0,3.28,0.0,-3.28

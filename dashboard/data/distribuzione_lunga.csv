@@ -1,0 +1,55 @@
+id,macrotema,layer,quota,macrotema_id,e_macrotema
+1.0,Politica estera e difesa,Programmi,5.47,1.0,True
+2.0,Unione europea,Programmi,3.11,2.0,True
+3.0,Istituzioni e assetto dello Stato,Programmi,5.76,3.0,True
+4.0,Economia e finanza pubblica,Programmi,9.52,4.0,True
+5.0,Lavoro e imprese,Programmi,18.54,5.0,True
+6.0,Welfare e pensioni,Programmi,3.22,6.0,True
+7.0,Sanità,Programmi,5.17,7.0,True
+8.0,Istruzione e ricerca,Programmi,6.75,8.0,True
+9.0,Ambiente ed energia,Programmi,11.18,9.0,True
+10.0,Immigrazione e cittadinanza,Programmi,1.87,10.0,True
+11.0,Sicurezza e criminalità,Programmi,2.94,11.0,True
+12.0,Diritti civili e società,Programmi,2.67,12.0,True
+13.0,Infrastrutture e territorio,Programmi,5.66,13.0,True
+14.0,Cultura e patrimonio,Programmi,2.61,14.0,True
+15.0,Sport,Programmi,0.57,15.0,True
+,politica non tematica,Programmi,0.46,,False
+,non assegnato,Programmi,14.5,,False
+,boilerplate,Programmi,0.0,,False
+1.0,Politica estera e difesa,Progetti di legge,3.12,1.0,True
+2.0,Unione europea,Progetti di legge,1.59,2.0,True
+3.0,Istituzioni e assetto dello Stato,Progetti di legge,9.57,3.0,True
+4.0,Economia e finanza pubblica,Progetti di legge,7.84,4.0,True
+5.0,Lavoro e imprese,Progetti di legge,9.15,5.0,True
+6.0,Welfare e pensioni,Progetti di legge,2.48,6.0,True
+7.0,Sanità,Progetti di legge,7.43,7.0,True
+8.0,Istruzione e ricerca,Progetti di legge,4.97,8.0,True
+9.0,Ambiente ed energia,Progetti di legge,5.72,9.0,True
+10.0,Immigrazione e cittadinanza,Progetti di legge,1.65,10.0,True
+11.0,Sicurezza e criminalità,Progetti di legge,7.91,11.0,True
+12.0,Diritti civili e società,Progetti di legge,2.77,12.0,True
+13.0,Infrastrutture e territorio,Progetti di legge,4.37,13.0,True
+14.0,Cultura e patrimonio,Progetti di legge,3.18,14.0,True
+15.0,Sport,Progetti di legge,0.96,15.0,True
+,politica non tematica,Progetti di legge,0.52,,False
+,non assegnato,Progetti di legge,26.79,,False
+,boilerplate,Progetti di legge,0.0,,False
+1.0,Politica estera e difesa,Stampa,13.34,1.0,True
+2.0,Unione europea,Stampa,3.7,2.0,True
+3.0,Istituzioni e assetto dello Stato,Stampa,10.64,3.0,True
+4.0,Economia e finanza pubblica,Stampa,2.94,4.0,True
+5.0,Lavoro e imprese,Stampa,7.99,5.0,True
+6.0,Welfare e pensioni,Stampa,0.78,6.0,True
+7.0,Sanità,Stampa,4.24,7.0,True
+8.0,Istruzione e ricerca,Stampa,3.09,8.0,True
+9.0,Ambiente ed energia,Stampa,4.16,9.0,True
+10.0,Immigrazione e cittadinanza,Stampa,2.29,10.0,True
+11.0,Sicurezza e criminalità,Stampa,5.13,11.0,True
+12.0,Diritti civili e società,Stampa,2.12,12.0,True
+13.0,Infrastrutture e territorio,Stampa,4.95,13.0,True
+14.0,Cultura e patrimonio,Stampa,3.84,14.0,True
+15.0,Sport,Stampa,2.35,15.0,True
+,politica non tematica,Stampa,10.03,,False
+,non assegnato,Stampa,15.14,,False
+,boilerplate,Stampa,3.28,,False
