@@ -57,3 +57,7 @@ data/raw/programmi_urls.jsonl
 # Git finche' non c'e' la revisione di compliance. Si rigenera con
 # scripts/run_intersezione_sondaggi.py.
 reports/ontologia_mapping/intersezione_sondaggi.csv
+
+# Pacchetti zip preparati per i revisori: duplicano file gia' tracciati e
+# contengono estratti di articoli. Si rigenerano da annotations/validazione_lessico/.
+annotations/*.zip
