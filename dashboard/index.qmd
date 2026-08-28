@@ -6,6 +6,10 @@ format:
     page-layout: article
     toc: false
     anchor-sections: false
+    # Tutto dentro un file solo: la pagina si manda ai colleghi e si apre col
+    # browser, senza server e senza pubblicarla da nessuna parte. Senza questo
+    # `index.html` dipende da `site_libs/` e da solo non funziona.
+    embed-resources: true
 execute:
   echo: false
   warning: false
