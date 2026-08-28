@@ -42,6 +42,7 @@ import argparse
 import csv
 import json
 import random
+import re
 import sys
 from collections import defaultdict
 from datetime import datetime, timezone
@@ -152,6 +153,127 @@ def scrivi_revisori(campione: list[dict]) -> list[Path]:
     return scritti
 
 
+ONTOLOGIA = ROOT / "docs/ontologia_tematica.md"
+
+
+def definizioni_dall_ontologia() -> dict[int, str]:
+    """Le definizioni dei 15 macrotemi, lette dalla tabella dell'ontologia.
+
+    Riscriverle qui vorrebbe dire tenerne due copie, e la seconda invecchia. Le
+    istruzioni per i revisori devono dire esattamente cio' che dice il contratto.
+    """
+    definizioni = {}
+    for riga in ONTOLOGIA.read_text(encoding="utf-8").splitlines():
+        trovato = re.match(r"\|\s*(\d{1,2})\s*\|\s*([^|]+?)\s*\|.*\|\s*([^|]+?)\s*\|\s*$", riga)
+        if trovato and int(trovato.group(1)) in mo.MACROTEMI:
+            definizioni[int(trovato.group(1))] = trovato.group(3).strip()
+    return definizioni
+
+
+def scrivi_istruzioni(campione: list[dict]) -> Path:
+    """La pagina da girare ai revisori: istruzioni, categorie e i 100 articoli.
+
+    Generata insieme al campione, non scritta a mano: se il campione cambia e le
+    istruzioni no, i due divergono e il revisore legge un elenco che non
+    corrisponde al file che compila.
+    """
+    definizioni = definizioni_dall_ontologia()
+    righe = [
+        "# Validazione dei macrotemi — istruzioni per R1 e R2",
+        "",
+        f"**{len(campione)} articoli, 30-40 minuti.** Per ognuno decidi di quale tema parla.",
+        "",
+        "Serve a controllare se il classificatore automatico ci azzecca. Finora nessuno",
+        "gliel'ha mai verificato: tutti i numeri del progetto poggiano su regole scritte",
+        "a mano e mai controllate contro qualcuno che abbia letto gli articoli.",
+        "",
+        "## Cosa devi fare",
+        "",
+        "Apri il tuo file — `revisore_R1.csv` o `revisore_R2.csv` — con Excel o Fogli",
+        "Google. Per ogni riga compili quattro colonne, le ultime quattro:",
+        "",
+        "| Colonna | Cosa scrivere |",
+        "|---|---|",
+        "| `macrotema` | **Uno** dei 15 temi qui sotto, oppure una categoria di servizio |",
+        "| `macrotema_secondario` | Solo se l'articolo tratta davvero due temi. Altrimenti vuoto |",
+        "| `frame_woke` | `sì` se compare il discorso woke / politicamente corretto / cancel culture, `no` altrimenti |",
+        "| `note` | Facoltativo. Utile soprattutto quando scrivi `dubbio` |",
+        "",
+        "Scrivi il **nome del tema**, non il numero.",
+        "",
+        "## Le tre regole che rendono valido il lavoro",
+        "",
+        "**Non cercare la risposta del programma.** Il tuo file non la contiene, ed è",
+        "voluto: se sapessi cosa ha deciso la macchina non staresti validando, staresti",
+        "confermando.",
+        "",
+        "**Le prime 10 righe insieme, il resto da solo.** Le righe marcate",
+        "`calibrazione` si fanno insieme all'altro revisore per allinearsi sui criteri.",
+        "Dalla riga 11 in poi — marcate `indipendente` — ognuno lavora per conto suo,",
+        "senza consultarsi e senza guardare il file dell'altro. Il disaccordo fra voi due",
+        "è un dato che serve: se non andate d'accordo voi, non è colpa del programma, sono",
+        "le categorie a non funzionare, ed è meglio saperlo adesso.",
+        "",
+        "**Giudica di cosa parla, non se è scritto bene o se sei d'accordo.** E non",
+        "andare oltre quello che leggi: se titolo ed estratto non bastano, la risposta",
+        "giusta è `dubbio`. Un `dubbio` è informazione, una risposta tirata a indovinare",
+        "è rumore.",
+        "",
+        "## I 15 macrotemi",
+        "",
+        "| Tema | Ci sta dentro |",
+        "|---|---|",
+    ]
+    for numero, nome in mo.MACROTEMI.items():
+        righe.append(f"| **{nome}** | {definizioni.get(numero, '')} |")
+    righe += [
+        "",
+        "## Le categorie di servizio",
+        "",
+        "Da usare quando nessuno dei 15 va bene:",
+        "",
+        "- **politica non tematica** — è politica ma non c'è una policy: nomine, rimpasti,",
+        "  sondaggi, candidature, retroscena, chi sale e chi scende;",
+        "- **non politico** — cronaca nera, risultati sportivi, gossip, necrologi. Finito",
+        "  nel corpus per omonimia;",
+        "- **boilerplate** — non è un articolo: menu, rilanci, formule d'agenzia, testo di",
+        "  struttura del sito;",
+        "- **dubbio** — titolo ed estratto non bastano per decidere.",
+        "",
+        "Il confine fra *Cultura* e *non politico*: il finanziamento di un teatro è",
+        "cultura, la recensione dello spettacolo no. Fra *Sport* e *non politico*: la",
+        "legge sugli impianti è sport, la cronaca della partita no.",
+        "",
+        "## Quando finisci",
+        "",
+        "Rimanda il file senza rinominarlo e senza toccare le colonne che non sono le tue",
+        "quattro. Il confronto fra i due file è automatico.",
+        "",
+        "---",
+        "",
+        f"## I {len(campione)} articoli",
+        "",
+        "Sono qui per poterli leggere anche fuori dal foglio di calcolo. Le risposte però",
+        "vanno scritte **nel CSV**, non qui.",
+        "",
+    ]
+    for riga in campione:
+        righe += [
+            f"### {riga['id_riga']} · {riga['fase']}",
+            "",
+            f"**{riga['titolo']}**",
+            "",
+            f"*{riga['dominio']} · {riga['data']}*",
+            "",
+            riga["estratto"].replace("\n", " ").strip() or "_(estratto non disponibile)_",
+            "",
+        ]
+
+    percorso = OUT_REVISORI / "ISTRUZIONI.md"
+    percorso.write_text("\n".join(righe) + "\n", encoding="utf-8")
+    return percorso
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--per-tema", type=int, default=4)
@@ -174,6 +296,7 @@ def main() -> int:
 
     chiave = scrivi_chiave(campione)
     revisori = scrivi_revisori(campione)
+    istruzioni = scrivi_istruzioni(campione)
 
     manifest = {
         "generato_utc": datetime.now(timezone.utc).isoformat(),
@@ -191,6 +314,7 @@ def main() -> int:
         json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"\nChiave (NON ai revisori): {chiave.relative_to(ROOT)}")
+    print(f"Da girare:                {istruzioni.relative_to(ROOT)}")
     for percorso_revisore in revisori:
         print(f"Da girare:                {percorso_revisore.relative_to(ROOT)}")
     return 0
