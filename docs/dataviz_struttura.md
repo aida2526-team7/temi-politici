@@ -1,6 +1,6 @@
 # Struttura del dataviz
 
-Sei grafici e tre schede. Destinazione `dashboard/`, oggi vuota.
+Otto grafici e tre schede. Destinazione `dashboard/`, oggi vuota.
 
 Regola che vale per tutti, prima delle singole schede: **ogni numero che compare
 sulla pagina si ricalcola dai file a build time**. Un numero scritto a mano è
@@ -20,8 +20,8 @@ alla sezione che lo dimostra.
 
 | Scheda | Numero | Rimanda a |
 |---|---|---|
-| Quanto divergono promesse e leggi | **20,2 pp** | Grafico 2 |
-| Quanto la politica parla di sé | **10,35%** contro 0,5% | Grafico 5 |
+| Quanto divergono promesse e leggi | **20,7 pp** | Grafico 2 |
+| Quanto la politica parla di sé | **10,03%** contro 0,5% | Grafico 5 |
 | Quanto il corpus era sporco | **7 topic su 12** | Grafico 4 |
 
 Sopra la piega ci vanno queste e il paragrafo che dice cosa si sta guardando.
@@ -95,7 +95,7 @@ confronto di livelli.
 l'assegnato il «migliore». Non tre colori scorrelati.
 
 **Alternativa da valutare insieme.** Uno slope chart sulla sola copertura
-(63,2% → 75,0%): più semplice, dice meno.
+(63,2% → 71,6%): più semplice, dice meno.
 
 **Dati.** La tabella in `reports/ontologia_mapping/mappatura.md`, sezione *Cosa ha
 cambiato la pulizia*. **Da sistemare:** quei valori oggi stanno solo in prosa. Se
@@ -169,6 +169,27 @@ percorso.
 **Didascalia obbligatoria:** 4 macrotemi su 15, un mese solo (giugno 2026). Questo
 grafico è il più fragile della pagina e va accompagnato dal suo limite, non
 lasciato a reggersi da solo.
+
+---
+
+## Grafico 8 — La curva del frame woke
+
+**Cosa dimostra.** Che un modo di parlare può esplodere in una settimana, e che si
+posa su temi diversi invece di esserne uno.
+
+**Forma.** Due pannelli affiancati. A sinistra una **linea** sul volume mensile
+normalizzato su mille articoli — la normalizzazione è obbligatoria, il corpus
+cresce e il conteggio grezzo mentirebbe. A destra **barre orizzontali** su dove si
+posa il frame, ordinate.
+
+**Colore.** Accento sul mese di agosto nella linea; grigio sul resto. Nelle barre,
+accento su `politica non tematica` — che è al 7,3% ed è il numero che giustifica la
+scelta di non archiviarlo lì.
+
+**Dati.** `marcatori_per_mese.csv` e `marcatori_per_tema.csv`.
+
+**Didascalia obbligatoria:** agosto è troncato al 27, e il marcatore rileva il
+frame, non la posizione.
 
 ---
 

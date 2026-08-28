@@ -4,7 +4,7 @@ Scheletro da riempire insieme. Ogni slide porta **una** affermazione, il titolo
 la dice per esteso, e sotto c'è la prova. Nessuna slide con un titolo-etichetta
 tipo «Metodologia»: se la slide non ha un'affermazione, non è una slide.
 
-Durata stimata: 18-20 minuti, 17 slide. I grafici citati sono in
+Durata stimata: 20-22 minuti, 19 slide. I grafici citati sono in
 [`dataviz_struttura.md`](dataviz_struttura.md).
 
 ---
@@ -91,7 +91,7 @@ Conseguenza: si confrontano **quote**, mai conteggi.
 supervisionato: riporterebbe il problema della slide 3 un livello più su.
 
 Chi non pesca in nessun lessico esce `non assegnato`. La **copertura** è la misura
-di qualità, e va detta: L1 83,7% · L2 72,6% · L3 71,5%.
+di qualità, e va detta: L1 85,1% · L2 72,7% · L3 71,6%.
 
 ---
 
@@ -105,7 +105,7 @@ Slide di lettura, non di conclusione. Lasciare al pubblico il tempo di guardarla
 
 ### 10. Il lavoro si promette il doppio di quanto si legiferi
 
-18,3% dei paragrafi di programma contro 9,2% dei progetti di legge.
+18,5% dei paragrafi di programma contro 9,2% dei progetti di legge.
 
 ### 11. La sicurezza si legifera il triplo di quanto si prometta
 
@@ -116,8 +116,9 @@ improbabile un artefatto del lessico, che sui due temi ha grana simile.
 
 ### 12. Stampa e Camera guardano due paesi diversi in politica estera
 
-14,5% degli articoli contro 3,1% dei progetti di legge. Lo scarto singolo più
-largo, e il più solido: poggia sul topic NMF meglio definito del corpus.
+13,3% degli articoli contro 3,1% dei progetti di legge. Lo scarto singolo più
+largo, e il più solido: poggia sul topic NMF meglio definito del corpus, il 3,
+che da solo vale il 18,4% degli articoli.
 
 → **Grafico 3** (scarto leggi ↔ stampa).
 
@@ -146,22 +147,36 @@ La parte più citabile. Tenerla vicino alla fine.
 
 ### 13. Un articolo su dieci parla di politica, non di politiche
 
-Nomine, sondaggi, candidature, retroscena: **10,35%** della stampa.
+Nomine, sondaggi, candidature, retroscena: **10,03%** della stampa.
 
 → **Grafico 5** (la politica che parla di sé).
 
 ### 14. Ma il numero da solo non direbbe di chi è la scelta
 
-0,55% nei programmi, 0,52% nei progetti di legge. Quando i partiti promettono e
+0,46% nei programmi, 0,52% nei progetti di legge. Quando i partiti promettono e
 la Camera legifera hanno quasi sempre un oggetto.
 
-La linea di base vicina a zero è ciò che rende il 10,35% attribuibile a una
+La linea di base vicina a zero è ciò che rende il 10,03% attribuibile a una
 **scelta di inquadramento della stampa**. Con il solo layer 3 le due letture —
 «i politici parlano di sé» e «la stampa racconta il gioco» — erano
 indistinguibili.
 
 Da dichiarare: il corpus viene da query su partiti e leader, quindi è già
 selezionato attorno alle persone.
+
+### 14-bis. Il caso woke: un frame, non un tema
+
+13 articoli a gennaio, **121 ad agosto** — undici volte la linea di base, e agosto
+è troncato al 27.
+
+Non è un macrotema e i numeri lo dicono: sui 191 articoli che lo portano il tema
+vincente ha margine mediano 0,40, contro lo 0,8 di un tema vero. Si posa su
+cultura (18,9%), immigrazione (12,0%), diritti civili (8,4%), scuola (6,8%).
+
+→ **Grafico 8** (la curva del frame, e dove si posa).
+
+È la slide che aggancia il lavoro all'attualità. Da dire subito: il marcatore
+rileva il frame, non la posizione — chi accusa e chi difende contano uguale.
 
 ---
 
