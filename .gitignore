@@ -61,3 +61,8 @@ reports/ontologia_mapping/intersezione_sondaggi.csv
 # Pacchetti zip preparati per i revisori: duplicano file gia' tracciati e
 # contengono estratti di articoli. Si rigenerano da annotations/validazione_lessico/.
 annotations/*.zip
+
+# Materiale per la presentazione in aula, non fa parte della pipeline:
+# si rigenera con `py scripts/costruisci_slide.py`.
+docs/slide/
+scripts/costruisci_slide.py
