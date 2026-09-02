@@ -16,17 +16,120 @@ $muto: #898781;
 $griglia: #e6e4dd;
 $accento: #1a1a19;
 
-.page-columns { max-width: 62rem; }
+.page-columns { max-width: none; }
+
+main.content {
+  max-width: 78rem;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
 
 main {
-  line-height: 1.62;
+  line-height: 1.55;
   h2 {
-    margin-top: 3.4rem;
-    padding-top: 1.6rem;
+    margin-top: 3rem;
+    padding-top: 1.4rem;
     border-top: 1px solid $griglia;
-    font-size: 1.42rem;
+    font-size: 1.32rem;
     letter-spacing: -0.01em;
   }
+  p { margin-bottom: 0.7rem; }
+}
+
+// Le schede-segnale sopra la piega: quattro cifre da leggere in cinque secondi,
+// ognuna un collegamento alla sezione che la dimostra. Sono la differenza fra
+// una pagina che si guarda e una che si deve leggere.
+.schede {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1px;
+  background: $griglia;
+  border: 1px solid $griglia;
+  margin: 1.6rem 0 0.4rem;
+}
+
+.scheda {
+  display: block;
+  padding: 1rem 1.1rem 1.15rem;
+  background: #f9f9f7;
+  text-decoration: none;
+  transition: background 0.15s;
+  &:hover { background: #f2f1ec; }
+
+  .cifra {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: $accento;
+    em { font-style: normal; font-size: 1.1rem; font-weight: 500; margin-left: 0.1rem; }
+  }
+  .dida {
+    display: block;
+    margin-top: 0.45rem;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: $inchiostro;
+  }
+}
+
+// Due riquadri affiancati, in colonna sotto i 900px. Il pannello si guarda,
+// quindi le cose stanno vicine; sul telefono tornano una sotto l'altra perche'
+// un grafico stretto meta' non si legge.
+.duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4rem;
+  align-items: start;
+  margin-top: 3rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid $griglia;
+}
+
+// Vega mette i controlli sotto il grafico. Un filtro sotto il grafico e' una
+// didascalia: si legge dopo aver gia' guardato la cosa sbagliata. Qui risale in
+// cima e prende l'aspetto di un comando.
+.vega-embed:has(.vega-bindings:not(:empty)),
+.vega-embed .chart-wrapper:has(.vega-bindings:not(:empty)) {
+  display: flex;
+  flex-direction: column;
+}
+
+.vega-bindings:not(:empty) {
+  order: -1;
+  margin: 0 0 0.9rem;
+  padding: 0.55rem 0.75rem;
+  background: #f2f1ec;
+  border: 1px solid $griglia;
+  font-size: 0.86rem;
+  color: $inchiostro;
+
+  .vega-bind { display: inline-flex; align-items: center; gap: 0.5rem; }
+  label { margin: 0; font-weight: 600; }
+  select {
+    font: inherit;
+    padding: 0.2rem 0.4rem;
+    border: 1px solid $griglia;
+    background: #f9f9f7;
+    color: $accento;
+  }
+}
+
+.riquadro {
+  min-width: 0;
+  h2 {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    font-size: 1.18rem;
+  }
+  h3 { font-size: 1rem; margin-top: 0; }
+  p, li { font-size: 0.92rem; }
+}
+
+@media (max-width: 900px) {
+  .duo { grid-template-columns: 1fr; gap: 1.6rem; }
 }
 
 // L'apertura: occhiello, proposizione, frase-risultato. Sopra la piega non c'è
@@ -62,6 +165,32 @@ main {
   border-top: 1px solid $griglia;
   border-bottom: 1px solid $griglia;
   font-size: 0.85rem;
+  color: $muto;
+}
+
+// L'avvertenza sopra la piega: il lettore non deve poter guardare i grafici
+// senza aver letto che il lessico non ha passato il controllo umano. Fondo
+// piatto e filetto a sinistra, nessun colore d'allarme — e' un fatto, non un
+// errore di sistema.
+.avvertenza {
+  margin: 1.8rem 0 0.5rem;
+  padding: 1rem 1.2rem;
+  border-left: 3px solid $accento;
+  background: #f2f1ec;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: $inchiostro;
+  strong:first-child { color: $accento; }
+}
+
+// Le note di lettura: cose da sapere per non farsi ingannare da un grafico.
+// Piu' piccole del corpo e rientrate, cosi' si distinguono da una didascalia.
+.nota {
+  margin: 1.2rem 0 0;
+  padding-left: 1rem;
+  border-left: 2px solid $griglia;
+  font-size: 0.85rem;
+  line-height: 1.5;
   color: $muto;
 }
 
