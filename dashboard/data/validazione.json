@@ -1,0 +1,79 @@
+{
+  "generato_utc": "2026-09-02T19:34:20.052790+00:00",
+  "fonte": "Ricalcolato da scripts/analizza_validazione_lessico.py sui file revisore_R1_compilato.xlsx e revisore_R2_compilato.numbers, riallineati su chiave_lessico.csv. Esito del lessico riprodotto su 99/100 righe.",
+  "ricalcolato_qui": true,
+  "campione": {
+    "righe": 100,
+    "calibrazione": 10,
+    "indipendenti": 90,
+    "strato_casuale": 20
+  },
+  "accordo_revisori": {
+    "kappa_cohen": 0.41,
+    "esatto_pct": 47.8,
+    "largo_pct": 60.0,
+    "calibrazione_pct": 100.0,
+    "policy_si_no_pct": 80.0,
+    "policy_si_no_kappa": 0.59
+  },
+  "lessico": {
+    "precisione_generosa_pct": 50.0,
+    "righe_etichettate": 78,
+    "precisione_casuale_pct": 30.0,
+    "precisione_casuale_generosa_pct": 45.0,
+    "casuale_ic95": [
+      9.9,
+      50.1
+    ],
+    "casuale_n": 20,
+    "falsi_positivi": 20,
+    "non_policy_stimato_pct": 42.1
+  },
+  "occorrenze": [
+    {
+      "fascia": "1 occorrenza",
+      "righe": 29,
+      "accordo_pct": 34.5
+    },
+    {
+      "fascia": "2 occorrenze",
+      "righe": 21,
+      "accordo_pct": 38.1
+    },
+    {
+      "fascia": "3-4 occorrenze",
+      "righe": 23,
+      "accordo_pct": 69.6
+    },
+    {
+      "fascia": "5+ occorrenze",
+      "righe": 2,
+      "accordo_pct": 100.0
+    }
+  ],
+  "temi_mai_confermati": [
+    "Diritti civili e società"
+  ],
+  "soglia": [
+    {
+      "min_punteggio": 1,
+      "righe": 75,
+      "precisione_pct": 48.0
+    },
+    {
+      "min_punteggio": 2,
+      "righe": 46,
+      "precisione_pct": 56.5
+    },
+    {
+      "min_punteggio": 3,
+      "righe": 25,
+      "precisione_pct": 72.0
+    },
+    {
+      "min_punteggio": 4,
+      "righe": 12,
+      "precisione_pct": 75.0
+    }
+  ]
+}
