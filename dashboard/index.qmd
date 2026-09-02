@@ -3,7 +3,7 @@ title: "Temi politici · tre layer, una tassonomia"
 format:
   html:
     theme: [cosmo, theme.scss]
-    page-layout: article
+    page-layout: full
     toc: false
     anchor-sections: false
     # Tutto dentro un file solo: la pagina si manda ai colleghi e si apre col
@@ -27,8 +27,8 @@ lunga = pd.read_csv("data/distribuzione_lunga.csv")
 quadro = pd.read_csv("data/quadrante.csv")
 mesi = pd.read_csv("data/marcatori_per_mese.csv")
 per_tema = pd.read_csv("data/marcatori_per_tema.csv")
-h1 = pd.read_csv("data/indice_h1.csv")
 partiti = pd.read_csv("data/partiti_per_tema.csv")
+validazione = json.load(open("data/validazione.json", encoding="utf-8"))
 
 def tabella(df, nome):
     return HTML(charts.tabella_html(df, nome))
@@ -37,144 +37,92 @@ def tabella(df, nome):
 # che è giusta una volta sola.
 temi = distribuzione[distribuzione["id"].notna()]
 div = meta["divergenze"]
+pnt = meta["politica_non_tematica"]
 woke_ago = mesi[(mesi["marcatore"] == "woke") & (mesi["mese"] == "2026-08")]["articoli"].iloc[0]
-woke_tot = meta["marcatori"]["woke"]["articoli"]
+estera = temi[temi["macrotema"] == "Politica estera e difesa"].iloc[0]
 lavoro = temi[temi["macrotema"] == "Lavoro e imprese"].iloc[0]
 sicurezza = temi[temi["macrotema"] == "Sicurezza e criminalità"].iloc[0]
-estera = temi[temi["macrotema"] == "Politica estera e difesa"].iloc[0]
-h1_ok = h1[h1["affidabile"] == "si"]
+
+acc = validazione["accordo_revisori"]
+les = validazione["lessico"]
+camp = validazione["campione"]
+occ = pd.DataFrame(validazione["occorrenze"])
 
 def it(x, d=2):
     return f"{x:.{d}f}".replace(".", ",")
+
+def scheda(cifra, unita, testo, ancora):
+    return (f'<a class="scheda" href="#{ancora}">'
+            f'<span class="cifra">{cifra}<em>{unita}</em></span>'
+            f'<span class="dida">{testo}</span></a>')
 ```
 
 ::: {.kicker}
 Master AIDA · Unimib · A.A. 2025-2026
 :::
 
-::: {.proposition}
-Cosa i partiti promettono, cosa fanno in Parlamento e di cosa parla la stampa,
-misurati sulla stessa tassonomia.
-:::
-
 ::: {.lead}
-Il lavoro si promette il doppio di quanto si legiferi. La sicurezza si legifera
-il triplo di quanto si prometta.
+Cosa i partiti promettono, cosa fanno in Parlamento e di cosa parla la stampa,
+misurati sulla stessa tassonomia di quindici temi.
 :::
 
-Sono le due direzioni opposte dello stesso scarto, e nessuna delle due si vede
-guardando un layer solo.
+```{python}
+HTML('<div class="schede">' + "".join([
+    scheda(it(div["layer1_vs_layer3"], 1), "pp",
+           "di distanza fra i temi dei programmi e quelli della stampa",
+           "distribuzioni"),
+    scheda(it(pnt["layer3"]), "%",
+           f"degli articoli parla di politica e non di politiche. Nei programmi "
+           f"è lo {it(pnt['layer1'])}%", "processo"),
+    scheda(f"{int(woke_ago)}", "",
+           "articoli col frame woke ad agosto, undici volte la linea di base",
+           "woke"),
+    scheda(it(acc["kappa_cohen"]), "κ",
+           "l'accordo fra i due revisori umani: sotto la soglia di 0,60",
+           "validazione"),
+]) + "</div>")
+```
 
-::: {.dateline}
-`{python} f"{len(temi)}"` macrotemi ·
-`{python} it(meta["copertura"]["layer3"], 1)`% di copertura sulla stampa ·
-ontologia v2.1 · [Metodo →](#metodo)
+::: {.avvertenza}
+**Il lessico che assegna i temi non ha superato il controllo umano.** Le quote per
+tema qui sotto sono ordini di grandezza, non misure: il
+`{python} it(les["non_policy_stimato_pct"], 0)`% delle righe non ha alcun tema di
+policy e il classificatore non ha modo di dirlo. [Come lo sappiamo →](#validazione)
 :::
 
-## Di cosa si parla e su cosa si legifera {#quadrante}
+## Il profilo di un partito {#partiti}
 
-Un punto per macrotema: quanto pesa nella stampa sull'asse orizzontale, quanto
-pesa nei progetti di legge della Camera su quello verticale. Le mediane tagliano
-il piano in quattro, e i due riquadri fuori diagonale sono la domanda del
-progetto.
-
-**La politica estera è il tema di cui si parla di più e su cui si legifera di
-meno**: `{python} it(estera["layer3_stampa_pct"])`% degli articoli contro
-`{python} it(estera["layer2_ddl_pct"])`% dei progetti di legge. L'economia fa
-l'opposto — si legifera in silenzio.
+Quanto pesa ciascun tema **dentro** l'attività di un partito, sui tre layer. La
+scala è la stessa per tutti: cambiando partito l'asse non si muove, altrimenti
+due profili identici direbbero numeri diversi.
 
 ::: {.panel-tabset}
 
 ### Grafico
 
 ```{python}
-charts.quadrante(quadro)
+charts.profilo_partito(partiti, "FdI / Meloni")
 ```
 
 ### Tabella
 
 ```{python}
-tabella(quadro[["macrotema", "programmi", "leggi", "stampa", "quadrante"]],
-        "quadrante.csv")
+tabella(partiti.pivot_table(index=["partito", "macrotema"], columns="layer",
+                            values="quota").reset_index(),
+        "partiti-per-tema.csv")
 ```
 
 :::
 
-## Lo scarto fra promesse e leggi {#scarto}
+::: {.duo}
 
-La distanza fra la quota di un tema nei programmi elettorali e la stessa quota
-nei progetti di legge depositati alla Camera. A destra ciò che si promette più di
-quanto si faccia, a sinistra il contrario.
+::: {.riquadro}
+### Due partiti, stesso layer {#forma}
 
-*Lavoro e imprese* è il `{python} it(lavoro["layer1_programmi_pct"])`% dei
-paragrafi di programma e il `{python} it(lavoro["layer2_ddl_pct"])`% dei progetti
-di legge. *Sicurezza e criminalità* è il
-`{python} it(sicurezza["layer1_programmi_pct"])`% dei programmi e il
-`{python} it(sicurezza["layer2_ddl_pct"])`% dei progetti di legge.
-
-I due segni opposti sono ciò che rende improbabile un artefatto della misura: un
-lessico che sbaglia sistematicamente sbaglia in una direzione sola.
-
-::: {.panel-tabset}
-
-### Grafico
-
-```{python}
-charts.scarto(distribuzione, "scarto_l1_l2",
-              ["Lavoro e imprese", "Sicurezza e criminalità"],
-              "Programmi meno progetti di legge")
-```
-
-### Tabella
-
-```{python}
-tabella(temi[["macrotema", "layer1_programmi_pct", "layer2_ddl_pct", "scarto_l1_l2"]],
-        "scarto-programmi-leggi.csv")
-```
-
-:::
-
-## Le tre distribuzioni {#distribuzioni}
-
-I quindici macrotemi visti dai tre layer, ordinati per peso nei progetti di
-legge. È la tabella di lettura: serve a orientarsi, non a concludere.
-
-Le quote sono **entro il corpus di ciascun layer**, mai conteggi. Le tre unità di
-misura sono diverse per costruzione — un paragrafo di programma, il titolo di un
-atto, un articolo — e un confronto fra conteggi non significherebbe niente.
-
-::: {.panel-tabset}
-
-### Grafico
-
-```{python}
-charts.tre_distribuzioni(lunga)
-```
-
-### Tabella
-
-```{python}
-tabella(temi[["macrotema", "layer1_programmi_pct", "layer2_ddl_pct",
-              "layer3_stampa_pct"]], "tre-distribuzioni.csv")
-```
-
-:::
-
-Distanza fra le distribuzioni, in variazione totale:
-**`{python} it(div["layer1_vs_layer2"], 1)` punti** fra programmi e leggi,
-`{python} it(div["layer2_vs_layer3"], 1)` fra leggi e stampa,
-`{python} it(div["layer1_vs_layer3"], 1)` fra programmi e stampa.
-
-## Il profilo tematico di un partito {#partiti}
-
-Un radar per partito: i quindici macrotemi lungo la circonferenza, e la distanza
-dal centro è quanto quel tema pesa **dentro** l'attività di quel partito. Le
-quote sono normalizzate sul partito, non sul totale, così un partito con molti
-atti e uno con pochi si confrontano per forma e non per dimensione.
-
-**Fratelli d'Italia deposita in sicurezza quasi un progetto di legge su cinque**
-— il 18,7%, quasi il doppio del suo secondo tema. Il Movimento 5 Stelle ha un
-profilo più distribuito, con i picchi su lavoro e sanità.
+Il radar si legge per **forma**, non per valore: serve a vedere se due partiti
+somigliano, non a leggere una quota. Fratelli d'Italia deposita in sicurezza
+quasi un progetto di legge su cinque, quasi il doppio del suo secondo tema; il
+Movimento 5 Stelle ha un profilo più distribuito.
 
 ::: {.panel-tabset}
 
@@ -195,19 +143,13 @@ tabella(confronto, "profilo-fdi-m5s.csv")
 ```
 
 :::
+:::
 
-L'ordine dei temi lungo la circonferenza è fissato una volta per tutte e
-raggruppa le famiglie — estero e istituzioni, poi sicurezza e diritti, poi la
-persona, poi l'economia. Cambiarlo cambierebbe la forma della figura senza
-cambiare i dati, quindi va dichiarato.
+::: {.riquadro}
+### Un partito, i tre layer {#forma-layer}
 
-L'area non è riempita di proposito: cresce col quadrato del raggio, e riempirla
-farebbe sembrare quattro volte più forte chi è due volte più distante dal centro.
-
-### Lo stesso partito sui tre layer
-
-La stessa forma, letta su cosa un partito promette, cosa deposita e come viene
-raccontato. È la tesi del progetto vista da dentro un partito solo.
+La stessa forma letta su cosa un partito promette, cosa deposita e come viene
+raccontato: è la tesi del progetto vista da dentro un partito solo.
 
 ::: {.panel-tabset}
 
@@ -226,18 +168,149 @@ tabella(lega, "profilo-lega-tre-layer.csv")
 ```
 
 :::
+:::
 
-## Un frame che esplode: il woke {#woke}
+:::
 
-Un **marcatore trasversale** non è un macrotema: convive col tema invece di
-sostituirlo. Dice come un testo inquadra ciò di cui parla.
+::: {.nota}
+Due scelte che cambiano cosa si vede. L'ordine dei temi lungo la circonferenza è
+fissato una volta per tutte e raggruppa le famiglie — estero e istituzioni, poi
+sicurezza e diritti, poi la persona, poi l'economia: cambiarlo cambierebbe la
+figura senza cambiare i dati. E **l'area non è riempita di proposito**, perché
+cresce col quadrato del raggio: riempirla farebbe sembrare quattro volte più
+forte chi è due volte più distante dal centro.
+:::
+
+::: {.duo}
+
+::: {.riquadro}
+## Di cosa si parla, su cosa si legifera {#quadrante}
+
+Le mediane tagliano il piano in quattro: i riquadri fuori diagonale sono la
+domanda del progetto. La politica estera è il tema di cui si parla di più e su
+cui si legifera di meno — `{python} it(estera["layer3_stampa_pct"])`% degli
+articoli contro `{python} it(estera["layer2_ddl_pct"])`% dei progetti di legge.
 
 ::: {.panel-tabset}
 
 ### Grafico
 
 ```{python}
-charts.curva_woke(mesi)
+charts.quadrante(quadro, larghezza=540)
+```
+
+### Tabella
+
+```{python}
+tabella(quadro[["macrotema", "programmi", "leggi", "stampa", "quadrante"]],
+        "quadrante.csv")
+```
+
+:::
+:::
+
+::: {.riquadro}
+## Lo scarto fra promesse e leggi {#scarto}
+
+*Lavoro e imprese* è il `{python} it(lavoro["layer1_programmi_pct"])`% dei
+paragrafi di programma e il `{python} it(lavoro["layer2_ddl_pct"])`% dei progetti
+di legge. *Sicurezza* fa l'opposto. I due segni contrari sono ciò che rende
+improbabile un artefatto: un lessico che sbaglia sistematicamente sbaglia in una
+direzione sola.
+
+::: {.panel-tabset}
+
+### Grafico
+
+```{python}
+charts.scarto(distribuzione, "scarto_l1_l2",
+              ["Lavoro e imprese", "Sicurezza e criminalità"],
+              "Programmi meno progetti di legge", larghezza=490)
+```
+
+### Tabella
+
+```{python}
+tabella(temi[["macrotema", "layer1_programmi_pct", "layer2_ddl_pct", "scarto_l1_l2"]],
+        "scarto-programmi-leggi.csv")
+```
+
+:::
+:::
+
+:::
+
+## Le tre distribuzioni {#distribuzioni}
+
+I quindici temi visti dai tre layer, ordinati per peso nei progetti di legge. Le
+quote sono **entro il corpus di ciascun layer, mai conteggi**: le tre unità di
+misura — un paragrafo, il titolo di un atto, un articolo — non sono la stessa
+cosa. Distanza totale: **`{python} it(div["layer1_vs_layer2"], 1)` punti** fra
+programmi e leggi, `{python} it(div["layer2_vs_layer3"], 1)` fra leggi e stampa,
+`{python} it(div["layer1_vs_layer3"], 1)` fra programmi e stampa.
+
+::: {.panel-tabset}
+
+### Grafico
+
+```{python}
+charts.tre_distribuzioni(lunga, larghezza=980)
+```
+
+### Tabella
+
+```{python}
+tabella(temi[["macrotema", "layer1_programmi_pct", "layer2_ddl_pct",
+              "layer3_stampa_pct"]], "tre-distribuzioni.csv")
+```
+
+:::
+
+::: {.duo}
+
+::: {.riquadro}
+## Quanto la politica parla di sé {#processo}
+
+Nomine, sondaggi, candidature, retroscena: politica come processo invece che come
+policy. È il `{python} it(pnt["layer3"])`% della stampa contro lo
+`{python} it(pnt["layer1"])`% dei programmi e lo `{python} it(pnt["layer2"])`%
+dei progetti di legge. La linea di base vicina a zero è ciò che rende il primo
+numero una **scelta di inquadramento della stampa**, e non un riflesso di come si
+comporta chi fa politica.
+
+::: {.panel-tabset}
+
+### Grafico
+
+```{python}
+charts.politica_su_se_stessa(meta)
+```
+
+### Tabella
+
+```{python}
+tabella(pd.DataFrame([{"layer": k, "quota_pct": v} for k, v in pnt.items()]),
+        "politica-non-tematica.csv")
+```
+
+:::
+:::
+
+::: {.riquadro}
+## Un frame che esplode: il woke {#woke}
+
+Un marcatore trasversale convive col tema invece di sostituirlo: dice come un
+testo inquadra ciò di cui parla. `{python} f"{int(woke_ago)}"` articoli ad agosto
+contro una linea di base fra 3 e 22 nei sette mesi precedenti — e agosto è
+troncato al 27. Rileva **il frame, non la posizione**: chi accusa e chi difende
+contano uguale.
+
+::: {.panel-tabset}
+
+### Grafico
+
+```{python}
+charts.curva_woke(mesi, larghezza=520)
 ```
 
 ### Tabella
@@ -248,59 +321,98 @@ tabella(mesi[mesi["marcatore"] == "woke"][["mese", "articoli", "su_mille_articol
 ```
 
 :::
+:::
 
-`{python} f"{int(woke_ago)}"` articoli ad agosto contro una linea di base fra 3 e
-22 nei sette mesi precedenti — e agosto è troncato al 27. Il volume è
-normalizzato su mille articoli perché il corpus cresce ogni mese.
+:::
 
-**Perché non è un macrotema.** Sui `{python} f"{int(woke_tot)}"` articoli che lo
-portano, il tema vincente ha margine mediano 0,40, contro lo 0,8 di un tema vero:
-il testo pesca da quattro o cinque lessici e nessuno domina. E si posa su temi
-diversi — solo il 7,3% cade in `politica non tematica`.
+## Il lessico alla prova {#validazione}
+
+Due revisori hanno codificato a mano un campione cieco di
+`{python} f"{camp['righe']}"` articoli. **Non vanno d'accordo nemmeno fra loro**:
+`{python} it(acc["esatto_pct"], 1)`% di accordo sulle
+`{python} f"{camp['indipendenti']}"` righe in cieco, κ =
+`{python} it(acc["kappa_cohen"])` — sotto la soglia di 0,60 richiesta perché uno
+schema di codifica si consideri utilizzabile. Con un metro così, l'accuratezza
+del lessico non è stimabile: col criterio più generoso è corretto nel
+`{python} it(les["precisione_generosa_pct"], 0)`% dei casi, sulle
+`{python} f"{les['casuale_n']}"` righe casuali nel
+`{python} it(les["precisione_casuale_pct"], 0)`%.
+
+La causa è strutturale: **manca la categoria «non è politica»**. Ai revisori le
+istruzioni la offrono, al classificatore no — così un malore in spiaggia finisce
+in *Welfare e pensioni*. Sono `{python} f"{les['falsi_positivi']}"` le righe su
+cento in cui entrambi i revisori dicono «nessun tema di policy» e il lessico
+assegna comunque un macrotema.
+
+::: {.duo}
+
+::: {.riquadro}
+
+Un terzo delle etichette poggia su **una parola sola**, e lì l'accordo umano
+crolla. Il campo `confidenza` non le filtra: misura l'assenza di concorrenti, non
+la forza dell'evidenza.
+
+::: {.panel-tabset}
+
+### Grafico
 
 ```{python}
-tabella(per_tema[per_tema["marcatore"] == "woke"].head(8)[
-    ["macrotema", "articoli", "quota_del_marcatore_pct"]], "woke-per-tema.csv")
+charts.occorrenze(occ, larghezza=470)
 ```
 
-Il marcatore rileva **il frame, non la posizione**: chi accusa il woke e chi lo
-difende finiscono nello stesso conteggio.
+### Tabella
+
+```{python}
+tabella(occ, "accordo-per-occorrenze.csv")
+```
+
+:::
+:::
+
+::: {.riquadro}
+### Cosa serve, in ordine
+
+1. **Riscrivere i tre confini** che hanno spaccato i revisori: cultura contro non
+   politico, non politico contro politica non tematica, e quando un articolo su un
+   politico che parla di un tema conta come quel tema.
+2. **Rifare la calibrazione** su 25-30 righe e verificarla in cieco. Se κ non
+   supera 0,60, il problema è ancora nelle categorie.
+3. **Spezzare la classificazione in due**: prima «è di policy sì o no» — la
+   decisione su cui i revisori vanno più d'accordo
+   (`{python} it(acc["policy_si_no_pct"], 0)`%) — poi «di quale tema».
+
+Non validati: il frame *woke* (una sola marcatura positiva su cento) e i layer 1
+e 2, perché il campione è fatto di articoli di stampa.
+:::
+
+:::
 
 ## Metodo {#metodo}
 
-**La tassonomia.** Quindici macrotemi derivati dal *Comparative Manifesto Project*
-(MARPOR), lo schema con cui i programmi elettorali sono codificati a mano nella
+**La tassonomia.** Quindici macrotemi derivati dal *Comparative Manifesto
+Project*, lo schema con cui i programmi elettorali sono codificati a mano nella
 letteratura comparata. Le categorie si decidono dall'alto, da uno standard: un
 topic model non restituisce categorie politiche, restituisce i gruppi di parole
 più regolari del corpus — al primo giro erano i template delle testate.
 
-**Le tre unità di misura.** È la parte difficile, non le quindici categorie.
+**Le tre unità.** Cosa dicono: paragrafi dei programmi 2018 e 2022. Cosa fanno:
+progetti di legge della Camera, leg. 18-19, un atto per titolo. Come se ne parla:
+articoli di stampa, gennaio-agosto 2026. Da qui la regola che governa ogni
+confronto: si confrontano quote, mai conteggi.
 
-| Layer | Contiene | Unità |
-|---|---|---|
-| Cosa dicono | programmi elettorali 2018 e 2022 | paragrafo |
-| Cosa fanno | progetti di legge Camera, leg. 18-19 | atto (titolo) |
-| Come se ne parla | articoli di stampa, gen-ago 2026 | articolo |
-
-Da qui la regola che governa ogni confronto: **si confrontano quote, mai
-conteggi**.
-
-**L'assegnazione.** Lessicale e deterministica: pattern scritti, leggibili e
-discutibili uno per uno. Chi non pesca in nessun lessico esce `non assegnato`
-invece di finire nel tema più vicino — la copertura è la misura di qualità del
-metodo, e un'etichetta inventata la falserebbe verso l'alto.
-
-Copertura: `{python} it(meta["copertura"]["layer1"], 1)`% sui programmi,
+**L'assegnazione.** Lessicale e deterministica, pattern leggibili uno per uno.
+Chi non pesca in nessun lessico esce `non assegnato` invece di finire nel tema più
+vicino. Copertura: `{python} it(meta["copertura"]["layer1"], 1)`% sui programmi,
 `{python} it(meta["copertura"]["layer2"], 1)`% sui progetti di legge,
 `{python} it(meta["copertura"]["layer3"], 1)`% sulla stampa.
 
-**Limiti.** Il lessico **non è validato** contro una codifica umana: la
-validazione è in corso su un campione cieco di 100 articoli. La misura dice di
-*cosa* si parla, mai la posizione. E il corpus stampa deriva da query su partiti
-e leader: descrive come la politica viene raccontata, non il consenso.
+**Limiti.** Il lessico non ha passato il controllo umano (sopra). La misura dice
+di *cosa* si parla, mai la posizione, e mai il consenso. Il corpus stampa deriva
+da query su partiti e leader: descrive come la politica viene raccontata.
 
 ::: {.fonte}
-Dati e codice: `reports/ontologia_mapping/`. Ontologia congelata in
+Dati e codice: `reports/ontologia_mapping/` e
+`reports/validazione_lessico/`. Ontologia congelata in
 `docs/ontologia_tematica.md`. Ultima elaborazione:
 `{python} meta["generato_utc"][:10]`.
 :::

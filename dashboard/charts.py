@@ -42,7 +42,7 @@ def tabella_html(df: pd.DataFrame, nome_file: str) -> str:
 
 # --------------------------------------------------------------------------- #
 
-def quadrante(df: pd.DataFrame):
+def quadrante(df: pd.DataFrame, larghezza: int = LARGHEZZA):
     """Attenzione della stampa contro attività legislativa, un punto per macrotema.
 
     Le mediane tagliano il piano in quattro. I due riquadri fuori diagonale sono
@@ -124,10 +124,11 @@ def quadrante(df: pd.DataFrame):
                   {"x": 0.15, "y": 0.15, "testo": "ai margini"}], "left"))
 
     return t.tema((divisori + caselle + punti + etichette)
-                  .properties(width=LARGHEZZA, height=430))
+                  .properties(width=larghezza, height=430))
 
 
-def scarto(df: pd.DataFrame, colonna: str, accenti: list[str], titolo_asse: str):
+def scarto(df: pd.DataFrame, colonna: str, accenti: list[str], titolo_asse: str,
+           larghezza: int = LARGHEZZA - 60):
     """Barre divergenti attorno allo zero, ordinate. Emphasis sui due estremi.
 
     La forma dice il segno: a destra ciò che si promette più di quanto si faccia,
@@ -168,7 +169,7 @@ def scarto(df: pd.DataFrame, colonna: str, accenti: list[str], titolo_asse: str)
               + etichette(rilevanti[rilevanti["valore"] <= 0], -8, "right"))
 
     zero = alt.Chart(pd.DataFrame({"x": [0]})).mark_rule(color=t.INCHIOSTRO, size=1).encode(x="x:Q")
-    return t.tema((barre + zero + valori).properties(width=LARGHEZZA - 60, height=330))
+    return t.tema((barre + zero + valori).properties(width=larghezza, height=330))
 
 
 def politica_su_se_stessa(meta: dict):
@@ -200,7 +201,40 @@ def politica_su_se_stessa(meta: dict):
     return t.tema((barre + valori).properties(width=LARGHEZZA - 120, height=150))
 
 
-def curva_woke(df: pd.DataFrame):
+def occorrenze(df: pd.DataFrame, larghezza: int = LARGHEZZA - 180):
+    """Accordo umano col lessico, per quante volte il tema vincitore compare.
+
+    Emphasis, non ramp ordinata: il contenuto non e' la salita, e' che la fascia
+    piu' numerosa — trenta righe su 78, etichettate da una parola sola — e' anche
+    quella su cui gli umani danno ragione al lessico una volta su otto. Quella in
+    accento, le altre come contesto.
+
+    Le righe di ciascuna fascia stanno nell'etichetta e non in un secondo canale:
+    sono il motivo per cui la prima barra conta, e vanno lette insieme al valore.
+    """
+    dati = df.copy()
+    ordine = dati["fascia"].tolist()
+    dati["rilievo"] = dati["fascia"] == ordine[0]
+    dati["etichetta"] = [
+        f"{q:.0f}%  ·  {int(n)} righe" for q, n in zip(dati["accordo_pct"], dati["righe"])]
+
+    barre = alt.Chart(dati).mark_bar(height=26, cornerRadius=3).encode(
+        x=alt.X("accordo_pct:Q", title="Accordo con almeno un revisore",
+                scale=alt.Scale(domain=[0, 100]),
+                axis=alt.Axis(grid=False, format=".0f", labelExpr="datum.value + '%'")),
+        y=alt.Y("fascia:N", title=None, sort=ordine,
+                axis=alt.Axis(grid=False, domain=False, ticks=False)),
+        color=alt.condition(alt.datum.rilievo, alt.value(t.ACCENTO), alt.value(t.GRIGIO_BARRA)),
+        tooltip=[alt.Tooltip("fascia:N", title="Occorrenze del tema vincitore"),
+                 alt.Tooltip("righe:Q", title="Righe"),
+                 alt.Tooltip("accordo_pct:Q", title="Accordo %", format=".0f")])
+    valori = alt.Chart(dati).mark_text(
+        align="left", dx=8, fontSize=12, font=t.FONT, color=t.INCHIOSTRO).encode(
+        x="accordo_pct:Q", y=alt.Y("fascia:N", sort=ordine), text="etichetta:N")
+    return t.tema((barre + valori).properties(width=larghezza, height=190))
+
+
+def curva_woke(df: pd.DataFrame, larghezza: int = LARGHEZZA):
     """Il volume del frame nel tempo, normalizzato: il corpus cresce ogni mese.
 
     Contarlo grezzo direbbe una crescita che è in parte solo più articoli.
@@ -223,10 +257,10 @@ def curva_woke(df: pd.DataFrame):
         align="right", dx=-12, dy=-4, fontSize=13, font=t.FONT,
         color=t.ACCENTO, fontWeight="bold").encode(
         x="mese:N", y="su_mille_articoli:Q", text="etichetta:N")
-    return t.tema((linea + rilievo + etichetta).properties(width=LARGHEZZA, height=260))
+    return t.tema((linea + rilievo + etichetta).properties(width=larghezza, height=260))
 
 
-def tre_distribuzioni(df: pd.DataFrame):
+def tre_distribuzioni(df: pd.DataFrame, larghezza: int = LARGHEZZA - 40):
     """I 15 macrotemi visti dai tre layer. L'unico grafico davvero categorico."""
     dati = df[df["e_macrotema"]].copy()
     ordine = (dati[dati["layer"] == "Progetti di legge"]
@@ -242,7 +276,7 @@ def tre_distribuzioni(df: pd.DataFrame):
         tooltip=[alt.Tooltip("macrotema:N", title="Macrotema"),
                  alt.Tooltip("layer:N", title="Layer"),
                  alt.Tooltip("quota:Q", title="Quota", format=".2f")])
-    return t.tema(grafico.properties(width=LARGHEZZA - 40, height=520))
+    return t.tema(grafico.properties(width=larghezza, height=520))
 
 
 # --------------------------------------------------------------------------- #
@@ -317,6 +351,52 @@ MACRO_BREVI = {
     6: "Welfare", 7: "Sanità", 8: "Istruzione", 9: "Ambiente", 10: "Immigrazione",
     11: "Sicurezza", 12: "Diritti", 13: "Infrastrutture", 14: "Cultura", 15: "Sport",
 }
+
+
+# La scala di questo grafico non si adatta alla selezione: e' la decisione che
+# rende onesto un filtro. Se l'asse si ridisegnasse a ogni partito, due profili
+# identici direbbero numeri diversi e nessuno se ne accorgerebbe. Il massimo
+# copre il valore piu' alto di qualunque partito, cosi' non si taglia niente.
+QUOTA_MASSIMA_PARTITI = 45
+
+
+def profilo_partito(df: pd.DataFrame, iniziale: str):
+    """I quindici temi di un partito sui tre layer, col partito scelto a mano.
+
+    Barre e non radar: con la scala fissa — obbligatoria, se la selezione cambia
+    — un radar lascerebbe quasi tutti i partiti schiacciati al centro, perche' i
+    profili concentrati sono l'eccezione. Le barre non hanno questo problema, e
+    si leggono anche di sfuggita.
+
+    Il filtro e' lato client: i dati di tutti i partiti sono gia' nella pagina e
+    la tendina ne accende uno. Nessun server, e il file resta uno solo.
+    """
+    partiti = sorted(df["partito"].dropna().unique().tolist())
+    scelta = alt.param(
+        name="partito_scelto", value=iniziale,
+        bind=alt.binding_select(options=partiti, name="Partito  "))
+
+    # L'ordine dei temi e' fisso, non ordinato per valore: se si riordinasse a
+    # ogni partito, il confronto fra due selezioni diventerebbe impossibile.
+    ordine = [MACRO_BREVI[i] for i in sorted(MACRO_BREVI)]
+    dati = df.assign(tema=df["id"].map(MACRO_BREVI))
+
+    grafico = alt.Chart(dati).transform_filter(
+        alt.datum.partito == scelta).mark_bar(cornerRadius=2).encode(
+        x=_quota("quota", "Quota dentro l'attività del partito",
+                 scale=alt.Scale(domain=[0, QUOTA_MASSIMA_PARTITI], nice=False)),
+        y=alt.Y("tema:N", title=None, sort=ordine,
+                axis=alt.Axis(grid=False, domain=False, ticks=False)),
+        yOffset=alt.YOffset("layer:N", sort=t.LAYER_DOMINIO,
+                            scale=alt.Scale(paddingInner=0.25)),
+        color=alt.Color("layer:N", sort=t.LAYER_DOMINIO,
+                        scale=alt.Scale(domain=t.LAYER_DOMINIO, range=t.LAYER_RANGE)),
+        tooltip=[alt.Tooltip("partito:N", title="Partito"),
+                 alt.Tooltip("macrotema:N", title="Macrotema"),
+                 alt.Tooltip("layer:N", title="Layer"),
+                 alt.Tooltip("quota:Q", title="Quota nel partito", format=".2f")])
+
+    return t.tema(grafico.add_params(scelta).properties(width=560, height=470))
 
 
 def radar(df: pd.DataFrame, partiti: list[str], layer: str,
